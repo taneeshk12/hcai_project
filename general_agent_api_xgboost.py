@@ -8,7 +8,7 @@ Training Accuracy: High precision multi-class prediction
 Features: 23 vital signs and lab values
 """
 
-import pickle
+import joblib
 import pandas as pd
 import numpy as np
 from typing import Dict, Any, List, Tuple
@@ -74,7 +74,7 @@ class GeneralHealthAgent:
         'inr': (0.5, 5),
     }
     
-    def __init__(self, model_path: str = 'best_model_XGBoost.pkl'):
+    def __init__(self, model_path: str = 'general_xgb_model.joblib'):
         """
         Initialize the general health agent.
         
@@ -85,8 +85,7 @@ class GeneralHealthAgent:
         self.model_loaded = False
         
         try:
-            with open(model_path, 'rb') as f:
-                self.model = pickle.load(f)
+            self.model = joblib.load(model_path)
             self.model_loaded = True
             logger.info(f"✓ General Health Agent (XGBoost) loaded from {model_path}")
         except FileNotFoundError:
@@ -191,8 +190,8 @@ class GeneralHealthAgent:
             else:
                 confidence_level = 'LOW'
             
-            # Get top contributing features (using feature importance if available)
-            top_features = self._get_top_features(X, prediction)
+            # Get top contributing features (using SHAP values)
+            top_features = self._get_shap_features(X, prediction)
             
             # Get clinical action
             clinical_action = self._get_clinical_action(risk_level, confidence)
@@ -321,28 +320,36 @@ class GeneralHealthAgent:
             'diabetes': False
         }
     
-    def _get_top_features(self, X: np.ndarray, prediction: int) -> List[str]:
+    def _get_shap_features(self, X: np.ndarray, prediction_class: int) -> List[Dict[str, Any]]:
         """
-        Get top contributing features for the prediction.
-        
-        Args:
-            X: Feature array
-            prediction: Model prediction
-            
-        Returns:
-            List of top feature names
+        Get local SHAP feature contributions for the specific prediction.
         """
         try:
-            # Get feature importance from model
-            if hasattr(self.model, 'feature_importances_'):
-                importance = self.model.feature_importances_
-                top_indices = np.argsort(importance)[-5:][::-1]
-                return [self.FEATURE_NAMES[i] for i in top_indices]
-        except:
-            pass
-        
-        # Fallback: return some important features
-        return ['age', 'systolic_bp', 'heart_rate', 'temperature', 'spo2']
+            import xgboost as xgb
+            d = xgb.DMatrix(X, feature_names=self.FEATURE_NAMES)
+            contribs = self.model.get_booster().predict(d, pred_contribs=True)
+            
+            if len(contribs.shape) == 3: # Multi-class
+                class_idx = list(self.model.classes_).index(prediction_class)
+                feature_contribs = contribs[0, class_idx, :-1]
+            else: # Binary
+                feature_contribs = contribs[0, :-1]
+                
+            # Sort by absolute magnitude
+            top_indices = np.argsort(np.abs(feature_contribs))[-3:][::-1]
+            
+            shap_features = []
+            for idx in top_indices:
+                val = float(feature_contribs[idx])
+                shap_features.append({
+                    'feature': self.FEATURE_NAMES[idx],
+                    'value': round(val, 4),
+                    'impact': 'positive' if val > 0 else 'negative'
+                })
+            return shap_features
+        except Exception as e:
+            logger.error(f"SHAP error: {e}")
+            return []
     
     def _get_clinical_action(self, risk_level: str, confidence: float) -> str:
         """

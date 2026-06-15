@@ -1,9 +1,12 @@
+flask
+flask-cors
+xgboost
+scikit-learn
 pandas
 numpy
+joblib
 matplotlib
 seaborn
-scikit-learn
-xgboost
 shap
-joblib
 imbalanced-learn
+werkzeug

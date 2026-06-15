@@ -1,0 +1,3 @@
+timestamp,patient_age,patient_sex,ai_final_risk,clinician_override,action
+2026-06-15T15:33:08.935247,45,M,MEDIUM,MEDIUM,accept
+2026-06-15T15:56:10.888406,45,M,MEDIUM,MEDIUM,accept

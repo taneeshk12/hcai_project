@@ -1,0 +1,52 @@
+{
+  "model_type": "XGBoost",
+  "n_estimators": 300,
+  "max_depth": 6,
+  "learning_rate": 0.05,
+  "test_accuracy": 0.9556,
+  "n_features": 23,
+  "feature_names": [
+    "age",
+    "systolic_bp",
+    "diastolic_bp",
+    "heart_rate",
+    "respiratory_rate",
+    "temperature",
+    "spo2",
+    "pain_score",
+    "wbc",
+    "hemoglobin",
+    "platelet_count",
+    "sodium",
+    "potassium",
+    "creatinine",
+    "glucose",
+    "troponin",
+    "bnp",
+    "lactate",
+    "inr",
+    "sex_encoded",
+    "country_encoded",
+    "chest_pain",
+    "diabetes"
+  ],
+  "risk_classes": {
+    "0": "LOW_RISK",
+    "1": "MID_RISK",
+    "2": "HIGH_RISK"
+  },
+  "esi_mapping": {
+    "1,2": "HIGH_RISK",
+    "3": "MID_RISK",
+    "4,5": "LOW_RISK"
+  },
+  "top_features": [
+    "pain_score",
+    "bnp",
+    "spo2",
+    "temperature",
+    "troponin"
+  ],
+  "training_samples": 69787,
+  "test_samples": 17447
+}

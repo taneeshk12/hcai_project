@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from respiratory_agent_api import RespiratoryAgent
-# from general_agent_api import GeneralHealthAgent
+from general_agent_api_xgboost import GeneralHealthAgent
+from cardiac_agent_api import CardiacAgent
+from sepsis_agent_api import SepsisAgent
 import logging
 from datetime import datetime
 import json
 import os
+import csv
 import numpy as np
 
 app = Flask(__name__)
@@ -34,6 +37,8 @@ logger = logging.getLogger(__name__)
 # Load agents once (on startup)
 respiratory_agent = None
 general_agent = None
+cardiac_agent = None
+sepsis_agent = None
 
 try:
     respiratory_agent = RespiratoryAgent()
@@ -47,6 +52,18 @@ try:
 except Exception as e:
     logger.error(f"Failed to load general agent: {e}")
 
+try:
+    cardiac_agent = CardiacAgent()
+    logger.info("✓ Cardiac Agent loaded successfully")
+except Exception as e:
+    logger.error(f"Failed to load cardiac agent: {e}")
+
+try:
+    sepsis_agent = SepsisAgent()
+    logger.info("✓ Sepsis Agent loaded successfully")
+except Exception as e:
+    logger.error(f"Failed to load sepsis agent: {e}")
+
 # ==================== RESPIRATORY ENDPOINTS ====================
 
 @app.route('/health', methods=['GET'])
@@ -57,7 +74,9 @@ def health():
         'timestamp': datetime.now().isoformat(),
         'agents': {
             'respiratory': respiratory_agent is not None,
-            'general': general_agent is not None
+            'general': general_agent is not None,
+            'cardiac': cardiac_agent is not None,
+            'sepsis': sepsis_agent is not None
         }
     }), 200
 
@@ -370,6 +389,168 @@ def legacy_model_info():
 def legacy_example_patients():
     """Legacy endpoint - routes to respiratory model"""
     return respiratory_example_patients()
+
+# ==================== RULE-BASED SAFETY & AGGREGATOR ====================
+
+class RuleBasedSafetyLayer:
+    @staticmethod
+    def check_vitals(data: dict) -> dict:
+        alerts = []
+        is_critical = False
+        
+        spo2 = float(data.get('spo2', 100))
+        if spo2 < 90:
+            alerts.append(f"CRITICAL SpO2: {spo2}%")
+            is_critical = True
+            
+        hr = float(data.get('heart_rate', 80))
+        if hr > 130 or hr < 40:
+            alerts.append(f"CRITICAL Heart Rate: {hr} bpm")
+            is_critical = True
+            
+        sbp = float(data.get('systolic_bp', 120))
+        if sbp < 90 or sbp > 200:
+            alerts.append(f"CRITICAL Systolic BP: {sbp} mmHg")
+            is_critical = True
+            
+        rr = float(data.get('respiratory_rate', 16))
+        if rr > 30 or rr < 8:
+            alerts.append(f"CRITICAL Respiratory Rate: {rr}")
+            is_critical = True
+            
+        return {
+            'is_critical': is_critical,
+            'alerts': alerts
+        }
+
+class OutputAggregator:
+    @staticmethod
+    def aggregate(predictions: dict, safety_rules: dict) -> dict:
+        risk_scores = {'LOW': 0, 'MEDIUM': 1, 'HIGH': 2}
+        reverse_scores = {0: 'LOW', 1: 'MEDIUM', 2: 'HIGH'}
+        
+        max_risk_score = 0
+        confidences = []
+        
+        # 1. Rule-based layer overrides
+        if safety_rules.get('is_critical'):
+            max_risk_score = 2
+            
+        # 2. Check each agent
+        for agent_name, result in predictions.items():
+            if result.get('status') == 'success':
+                risk = result.get('risk_level', 'LOW')
+                if 'HIGH' in risk: r = 'HIGH'
+                elif 'MID' in risk or 'MEDIUM' in risk: r = 'MEDIUM'
+                else: r = 'LOW'
+                
+                score = risk_scores.get(r, 0)
+                if score > max_risk_score:
+                    max_risk_score = score
+                    
+                confidences.append(result.get('confidence', 0.5))
+                
+        final_risk = reverse_scores[max_risk_score]
+        avg_confidence = sum(confidences) / len(confidences) if confidences else 0.5
+        
+        uncertainty_high = avg_confidence < 0.70
+        
+        explanation = "Patient is stable across all systems."
+        if final_risk == 'HIGH':
+            explanation = "Critical risk identified! "
+            if safety_rules.get('alerts'):
+                explanation += "Safety alerts: " + ", ".join(safety_rules['alerts']) + ". "
+            explanation += "Immediate intervention required."
+        elif final_risk == 'MEDIUM':
+            explanation = "Elevated risk detected. Please review agent sub-reports and monitor."
+            
+        if uncertainty_high:
+            explanation += " (Note: AI confidence is low. Please review SHAP feature impacts carefully)."
+            
+        return {
+            'final_risk': final_risk,
+            'overall_confidence': round(avg_confidence, 4),
+            'uncertainty_high': uncertainty_high,
+            'explanation': explanation,
+            'safety_alerts': safety_rules.get('alerts', [])
+        }
+
+# ==================== UNIFIED ENDPOINT ====================
+
+@app.route('/unified/predict', methods=['POST'])
+def unified_predict():
+    """
+    Unified endpoint predicting risk across all 4 models
+    """
+    try:
+        patient_data = request.get_json()
+        
+        results = {
+            'timestamp': datetime.now().isoformat(),
+            'status': 'success',
+            'predictions': {}
+        }
+        
+        if respiratory_agent:
+            resp_res = respiratory_agent.predict(patient_data)
+            results['predictions']['respiratory'] = json.loads(json.dumps(resp_res, cls=NumpyEncoder))
+        
+        if general_agent:
+            gen_res = general_agent.predict(patient_data)
+            results['predictions']['general'] = json.loads(json.dumps(gen_res, cls=NumpyEncoder))
+            
+        if cardiac_agent:
+            card_res = cardiac_agent.predict(patient_data)
+            results['predictions']['cardiac'] = json.loads(json.dumps(card_res, cls=NumpyEncoder))
+            
+        if sepsis_agent:
+            sep_res = sepsis_agent.predict(patient_data)
+            results['predictions']['sepsis'] = json.loads(json.dumps(sep_res, cls=NumpyEncoder))
+            
+        # Step 1: Run Rule-Based Safety Layer
+        safety_rules = RuleBasedSafetyLayer.check_vitals(patient_data)
+        
+        # Step 2: Run Output Aggregation
+        aggregation = OutputAggregator.aggregate(results['predictions'], safety_rules)
+        results['aggregation'] = aggregation
+            
+        return jsonify(results), 200
+        
+    except Exception as e:
+        logger.error(f"Unified prediction error: {e}")
+        return jsonify({'error': str(e)}), 400
+
+# ==================== FEEDBACK / HITL ENDPOINT ====================
+
+@app.route('/feedback', methods=['POST'])
+def feedback():
+    """
+    Log clinician feedback for continuous learning.
+    """
+    try:
+        data = request.get_json()
+        file_exists = os.path.isfile('feedback_log.csv')
+        
+        with open('feedback_log.csv', 'a', newline='') as csvfile:
+            fieldnames = ['timestamp', 'patient_age', 'patient_sex', 'ai_final_risk', 'clinician_override', 'action']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            
+            if not file_exists:
+                writer.writeheader()
+                
+            writer.writerow({
+                'timestamp': datetime.now().isoformat(),
+                'patient_age': data.get('patient_data', {}).get('age', ''),
+                'patient_sex': data.get('patient_data', {}).get('sex', ''),
+                'ai_final_risk': data.get('ai_final_risk', ''),
+                'clinician_override': data.get('clinician_override', ''),
+                'action': data.get('action', '')  # 'accept' or 'override'
+            })
+            
+        return jsonify({'status': 'success', 'message': 'Feedback logged successfully'}), 200
+    except Exception as e:
+        logger.error(f"Feedback logging error: {e}")
+        return jsonify({'error': str(e)}), 400
 
 # ==================== ERROR HANDLERS ====================
 

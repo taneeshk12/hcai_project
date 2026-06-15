@@ -252,7 +252,26 @@ class RespiratoryAgent:
                         if hasattr(trans.named_steps['onehot'], 'get_feature_names_out'):
                             feature_names.extend(trans.named_steps['onehot'].get_feature_names_out(cols))
                 
-                top_features = [feature_names[i] for i in top_3_idx if i < len(feature_names)]
+                top_features = []
+                for i in top_3_idx:
+                    if i < len(feature_names):
+                        feat_name = feature_names[i]
+                        importance_val = float(importances[i])
+                        
+                        # Heuristic for impact direction on risk
+                        impact = 'positive'
+                        val = patient_features.get(feat_name, 0)
+                        if feat_name == 'spo2' and val >= 95: impact = 'negative'
+                        elif feat_name == 'respiratory_rate' and 12 <= val <= 20: impact = 'negative'
+                        elif feat_name == 'heart_rate' and 60 <= val <= 100: impact = 'negative'
+                        elif feat_name == 'temperature' and 36.5 <= val <= 37.5: impact = 'negative'
+                        elif 'risk_score' in feat_name and val < 0.3: impact = 'negative'
+                        
+                        top_features.append({
+                            'feature': feat_name,
+                            'value': round(importance_val, 4),
+                            'impact': impact
+                        })
             
             # Build result
             result.update({
