@@ -107,63 +107,12 @@ function App() {
   const [isWhatIfMode, setIsWhatIfMode] = useState(false);
   const [baselineData, setBaselineData] = useState(null);
   const [baselinePredictions, setBaselinePredictions] = useState(null);
+  const [baselineAggregation, setBaselineAggregation] = useState(null);
   const [sensitivityParam, setSensitivityParam] = useState('spo2');
   const [sensitivityData, setSensitivityData] = useState([]);
   const [insightsTab, setInsightsTab] = useState('subsystem');
 
   const reportRef = useRef(null);
-
-  // ── Theme effect ──────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (isLightMode) document.body.setAttribute('data-theme', 'light');
-    else document.body.removeAttribute('data-theme');
-  }, [isLightMode]);
-
-  // ── Auto pain score + age group ───────────────────────────────────────────
-  const { heart_rate: hr, systolic_bp: sbp, spo2, temperature: temp, altered_mentation: mentation, age } = patientData;
-  useEffect(() => {
-    let score = 0;
-    if (mentation !== 1) {
-      if (hr > 110) score += 3; else if (hr > 90) score += 1;
-      if (sbp > 160 || sbp < 90) score += 3; else if (sbp > 140 || sbp < 100) score += 1;
-      if (spo2 < 90) score += 3; else if (spo2 < 93) score += 1;
-      if (temp > 38.5 || temp < 36.0) score += 1;
-    }
-    let ageGrp = 'adult';
-    if (age < 18) ageGrp = 'pediatric';
-    else if (age < 65) ageGrp = 'adult';
-    else if (age < 80) ageGrp = 'senior';
-    else ageGrp = 'elderly';
-    setPatientData(prev => {
-      if (prev.pain_score === score && prev.age_group === ageGrp) return prev;
-      return { ...prev, pain_score: score, age_group: ageGrp };
-    });
-  }, [age, hr, sbp, spo2, temp, mentation]);
-
-  // ── Init ──────────────────────────────────────────────────────────────────
-  useEffect(() => {
-    checkApiHealth();
-    fetchPatients();
-    const interval = setInterval(checkApiHealth, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // ── Debounced helpers ─────────────────────────────────────────────────────
-  const debouncedPredict = useCallback(
-    debounce(async (data) => {
-      try {
-        const response = await axios.post(`${API_URL}/unified/predict`, data);
-        if (response.data.status === 'success') {
-          setPredictions(response.data.predictions);
-          setAggregation(response.data.aggregation);
-        }
-      } catch (err) { console.error('Real-time predict error:', err); }
-    }, 250), []
-  );
-
-  const debouncedSweep = useCallback(
-    debounce(async (data, param) => { await runSensitivitySweep(data, param); }, 350), []
-  );
 
   // ── Risk helper ───────────────────────────────────────────────────────────
   const getRiskPercentage = (agg) => {
@@ -189,6 +138,69 @@ function App() {
       }
     } catch (err) { console.error('Sensitivity sweep error:', err); }
   };
+
+  // ── Debounced helpers ─────────────────────────────────────────────────────
+  const debouncedPredict = useCallback(
+    debounce(async (data) => {
+      try {
+        const response = await axios.post(`${API_URL}/unified/predict`, data);
+        if (response.data.status === 'success') {
+          setPredictions(response.data.predictions);
+          setAggregation(response.data.aggregation);
+        }
+      } catch (err) { console.error('Real-time predict error:', err); }
+    }, 400), []
+  );
+
+  // Sweep is expensive (10 batch inferences) — use a long delay so it only fires
+  // once the user has STOPPED dragging for 1.5 s.
+  const debouncedSweep = useCallback(
+    debounce(async (data, param) => { await runSensitivitySweep(data, param); }, 1500), []
+  );
+
+
+
+  // ── Theme effect ──────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (isLightMode) document.body.setAttribute('data-theme', 'light');
+    else document.body.removeAttribute('data-theme');
+  }, [isLightMode]);
+
+  // ── Auto pain score + age group ───────────────────────────────────────────
+  const { heart_rate: hr, systolic_bp: sbp, spo2, temperature: temp, altered_mentation: mentation, age } = patientData;
+  useEffect(() => {
+    let score = 0;
+    if (mentation !== 1) {
+      if (hr > 110) score += 3; else if (hr > 90) score += 1;
+      if (sbp > 160 || sbp < 90) score += 3; else if (sbp > 140 || sbp < 100) score += 1;
+      if (spo2 < 90) score += 3; else if (spo2 < 93) score += 1;
+      if (temp > 38.5 || temp < 36.0) score += 1;
+    }
+    let ageGrp = 'adult';
+    if (age < 18) ageGrp = 'pediatric';
+    else if (age < 65) ageGrp = 'adult';
+    else if (age < 80) ageGrp = 'senior';
+    else ageGrp = 'elderly';
+
+    if (patientData.pain_score !== score || patientData.age_group !== ageGrp) {
+      setPatientData(prev => {
+        const updated = { ...prev, pain_score: score, age_group: ageGrp };
+        if (isWhatIfMode) {
+          debouncedPredict(updated);
+        }
+        return updated;
+      });
+    }
+  }, [age, hr, sbp, spo2, temp, mentation, isWhatIfMode, debouncedPredict, patientData.pain_score, patientData.age_group]);
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    checkApiHealth();
+    fetchPatients();
+    const interval = setInterval(checkApiHealth, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
 
   // ── API functions ─────────────────────────────────────────────────────────
   const checkApiHealth = async () => {
@@ -325,7 +337,8 @@ function App() {
     setPatientData(INITIAL_PATIENT_DATA);
     setPredictions(null); setAggregation(null); setLlmSummary(null);
     setFullReport(null); setFeedbackStatus(null); setSelectedAssessmentId(null);
-    setIsWhatIfMode(false); setBaselineData(null); setBaselinePredictions(null); setSensitivityData([]);
+    setIsWhatIfMode(false); setBaselineData(null); setBaselinePredictions(null);
+    setBaselineAggregation(null); setSensitivityData([]);
     setActivePage('intake');
   };
 
@@ -424,12 +437,15 @@ function App() {
         return (
           <SimulatorPage
             predictions={predictions}
+            aggregation={aggregation}
             patientData={patientData}
             setPatientData={setPatientData}
             baselineData={baselineData}
             setBaselineData={setBaselineData}
             baselinePredictions={baselinePredictions}
             setBaselinePredictions={setBaselinePredictions}
+            baselineAggregation={baselineAggregation}
+            setBaselineAggregation={setBaselineAggregation}
             isWhatIfMode={isWhatIfMode}
             setIsWhatIfMode={setIsWhatIfMode}
             sensitivityData={sensitivityData}
