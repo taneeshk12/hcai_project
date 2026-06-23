@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const CLINICAL_RANGES = {
   age: { min: 0, max: 120, step: 1 },
@@ -21,13 +21,31 @@ const CLINICAL_RANGES = {
   inr: { min: 0.5, max: 10.0, step: 0.1 },
 };
 
+const API_BASE = 'http://localhost:8000';
+
+const PLACEHOLDERS = {
+  age: '45', sex: 'M', altered_mentation: '0', chest_pain: '0', diabetes: '0',
+  spo2: '97', respiratory_rate: '16', temperature: '36.8', heart_rate: '70',
+  systolic_bp: '120', diastolic_bp: '80', pain_score: '2',
+  wbc: '7.5', hemoglobin: '14.0', platelet_count: '250', sodium: '140', potassium: '4.0',
+  creatinine: '0.9', glucose: '100', troponin: '0.01', bnp: '50', lactate: '1.2', inr: '1.0'
+};
+
 export default function IntakePage({
   patientData, handleInputChange,
   loading, error, apiStatus,
   handlePredict,
   loadHealthyExample, loadHighRiskExample,
+  setRagReport,
+  triageMode = 'IMMEDIATE', setTriageMode,
 }) {
   const [activeTab, setActiveTab] = useState('vitals');
+
+  useEffect(() => {
+    if (triageMode === 'IMMEDIATE' && activeTab === 'labs') {
+      setActiveTab('vitals');
+    }
+  }, [triageMode, activeTab]);
 
   const renderInput = (label, name, value, type = 'number', unit = '', range = '', options = null, disabled = false) => {
     return (
@@ -39,6 +57,7 @@ export default function IntakePage({
         <div className="input-control-wrapper">
           {options ? (
             <select name={name} value={value} onChange={handleInputChange} disabled={disabled}>
+              {value === '' && <option value="">Select...</option>}
               {options.map(opt => <option key={opt.val} value={opt.val}>{opt.lbl}</option>)}
             </select>
           ) : (
@@ -49,6 +68,7 @@ export default function IntakePage({
                 value={value}
                 onChange={handleInputChange}
                 disabled={disabled}
+                placeholder={PLACEHOLDERS[name] || ''}
                 step={
                   name === 'temperature' ? '0.1'
                   : ['wbc', 'hemoglobin', 'potassium', 'creatinine', 'lactate', 'inr'].includes(name) ? '0.1'
@@ -63,6 +83,18 @@ export default function IntakePage({
       </div>
     );
   };
+
+  const allTabs = [
+    { key: 'demographics', label: 'Demographics' },
+    { key: 'vitals',       label: 'Vitals & SpO\u2082' },
+    { key: 'labs',         label: 'Lab Reports' },
+    { key: 'symptoms',     label: '\uD83D\uDCDD Symptoms' },
+  ];
+
+  // In Immediate mode, hide the Lab Reports tab entirely
+  const tabs = triageMode === 'IMMEDIATE'
+    ? allTabs.filter(t => t.key !== 'labs')
+    : allTabs;
 
   return (
     <div className="page-container animate-fade-in">
@@ -83,16 +115,39 @@ export default function IntakePage({
         </div>
       </div>
 
+      {/* Triage Mode Selector */}
+      <div className="triage-mode-container animate-fade-in">
+        <label style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-secondary)' }}>Triage Assessment Level</label>
+        <div className="triage-mode-selector">
+          <button
+            type="button"
+            className={`triage-mode-btn ${triageMode === 'IMMEDIATE' ? 'active' : ''}`}
+            onClick={() => setTriageMode('IMMEDIATE')}
+          >
+            🩺 Immediate Triage (ER Arrival)
+          </button>
+          <button
+            type="button"
+            className={`triage-mode-btn ${triageMode === 'ENHANCED' ? 'active' : ''}`}
+            onClick={() => setTriageMode('ENHANCED')}
+          >
+            🧪 Enhanced Triage (Labs Available)
+          </button>
+        </div>
+      </div>
+
+
+
       {/* Tab Nav */}
       <div className="tab-navigation">
-        {['demographics', 'vitals', 'labs'].map(tab => (
+        {tabs.map(tab => (
           <button
-            key={tab}
-            className={`tab-btn ${activeTab === tab ? 'active' : ''}`}
-            onClick={() => setActiveTab(tab)}
+            key={tab.key}
+            className={`tab-btn ${activeTab === tab.key ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab.key)}
             type="button"
           >
-            <span>{tab === 'demographics' ? 'Demographics' : tab === 'vitals' ? 'Vitals & SpO₂' : 'Lab Reports'}</span>
+            <span>{tab.label}</span>
           </button>
         ))}
       </div>
@@ -106,7 +161,7 @@ export default function IntakePage({
               Patient Demographics
             </div>
             <div className="form-grid">
-              {renderInput('Age', 'age', patientData.age, 'number', 'yrs', 'Range: 0–120')}
+              {renderInput('Age', 'age', patientData.age, 'number', 'yrs', 'Range: 0\u2013120')}
               {renderInput('Sex', 'sex', patientData.sex, 'text', '', '', [{ val: 'M', lbl: 'Male' }, { val: 'F', lbl: 'Female' }])}
               {renderInput('Altered Mentation', 'altered_mentation', patientData.altered_mentation, 'number', '', '', [{ val: 0, lbl: 'Alert / Normal' }, { val: 1, lbl: 'Confused / Altered' }])}
               {renderInput('Chest Pain', 'chest_pain', patientData.chest_pain, 'number', '', '', [{ val: 0, lbl: 'No / Absent' }, { val: 1, lbl: 'Yes / Present' }])}
@@ -120,15 +175,15 @@ export default function IntakePage({
           <div className="form-tab-panel animate-fade-in glass-panel">
             <div className="form-section-title">
               <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              Vital Signs & SpO₂
+              Vital Signs &amp; SpO\u2082
             </div>
             <div className="form-grid">
-              {renderInput('SpO₂', 'spo2', patientData.spo2, 'number', '%', 'Target: 95–100%')}
-              {renderInput('Resp Rate', 'respiratory_rate', patientData.respiratory_rate, 'number', '/min', 'Normal: 12–20')}
-              {renderInput('Temperature', 'temperature', patientData.temperature, 'number', '°C', 'Normal: 36.5–37.5')}
-              {renderInput('Heart Rate', 'heart_rate', patientData.heart_rate, 'number', 'bpm', 'Normal: 60–100')}
-              {renderInput('Systolic BP', 'systolic_bp', patientData.systolic_bp, 'number', 'mmHg', 'Normal: 90–120')}
-              {renderInput('Diastolic BP', 'diastolic_bp', patientData.diastolic_bp, 'number', 'mmHg', 'Normal: 60–80')}
+              {renderInput('SpO\u2082', 'spo2', patientData.spo2, 'number', '%', 'Target: 95\u2013100%')}
+              {renderInput('Resp Rate', 'respiratory_rate', patientData.respiratory_rate, 'number', '/min', 'Normal: 12\u201320')}
+              {renderInput('Temperature', 'temperature', patientData.temperature, 'number', '\u00b0C', 'Normal: 36.5\u201337.5')}
+              {renderInput('Heart Rate', 'heart_rate', patientData.heart_rate, 'number', 'bpm', 'Normal: 60\u2013100')}
+              {renderInput('Systolic BP', 'systolic_bp', patientData.systolic_bp, 'number', 'mmHg', 'Normal: 90\u2013120')}
+              {renderInput('Diastolic BP', 'diastolic_bp', patientData.diastolic_bp, 'number', 'mmHg', 'Normal: 60\u201380')}
             </div>
           </div>
         )}
@@ -140,25 +195,51 @@ export default function IntakePage({
               Laboratory Results
             </div>
             <div className="form-grid-labs">
-              {renderInput('WBC Count', 'wbc', patientData.wbc, 'number', 'k/µL', 'Normal: 4.5–11.0')}
-              {renderInput('Hemoglobin', 'hemoglobin', patientData.hemoglobin, 'number', 'g/dL', 'Normal: 12.0–17.5')}
-              {renderInput('Platelets', 'platelet_count', patientData.platelet_count, 'number', 'k/µL', 'Normal: 150–450')}
-              {renderInput('Sodium', 'sodium', patientData.sodium, 'number', 'mEq/L', 'Normal: 135–145')}
-              {renderInput('Potassium', 'potassium', patientData.potassium, 'number', 'mEq/L', 'Normal: 3.5–5.0')}
-              {renderInput('Creatinine', 'creatinine', patientData.creatinine, 'number', 'mg/dL', 'Normal: 0.6–1.2')}
-              {renderInput('Glucose', 'glucose', patientData.glucose, 'number', 'mg/dL', 'Normal: 70–140')}
+              {renderInput('WBC Count', 'wbc', patientData.wbc, 'number', 'k/\u00b5L', 'Normal: 4.5\u201311.0')}
+              {renderInput('Hemoglobin', 'hemoglobin', patientData.hemoglobin, 'number', 'g/dL', 'Normal: 12.0\u201317.5')}
+              {renderInput('Platelets', 'platelet_count', patientData.platelet_count, 'number', 'k/\u00b5L', 'Normal: 150\u2013450')}
+              {renderInput('Sodium', 'sodium', patientData.sodium, 'number', 'mEq/L', 'Normal: 135\u2013145')}
+              {renderInput('Potassium', 'potassium', patientData.potassium, 'number', 'mEq/L', 'Normal: 3.5\u20135.0')}
+              {renderInput('Creatinine', 'creatinine', patientData.creatinine, 'number', 'mg/dL', 'Normal: 0.6\u20131.2')}
+              {renderInput('Glucose', 'glucose', patientData.glucose, 'number', 'mg/dL', 'Normal: 70\u2013140')}
               {renderInput('Troponin', 'troponin', patientData.troponin, 'number', 'ng/mL', 'Normal: < 0.04')}
               {renderInput('BNP', 'bnp', patientData.bnp, 'number', 'pg/mL', 'Normal: < 100')}
-              {renderInput('Lactate', 'lactate', patientData.lactate, 'number', 'mmol/L', 'Normal: 0.5–2.2')}
-              {renderInput('INR', 'inr', patientData.inr, 'number', '', 'Normal: 0.8–1.2')}
+              {renderInput('Lactate', 'lactate', patientData.lactate, 'number', 'mmol/L', 'Normal: 0.5\u20132.2')}
+              {renderInput('INR', 'inr', patientData.inr, 'number', '', 'Normal: 0.8\u20131.2')}
             </div>
+          </div>
+        )}
+
+        {activeTab === 'symptoms' && (
+          <div className="form-tab-panel animate-fade-in glass-panel">
+            <div className="form-section-title">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Patient Symptoms
+              <span className="chat-badge">FAISS \u00b7 Groq llama-3.3-70b</span>
+            </div>
+            
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem', lineHeight: '1.5' }}>
+              Describe the patient's symptoms in plain text. When you run the risk analysis, this will be automatically combined with the patient's demographics and vitals to generate a detailed symptom analysis using the FAISS/Groq RAG system.
+            </p>
+
+            <textarea
+              className="chat-textarea"
+              name="symptoms"
+              placeholder="e.g. 65-year-old male with severe shortness of breath, chest pain, and altered mentation..."
+              value={patientData.symptoms || ''}
+              onChange={handleInputChange}
+              rows={8}
+              style={{ width: '100%', marginBottom: '1rem', borderRadius: '10px', padding: '12px', background: 'var(--input-bg)', color: 'var(--text-primary)', border: '1px solid var(--input-border)', fontFamily: 'inherit', fontSize: '0.85rem', resize: 'vertical' }}
+            />
           </div>
         )}
       </div>
 
       {/* Analyze Button */}
       <div className="intake-analyze-section">
-        {error && <div className="error-msg">⚠️ {error}</div>}
+        {error && <div className="error-msg">\u26a0\uFE0F {error}</div>}
         <button
           className="btn primary full-width predict-btn"
           onClick={handlePredict}
@@ -179,7 +260,7 @@ export default function IntakePage({
           )}
         </button>
         {!apiStatus && (
-          <p className="api-offline-note">⚠️ API engine is offline. Start the backend server to analyze.</p>
+          <p className="api-offline-note">\u26a0\uFE0F API engine is offline. Start the backend server to analyze.</p>
         )}
       </div>
     </div>

@@ -1,0 +1,478 @@
+[
+  {
+    "category": "cardiac",
+    "title": "Acute Coronary Syndrome",
+    "content": "Patients with chest pain or symptoms of acute coronary syndrome, such as ECG changes or ST-segment elevation, are classified as ESI-3. Those with ST-segment depression or T-wave inversion may be classified as ESI-2. Patients with no ECG changes but still experiencing chest pain are classified as ESI-1.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 1
+  },
+  {
+    "category": "respiratory",
+    "title": "Acute Respiratory Distress Syndrome (ARDS)",
+    "content": "Patients with acute onset of hypoxemic respiratory failure, bilateral infiltrates on chest X-ray, and low PaO2/FiO2 ratio are classified as ESI-4. Those with mild hypoxemia or bilateral infiltrates without hypoxemia may be classified as ESI-3.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 2
+  },
+  {
+    "category": "neurological",
+    "title": "Severe Head Injury",
+    "content": "Patients with severe head injury, such as Glasgow Coma Scale score ≤ 8, are classified as ESI-4. Those with mild to moderate head injury may be classified as ESI-2 or ESI-3.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 3
+  },
+  {
+    "category": "trauma",
+    "title": "Severe Blunt Abdominal Trauma",
+    "content": "Patients with severe blunt abdominal trauma, such as hemodynamic instability or evidence of organ rupture on imaging, are classified as ESI-4. Those with mild to moderate abdominal trauma may be classified as ESI-2 or ESI-3.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 4
+  },
+  {
+    "category": "pain",
+    "title": "Severe Pain",
+    "content": "Patients experiencing severe pain, such as a pain score of ≥ 8 on the Numeric Rating Scale, are classified as ESI-3. Those with moderate pain may be classified as ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 5
+  },
+  {
+    "category": "metabolic",
+    "title": "Severe Hyperglycemia",
+    "content": "Patients with severe hyperglycemia, such as blood glucose level ≥ 300 mg/dL, are classified as ESI-3. Those with mild to moderate hyperglycemia may be classified as ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 6
+  },
+  {
+    "category": "general",
+    "title": "Sepsis Warning Signs",
+    "content": "Patients presenting with signs of sepsis, such as tachycardia, hypotension, or altered mental status, are classified as ESI-3. Those with mild tachycardia or hypotension may be classified as ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 7
+  },
+  {
+    "category": "trauma",
+    "title": "Severe Burns",
+    "content": "Patients with severe burns, such as burn area ≥ 30% of body surface area, are classified as ESI-4. Those with mild to moderate burns may be classified as ESI-2 or ESI-3.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 8
+  },
+  {
+    "category": "respiratory",
+    "title": "Acute Respiratory Failure",
+    "content": "Patients with acute onset of respiratory failure, such as hypoxemic respiratory failure or hypercapnic respiratory failure, are classified as ESI-4. Those with mild to moderate respiratory failure may be classified as ESI-3.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 9
+  },
+  {
+    "category": "cardiac",
+    "title": "Cardiac Arrest",
+    "content": "Patients experiencing cardiac arrest, such as pulselessness or unresponsiveness, are classified as ESI-1. Those with mild cardiac distress may be classified as ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "id": 10
+  },
+  {
+    "category": "respiratory",
+    "title": "Respiratory Rate Thresholds",
+    "content": "A respiratory rate ≥30 breaths per minute in adults and ≥50 breaths per minute in children triggers a NEWS2 score. This criterion indicates potential respiratory distress or failure.",
+    "source": "NEWS2 Score",
+    "id": 11
+  },
+  {
+    "category": "cardiac",
+    "title": "Supplemental Oxygen Use",
+    "content": "The use of supplemental oxygen is a key component of the NEWS2 scoring system, with scores ≥5 indicating increased risk of cardiac compromise. Supplemental oxygen should be administered as needed to maintain SpO2 >95%.",
+    "source": "NEWS2 Score",
+    "id": 12
+  },
+  {
+    "category": "neurological",
+    "title": "Level of Consciousness Thresholds",
+    "content": "A level of consciousness score ≥3 indicates decreased mental status, which may be a sign of neurological compromise. This criterion warrants urgent clinical review.",
+    "source": "NEWS2 Score",
+    "id": 13
+  },
+  {
+    "category": "sepsis",
+    "title": "Sepsis Detection Criteria",
+    "content": "The NEWS2 score includes sepsis as one of its valid categories, with scores ≥5 indicating potential sepsis. Sepsis should be suspected in patients with fever, tachycardia, and hypotension.",
+    "source": "NEWS2 Score",
+    "id": 14
+  },
+  {
+    "category": "trauma",
+    "title": "Trauma Indicators",
+    "content": "The NEWS2 score includes trauma as a valid category, with scores ≥5 indicating potential trauma. Trauma should be suspected in patients with severe injury, altered mental status, or vital sign instability.",
+    "source": "NEWS2 Score",
+    "id": 15
+  },
+  {
+    "category": "triage",
+    "title": "Triage Thresholds",
+    "content": "A NEWS2 score ≥5 triggers urgent clinical review and triage to the nearest intensive care unit. This criterion indicates a high risk of patient deterioration.",
+    "source": "NEWS2 Score",
+    "id": 16
+  },
+  {
+    "category": "pain",
+    "title": "Pain Management Considerations",
+    "content": "The NEWS2 score does not specifically address pain management, but patients with severe pain may be at increased risk for patient deterioration. Pain should be assessed and managed promptly.",
+    "source": "NEWS2 Score",
+    "id": 17
+  },
+  {
+    "category": "metabolic",
+    "title": "Metabolic Compromise Indicators",
+    "content": "The NEWS2 score includes metabolic compromise as a valid category, with scores ≥5 indicating potential metabolic instability. Metabolic acidosis or electrolyte imbalances may be signs of metabolic compromise.",
+    "source": "NEWS2 Score",
+    "id": 18
+  },
+  {
+    "category": "general",
+    "title": "General Warning Signs",
+    "content": "The NEWS2 score is a general warning system that identifies patients at risk for deterioration. General warning signs include fever, tachycardia, and hypotension, which should be investigated promptly.",
+    "source": "NEWS2 Score",
+    "id": 19
+  },
+  {
+    "category": "sepsis",
+    "title": "Sepsis-3 Definitions and SIRS Criteria",
+    "content": "The Sepsis-3 criteria define sepsis based on the presence of infection, systemic inflammatory response, and organ dysfunction. The Systemic Inflammatory Response (SIRS) criteria are used to assess the severity of sepsis by evaluating patients' vital signs, including temperature, heart rate, respiratory rate, and blood pressure. A score of 2 or more SIRS criteria indicates a high likelihood of sepsis.",
+    "source": "Sepsis Screening Criteria",
+    "id": 20
+  },
+  {
+    "category": "triage",
+    "title": "qSOFA Score for Sepsis Risk Assessment",
+    "content": "The qSOFA score is a quick and easy way to assess the risk of sepsis in patients. It involves evaluating their level of consciousness, respiratory rate, and heart rate. A score of 2 or more indicates a high risk of sepsis.",
+    "source": "Sepsis Screening Criteria",
+    "id": 21
+  },
+  {
+    "category": "general",
+    "title": "Organ Dysfunction Markers (SOFA)",
+    "content": "The SOFA score is used to assess the severity of organ dysfunction in patients with sepsis. It evaluates five organ systems: respiratory, cardiovascular, renal, hepatic, and neurological. Each system is scored based on the presence or absence of specific clinical findings.",
+    "source": "Sepsis Screening Criteria",
+    "id": 22
+  },
+  {
+    "category": "general",
+    "title": "Lactate Threshold for Septic Shock Management",
+    "content": "The lactate threshold, measured by blood lactate levels, is a key indicator of sepsis severity. A high lactate level often signifies the presence of septic shock and requires immediate intervention.",
+    "source": "Sepsis Screening Criteria",
+    "id": 23
+  },
+  {
+    "category": "trauma",
+    "title": "Sepsis Six Bundle for Time-Critical Intervention",
+    "content": "The Sepsis Six bundle is a set of six time-critical interventions that must be implemented within one hour of recognizing sepsis. These include obtaining blood cultures, administering broad-spectrum antibiotics, initiating fluid resuscitation, providing oxygen therapy, and monitoring vital signs.",
+    "source": "Sepsis Screening Criteria",
+    "id": 24
+  },
+  {
+    "category": "respiratory",
+    "title": "Respiratory Symptoms in Septic Patients",
+    "content": "Patients with sepsis often present with respiratory symptoms such as shortness of breath, rapid breathing, and chest pain. These symptoms can be caused by the inflammatory response or by lung injury.",
+    "source": "Sepsis Screening Criteria",
+    "id": 25
+  },
+  {
+    "category": "cardiac",
+    "title": "Cardiac Complications in Septic Patients",
+    "content": "Sepsis can lead to cardiac complications such as heart failure, arrhythmias, and myocardial infarction. These complications are often caused by the systemic inflammatory response or by direct damage to the heart.",
+    "source": "Sepsis Screening Criteria",
+    "id": 26
+  },
+  {
+    "category": "neurological",
+    "title": "Neurological Manifestations of Sepsis",
+    "content": "Sepsis can cause neurological complications such as confusion, disorientation, seizures, and coma. These complications are often caused by the systemic inflammatory response or by direct damage to the brain.",
+    "source": "Sepsis Screening Criteria",
+    "id": 27
+  },
+  {
+    "category": "pain",
+    "title": "Pain Management in Septic Patients",
+    "content": "Patients with sepsis can experience significant pain due to inflammation and infection. Pain management strategies should be individualized based on the patient's needs and medical condition.",
+    "source": "Sepsis Screening Criteria",
+    "id": 28
+  },
+  {
+    "category": "metabolic",
+    "title": "Metabolic Complications of Sepsis",
+    "content": "Patients with sepsis can experience metabolic complications such as hyperglycemia, hypokalemia, and electrolyte imbalances. These complications are often caused by the systemic inflammatory response or by direct damage to the body's regulatory systems.",
+    "source": "Sepsis Screening Criteria",
+    "id": 29
+  },
+  {
+    "category": "triage",
+    "title": "Assess for ACS-related symptoms in chest pain patients.",
+    "content": "Patients presenting with chest pain should be assessed for potential acute coronary syndrome (ACS) using the mnemonic 'C.A.S.E.' - check for cardiac arrest, assess for unstable angina, consider stroke, and evaluate for emergency room admission.  If ACS is suspected, immediate reperfusion therapy should be initiated.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 30
+  },
+  {
+    "category": "pain",
+    "title": "Differentiate between stable and unstable chest pain.",
+    "content": "Stable chest pain is typically described as a dull ache or tightness that comes and goes, while unstable chest pain is sudden, intense, and may radiate to the arm or jaw.  Patients with unstable chest pain should be immediately evaluated for potential cardiac events.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 31
+  },
+  {
+    "category": "cardiac",
+    "title": "Interpret ECG findings in patients with suspected ACS.",
+    "content": "Electrocardiograms (ECGs) can help identify the presence of ST-segment elevation, ST-segment depression, or other abnormalities that suggest acute coronary syndrome.  The presence of these changes may indicate a need for immediate reperfusion therapy.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 32
+  },
+  {
+    "category": "respiratory",
+    "title": "Evaluate for respiratory distress in chest pain patients.",
+    "content": "Respiratory distress, such as shortness of breath or difficulty breathing, can be a sign of pulmonary embolism, pericarditis, or other conditions.  Patients experiencing these symptoms should be evaluated for potential complications and appropriate interventions.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 33
+  },
+  {
+    "category": "triage",
+    "title": "Determine the urgency of chest pain based on severity and risk factors.",
+    "content": "The severity of chest pain can help determine the urgency for intervention.  Patients with severe, sudden, or radiating chest pain should be immediately evaluated for potential cardiac events.  Risk factors such as age, medical history, and family history also play a role in determining the urgency of care.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 34
+  },
+  {
+    "category": "general",
+    "title": "Recognize warning signs of aortic dissection.",
+    "content": "Aortic dissection is a life-threatening emergency characterized by sudden, severe chest pain that may radiate to the back.  Other symptoms include shortness of breath, dizziness, and sweating.  Prompt medical attention is crucial for patients with these symptoms.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 35
+  },
+  {
+    "category": "pain",
+    "title": "Assess for pericarditis-related chest pain.",
+    "content": "Pericarditis can cause sharp, stabbing chest pain that may worsen with deep breathing or coughing.  The pain is often described as a feeling of pressure or tightness in the chest.  Patients experiencing this type of chest pain should be evaluated for potential pericarditis and appropriate interventions.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 36
+  },
+  {
+    "category": "triage",
+    "title": "Consider risk stratification tools for patients with chest pain.",
+    "content": "Risk stratification tools such as the HEART score or TIMI score can help determine the likelihood of a patient experiencing complications from their chest pain.  These tools consider factors like age, gender, symptoms, and medical history to guide treatment decisions.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 37
+  },
+  {
+    "category": "general",
+    "title": "Understand the importance of early reperfusion in ACS patients.",
+    "content": "Early reperfusion therapy is crucial for improving outcomes in patients with acute coronary syndrome.  This involves restoring blood flow to the heart as quickly as possible, often through procedures like angioplasty or thrombolysis.  Prompt intervention can significantly reduce the risk of long-term complications and improve survival rates.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 38
+  },
+  {
+    "category": "cardiac",
+    "title": "Recognize the importance of early diagnosis and treatment for STEMI patients.",
+    "content": "STEMI (ST elevation myocardial infarction) is a type of ACS where there is a blockage in one of the coronary arteries.  It requires immediate reperfusion therapy, typically through procedures like angioplasty or thrombolysis.  Prompt intervention can significantly reduce the risk of long-term complications and improve survival rates.",
+    "source": "Chest Pain Emergency Guidelines",
+    "id": 39
+  },
+  {
+    "category": "respiratory",
+    "title": "Dyspnoea Assessment in Respiratory Distress",
+    "content": "Dypnoea, or difficulty breathing, is a key indicator of respiratory distress. Assessing the severity and pattern of dyspnoea can help determine the urgency of intervention.  The patient's effort level, rate, and use of accessory muscles should be evaluated.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 40
+  },
+  {
+    "category": "triage",
+    "title": "SpO2 Targets for Respiratory Distress",
+    "content": "A SpO2 reading below 90% in an adult patient with respiratory distress is a significant warning sign and requires immediate intervention. The target SpO2 level should be adjusted based on the severity of the condition, but generally aims for at least 90%.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 41
+  },
+  {
+    "category": "respiratory",
+    "title": "Oxygen Therapy in Respiratory Distress",
+    "content": "Oxygen therapy is a critical intervention for patients with respiratory distress. Oxygen administration should be initiated immediately, and the oxygen flow rate adjusted based on the patient's SpO2 level and clinical response.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 42
+  },
+  {
+    "category": "respiratory",
+    "title": "CPAP/NIV Indications for Respiratory Distress",
+    "content": "Continuous Positive Airway Pressure (CPAP) or Non-invasive Ventilation (NIV) may be considered for patients with severe respiratory distress. These interventions aim to improve oxygenation and ventilation, reducing the need for invasive mechanical ventilation.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 43
+  },
+  {
+    "category": "respiratory",
+    "title": "Differential Diagnoses in Respiratory Distress",
+    "content": "Acute respiratory distress can be caused by various conditions including asthma, COPD exacerbation, pneumothorax, and pulmonary edema. Differentiating between these diagnoses is crucial for appropriate management.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 44
+  },
+  {
+    "category": "general",
+    "title": "Warning Signs of Respiratory Distress",
+    "content": "Patients experiencing respiratory distress often exhibit warning signs such as rapid breathing, wheezing, chest pain, and cyanosis. These symptoms indicate a need for immediate medical attention.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 45
+  },
+  {
+    "category": "respiratory",
+    "title": "Management Steps for Respiratory Distress",
+    "content": "The management of respiratory distress involves addressing the underlying cause, providing oxygen therapy, and implementing supportive measures. This may include supplemental oxygen, nebulized medications, or mechanical ventilation.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 46
+  },
+  {
+    "category": "triage",
+    "title": "Decision Rules for Respiratory Distress",
+    "content": "Patients with respiratory distress should be triaged based on the severity of their symptoms and response to initial interventions. A rapid assessment is crucial, followed by immediate intervention such as oxygen therapy or CPAP/NIV if necessary.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 47
+  },
+  {
+    "category": "respiratory",
+    "title": "Assessing for Pneumothorax in Respiratory Distress",
+    "content": "Pneumothorax, a condition where air leaks into the pleural space, can cause respiratory distress. The presence of chest pain, shortness of breath, and a diminished breath sound on auscultation may indicate a pneumothorax.  Physical examination should include palpation of the chest wall for any signs of subcutaneous emphysema.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 48
+  },
+  {
+    "category": "respiratory",
+    "title": "Managing Pulmonary Oedema in Respiratory Distress",
+    "content": "Pulmonary oedema, a condition where fluid accumulates in the lungs, can cause severe respiratory distress. Treatment involves addressing underlying causes such as heart failure or high blood pressure. Oxygen therapy and diuretics may be necessary to alleviate symptoms.",
+    "source": "Respiratory Distress Guidelines",
+    "id": 49
+  },
+  {
+    "category": "general",
+    "title": "Thrombolysis Eligibility",
+    "content": "Patients with stroke onset within 4.5 hours of symptom onset are eligible for thrombolytic therapy, which can improve outcomes if administered promptly.",
+    "source": "Stroke Recognition Criteria",
+    "id": 50
+  },
+  {
+    "category": "general",
+    "title": "TIA Risk Stratification (ABCD2)",
+    "content": "The ABCD2 score is used to assess the risk of stroke in patients with transient ischemic attack (TIA). A higher score indicates a greater risk, guiding treatment decisions.",
+    "source": "Stroke Recognition Criteria",
+    "id": 51
+  },
+  {
+    "category": "general",
+    "title": "Warning Signs of Stroke",
+    "content": "Common warning signs of stroke include sudden weakness or numbness in the face, arm, or leg, difficulty speaking or understanding speech, and sudden vision changes.",
+    "source": "Stroke Recognition Criteria",
+    "id": 52
+  },
+  {
+    "category": "general",
+    "title": "NIHSS Scoring Thresholds",
+    "content": "The National Institutes of Health Stroke Scale (NIHSS) is used to assess stroke severity. Scores range from 0 to 42, with higher scores indicating more severe strokes.",
+    "source": "Stroke Recognition Criteria",
+    "id": 53
+  },
+  {
+    "category": "general",
+    "title": "Mechanical Thrombectomy Criteria",
+    "content": "Mechanical thrombectomy is a treatment option for acute ischemic stroke within 4.5 hours of symptom onset, with specific criteria guiding eligibility.",
+    "source": "Stroke Recognition Criteria",
+    "id": 54
+  },
+  {
+    "category": "general",
+    "title": "Common Stroke Mimics",
+    "content": "Stroke mimics include conditions such as migraine, seizures, and cerebral vasculitis, which can present with similar symptoms to acute stroke, requiring careful diagnosis.",
+    "source": "Stroke Recognition Criteria",
+    "id": 55
+  },
+  {
+    "category": "general",
+    "title": "FAST/BE-FAST Examination",
+    "content": "The FAST/BE-FAST examination is a bedside assessment tool used to quickly identify patients at risk of stroke, focusing on facial weakness, arm drift, speech difficulties, and time to first symptom.",
+    "source": "Stroke Recognition Criteria",
+    "id": 56
+  },
+  {
+    "category": "general",
+    "title": "ROSIER Scale",
+    "content": "The ROSIER scale is used to assess stroke severity based on clinical presentation, with scores ranging from 0 to 6, indicating the likelihood of hemorrhagic transformation.",
+    "source": "Stroke Recognition Criteria",
+    "id": 57
+  },
+  {
+    "category": "general",
+    "title": "Early Intervention and Care",
+    "content": "Prompt recognition and management of stroke are critical for improving outcomes, including early mobilization, pain management, and addressing respiratory complications.",
+    "source": "Stroke Recognition Criteria",
+    "id": 58
+  },
+  {
+    "category": "general",
+    "title": "Sudden Sudden Weakness or Numbness",
+    "content": "Sudden weakness or numbness in the face, arm, or leg is a common warning sign of stroke, requiring immediate medical attention.",
+    "source": "Stroke Recognition Criteria",
+    "id": 59
+  },
+  {
+    "category": "pain",
+    "title": "Pain Scoring",
+    "content": "The ED Triage Protocols use a pain scoring system to assess the severity of a patient's pain. The score ranges from 0 (no pain) to 10 (worst possible pain). A score of 4 or higher indicates moderate to severe pain, requiring prompt attention.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 60
+  },
+  {
+    "category": "respiratory",
+    "title": "Chest Pain in Adults",
+    "content": "In adults presenting with chest pain, a score of 8 or higher on the ED Triage Protocols' respiratory assessment indicates severe respiratory distress. This may require immediate intubation and mechanical ventilation.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 61
+  },
+  {
+    "category": "trauma",
+    "title": "Head Injury Assessment",
+    "content": "The ED Triage Protocols recommend a rapid sequence assessment for head injuries, including a Glasgow Coma Scale score of 13 or lower. This indicates severe brain injury requiring immediate intervention.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 62
+  },
+  {
+    "category": "neurological",
+    "title": "Seizure Assessment",
+    "content": "In patients presenting with seizures, a score of 6 or higher on the ED Triage Protocols' neurological assessment indicates severe seizure activity. This may require immediate anticonvulsant treatment.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 63
+  },
+  {
+    "category": "cardiac",
+    "title": "Chest Pain in Children",
+    "content": "In children presenting with chest pain, a score of 6 or higher on the ED Triage Protocols' cardiac assessment indicates severe cardiac distress. This may require immediate intubation and mechanical ventilation.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 64
+  },
+  {
+    "category": "sepsis",
+    "title": "Sepsis Screening",
+    "content": "The ED Triage Protocols recommend screening for sepsis in patients with a temperature of 38°C or higher, heart rate of 90 bpm or higher, and respiratory rate of 24 breaths per minute or higher.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 65
+  },
+  {
+    "category": "metabolic",
+    "title": "Diabetic Ketoacidosis Screening",
+    "content": "In patients presenting with symptoms suggestive of diabetic ketoacidosis, a blood pH level of 7.1 or lower indicates severe metabolic acidosis. This may require immediate insulin treatment.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 66
+  },
+  {
+    "category": "general",
+    "title": "Undifferentiated Presentation",
+    "content": "In patients presenting with an undifferentiated presentation, a score of 5 or higher on the ED Triage Protocols' general assessment indicates severe illness requiring immediate attention.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 67
+  },
+  {
+    "category": "trauma",
+    "title": "Hemorrhagic Shock Assessment",
+    "content": "The ED Triage Protocols recommend assessing for hemorrhagic shock in patients with a systolic blood pressure of 90 mmHg or lower. This indicates severe bleeding requiring immediate intervention.",
+    "source": "Emergency Department Triage Protocols",
+    "id": 68
+  }
+]

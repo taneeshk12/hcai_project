@@ -105,22 +105,44 @@ class GeneralHealthAgent:
         """
         processed = {}
         
-        # Check required fields
-        required_fields = [
+        # Split fields into vitals (always required) and labs (imputed in IMMEDIATE mode)
+        required_vitals = [
             'age', 'systolic_bp', 'diastolic_bp', 'heart_rate',
-            'respiratory_rate', 'temperature', 'spo2', 'pain_score',
+            'respiratory_rate', 'temperature', 'spo2', 'pain_score'
+        ]
+        
+        lab_fields = [
             'wbc', 'hemoglobin', 'platelet_count', 'sodium',
             'potassium', 'creatinine', 'glucose', 'troponin',
             'bnp', 'lactate', 'inr'
         ]
         
-        for field in required_fields:
+        default_labs = {
+            'wbc': 7.5, 'hemoglobin': 14.0, 'platelet_count': 250.0, 'sodium': 140.0, 'potassium': 4.0,
+            'creatinine': 0.9, 'glucose': 100.0, 'troponin': 0.01, 'bnp': 50.0, 'lactate': 1.2, 'inr': 1.0
+        }
+        
+        triage_mode = data.get('triage_mode', 'ENHANCED')
+        
+        for field in required_vitals:
             if field not in data:
-                return False, f"Missing required field: {field}", {}
+                return False, f"Missing required vital field: {field}", {}
             try:
                 processed[field] = float(data[field])
             except (ValueError, TypeError):
                 return False, f"Invalid value for {field}: must be numeric", {}
+                
+        for field in lab_fields:
+            if field not in data:
+                if triage_mode == 'IMMEDIATE':
+                    processed[field] = default_labs[field]
+                else:
+                    return False, f"Missing required lab field: {field}", {}
+            else:
+                try:
+                    processed[field] = float(data[field])
+                except (ValueError, TypeError):
+                    return False, f"Invalid value for {field}: must be numeric", {}
         
         # Validate ranges
         for field, (min_val, max_val) in self.FEATURE_RANGES.items():

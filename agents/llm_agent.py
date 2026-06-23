@@ -130,6 +130,7 @@ STRICT RULES — follow every rule without exception:
         detected_symptoms: list[str],
         clinical_summary: str,
         safety_alerts: list[str],
+        uncertainty_factors: list[str] = None,
     ) -> dict[str, str]:
         """
         Generate a unified interpretation across all four sub-agents.
@@ -141,13 +142,14 @@ STRICT RULES — follow every rule without exception:
                 return self._call_groq_unified(
                     final_risk, overall_confidence, confidence_category,
                     all_shap_features, detected_symptoms, clinical_summary, safety_alerts,
+                    uncertainty_factors,
                 )
             except Exception as exc:
                 logger.warning(f"LLMAgent (unified): Groq call failed ({exc}). Falling back.")
 
         return self._rule_based_unified(
             final_risk, overall_confidence, confidence_category,
-            all_shap_features, detected_symptoms,
+            all_shap_features, detected_symptoms, uncertainty_factors,
         )
 
     # ------------------------------------------------------------------ #
@@ -190,6 +192,7 @@ STRICT RULES — follow every rule without exception:
     def _call_groq_unified(
         self, final_risk, overall_confidence, confidence_category,
         all_shap_features, detected_symptoms, clinical_summary, safety_alerts,
+        uncertainty_factors=None,
     ) -> dict[str, str]:
         top_features = [f["feature"].replace("_", " ") for f in all_shap_features[:3]] if all_shap_features else []
         symptoms_str = ", ".join(detected_symptoms[:6]) if detected_symptoms else "none detected"
@@ -197,16 +200,18 @@ STRICT RULES — follow every rule without exception:
         pct = f"{overall_confidence * 100:.1f}%"
         cat = confidence_category.replace("_", " ").lower()
         risk_clean = final_risk.replace("_", " ").upper()
+        factors_str = "; ".join(uncertainty_factors) if uncertainty_factors else "none"
 
         user_message = (
             f"UNIFIED MULTI-AGENT TRIAGE ASSESSMENT\n"
             f"Overall risk: {risk_clean}\n"
             f"Overall confidence: {pct} ({cat})\n"
             f"Active safety alerts: {alerts_str}\n"
+            f"Uncertainty factors: {factors_str}\n"
             f"Primary clinical drivers across all agents: {', '.join(top_features) if top_features else 'unavailable'}\n"
             f"Detected clinical findings: {symptoms_str}\n"
             f"Clinical summary: {clinical_summary[:400]}\n\n"
-            f"Provide a unified, plain-English interpretation for the attending clinician covering all four sub-agents."
+            f"Provide a unified, plain-English interpretation for the attending clinician covering all four sub-agents. If uncertainty factors are present (e.g. sub-agent conflicts or missing labs), explain them and advise caution."
         )
 
         response = self._client.chat.completions.create(
@@ -258,7 +263,7 @@ STRICT RULES — follow every rule without exception:
 
     def _rule_based_unified(
         self, final_risk, overall_confidence, confidence_category,
-        all_shap_features, detected_symptoms,
+        all_shap_features, detected_symptoms, uncertainty_factors=None,
     ) -> dict[str, str]:
         pct = f"{overall_confidence * 100:.1f}%"
         cat = confidence_category.replace("_", " ").title()
@@ -278,8 +283,12 @@ STRICT RULES — follow every rule without exception:
             else "Clinician review is advised."
         )
 
+        uncertainty_note = ""
+        if uncertainty_factors:
+            uncertainty_note = f" Note on AI Uncertainty: {'; '.join(uncertainty_factors)}."
+
         text = (
             f"The AI triage model has assessed this patient as {risk_clean} with {pct} confidence ({cat}). "
-            f"The primary drivers were: {feat_str}.{symptoms_str} {review_note}"
+            f"The primary drivers were: {feat_str}.{symptoms_str}{uncertainty_note} {review_note}"
         )
         return {"llm_interpretation": text, "interpretation_source": "rule_based"}

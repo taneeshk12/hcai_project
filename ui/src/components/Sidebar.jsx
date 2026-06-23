@@ -48,6 +48,16 @@ const NAV_ITEMS = [
     ),
   },
   {
+    id: 'evaluation',
+    label: 'Safety Evaluation',
+    icon: (
+      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+        <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+      </svg>
+    ),
+  },
+  {
     id: 'settings',
     label: 'Settings',
     icon: (

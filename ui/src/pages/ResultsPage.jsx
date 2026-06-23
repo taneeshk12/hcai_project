@@ -57,6 +57,9 @@ function AgentCard({ title, modelKey, data, expandedAgents, setExpandedAgents })
     medium: data.probabilities.medium ?? data.probabilities.mid_risk ?? 0,
     high: data.probabilities.high ?? data.probabilities.high_risk ?? 0,
   } : null;
+  const riskLabel = data.risk_level ? data.risk_level.replace('_RISK', '') : 'N/A';
+  const confidencePct = data.confidence != null ? (data.confidence * 100).toFixed(1) : 'N/A';
+  const confidencePctInt = data.confidence != null ? (data.confidence * 100).toFixed(0) : '0';
   let AgentIcon = ShieldIcon;
   if (modelKey === 'respiratory') AgentIcon = LungsIcon;
   else if (modelKey === 'cardiac') AgentIcon = HeartPulseIcon;
@@ -75,9 +78,9 @@ function AgentCard({ title, modelKey, data, expandedAgents, setExpandedAgents })
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           <div className="risk-badge" style={{ borderColor: color, color, backgroundColor: color + '15', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            {data.risk_level.replace('_RISK', '')}
+            {riskLabel}
             <span style={{ fontSize: '0.7rem', opacity: 0.8, paddingLeft: '4px', borderLeft: `1px solid ${color}40` }}>
-              {(data.confidence * 100).toFixed(0)}%
+              {confidencePctInt}%
             </span>
           </div>
           <div className="expand-toggle" style={{ color: 'var(--text-muted)' }}><ChevronDownIcon expanded={isExpanded} /></div>
@@ -88,10 +91,10 @@ function AgentCard({ title, modelKey, data, expandedAgents, setExpandedAgents })
           <div className="confidence-meter-container">
             <div className="confidence-header">
               <span>Agent Confidence</span>
-              <span className="confidence-value" style={{ color }}>{(data.confidence * 100).toFixed(1)}%</span>
+              <span className="confidence-value" style={{ color }}>{confidencePct}%</span>
             </div>
             <div className="confidence-bar-wrapper">
-              <div className="confidence-bar-fill" style={{ width: `${data.confidence * 100}%`, backgroundColor: color }}>
+              <div className="confidence-bar-fill" style={{ width: `${data.confidence != null ? data.confidence * 100 : 0}%`, backgroundColor: color }}>
                 <span className="confidence-pulse-dot" style={{ backgroundColor: color }}></span>
               </div>
             </div>
@@ -149,7 +152,7 @@ function AgentCard({ title, modelKey, data, expandedAgents, setExpandedAgents })
 }
 
 export default function ResultsPage({
-  predictions, aggregation, llmSummary, fullReport,
+  predictions, aggregation, llmSummary, fullReport, ragReport,
   patientData, feedbackStatus, setFeedbackStatus,
   overrideValue, setOverrideValue,
   handleFeedback, downloadReport, reportRef,
@@ -192,7 +195,14 @@ export default function ResultsPage({
     <div className="page-container animate-fade-in">
       <div className="page-header">
         <div>
-          <h2 className="page-title">Clinical Risk Analysis</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <h2 className="page-title" style={{ margin: 0 }}>Clinical Risk Analysis</h2>
+            {aggregation?.triage_mode && (
+              <span className={`triage-mode-badge ${aggregation.triage_mode.toLowerCase()}`}>
+                {aggregation.triage_mode === 'ENHANCED' ? '🧪 Enhanced Triage' : '🩺 Immediate Triage'}
+              </span>
+            )}
+          </div>
           <p className="page-subtitle">Multi-agent diagnostic output for current patient assessment.</p>
         </div>
         {fullReport && (
@@ -204,6 +214,178 @@ export default function ResultsPage({
           </button>
         )}
       </div>
+
+      {/* FEATURE 7 — DASHBOARD INTEGRATION CARDS */}
+      <div className="metrics-dashboard-grid" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
+        gap: '15px',
+        marginBottom: '1.5rem'
+      }}>
+        {/* Prediction Card */}
+        <div className="glass-panel animate-fade-in" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderLeft: `4px solid ${riskColor}` }}>
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Prediction</div>
+          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: riskColor, margin: '8px 0 4px 0' }}>
+            {aggregation?.final_risk}_RISK
+          </div>
+          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {aggregation?.safety_alerts && aggregation.safety_alerts.length > 0 ? "⚠️ Safety Override active" : "Consensus risk level"}
+          </div>
+        </div>
+
+        {/* Confidence Card */}
+        <div className="glass-panel animate-fade-in" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderLeft: '4px solid #3b82f6' }}>
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Confidence</div>
+          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#3b82f6', margin: '8px 0 4px 0' }}>
+            {((aggregation?.overall_confidence || 0) * 100).toFixed(0)}%
+          </div>
+          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 700 }}>
+            {aggregation?.overall_confidence >= 0.85 ? "HIGH" : aggregation?.overall_confidence >= 0.70 ? "MEDIUM" : "LOW"} CONFIDENCE
+          </div>
+        </div>
+
+        {/* Trust Score Card */}
+        {(() => {
+          const tColor = aggregation?.trust_score >= 80 ? '#10b981' : aggregation?.trust_score >= 60 ? '#f59e0b' : '#ef4444';
+          return (
+            <div className="glass-panel animate-fade-in" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderLeft: `4px solid ${tColor}` }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Trust Score</div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: tColor, margin: '8px 0 4px 0' }}>
+                {aggregation?.trust_score}%
+              </div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 700 }}>
+                {aggregation?.trust_category}
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Safety Status Card */}
+        {(() => {
+          const sColor = aggregation?.safety_status === 'AGREEMENT' ? '#10b981' : '#ef4444';
+          return (
+            <div className="glass-panel animate-fade-in" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderLeft: `4px solid ${sColor}` }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Safety Status</div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: sColor, margin: '8px 0 4px 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {aggregation?.safety_status}
+              </div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                Score: <strong>{aggregation?.safety_score}/100</strong>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Human Review Status Card */}
+        {(() => {
+          const rColor = aggregation?.human_review_required ? '#ef4444' : '#10b981';
+          return (
+            <div className="glass-panel animate-fade-in" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderLeft: `4px solid ${rColor}` }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Human Review</div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: rColor, margin: '8px 0 4px 0' }}>
+                {aggregation?.human_review_required ? "REQUIRED" : "NO"}
+              </div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }} title={aggregation?.human_review_reason || 'Standard review'}>
+                {aggregation?.human_review_required ? `Reason: ${aggregation.human_review_reason}` : "Standard oversight"}
+              </div>
+            </div>
+          );
+        })()}
+      </div>
+
+      {/* Clinical Safety Alerts Banner */}
+      {aggregation?.safety_alerts && aggregation.safety_alerts.length > 0 && (
+        <div className="clinical-safety-banner" style={{
+          backgroundColor: 'rgba(239, 68, 68, 0.08)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          borderRadius: '8px',
+          padding: '16px 20px',
+          marginBottom: '1.5rem',
+          display: 'flex',
+          gap: '15px',
+          alignItems: 'flex-start',
+        }}>
+          <span style={{ fontSize: '1.6rem', color: '#ef4444', lineHeight: 1 }}>🚨</span>
+          <div>
+            <h4 style={{ margin: '0 0 6px 0', color: '#ef4444', fontWeight: 700, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Critical Clinical Safety Alerts
+            </h4>
+            <p style={{ margin: '0 0 8px 0', fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.4' }}>
+              The patient's raw vitals have triggered immediate clinical safety alerts. Triage priority has been automatically escalated to HIGH.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              {aggregation.safety_alerts.map((alert, idx) => (
+                <span key={idx} style={{
+                  backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                  color: '#ef4444',
+                  padding: '4px 10px',
+                  borderRadius: '6px',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  border: '1px solid rgba(239, 68, 68, 0.2)'
+                }}>
+                  {alert}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Uncertainty & Reliability Analysis Banner */}
+      {aggregation?.uncertainty_high && (
+        <div className="uncertainty-banner" style={{
+          backgroundColor: 'rgba(245, 158, 11, 0.06)',
+          border: '1px solid rgba(245, 158, 11, 0.3)',
+          borderRadius: '8px',
+          padding: '18px 20px',
+          marginBottom: '1.5rem',
+          display: 'flex',
+          gap: '15px',
+          alignItems: 'flex-start',
+        }}>
+          <span style={{ fontSize: '1.6rem', color: '#f59e0b', lineHeight: 1 }}>⚠️</span>
+          <div style={{ width: '100%' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
+              <h4 style={{ margin: 0, color: '#f59e0b', fontWeight: 700, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Uncertainty & Reliability Warning
+              </h4>
+              <span style={{
+                backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                color: '#f59e0b',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                textTransform: 'uppercase'
+              }}>
+                Mandatory Review Required
+              </span>
+            </div>
+            <p style={{ margin: '0 0 10px 0', fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.4' }}>
+              The AI assessment reports elevated uncertainty due to the following clinical/model factors:
+            </p>
+            {aggregation.uncertainty_factors && aggregation.uncertainty_factors.length > 0 && (
+              <ul style={{ margin: '0 0 12px 0', paddingLeft: '20px', color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                {aggregation.uncertainty_factors.map((factor, idx) => (
+                  <li key={idx} style={{ marginBottom: '4px' }}>{factor}</li>
+                ))}
+              </ul>
+            )}
+            <div style={{
+              backgroundColor: 'rgba(245, 158, 11, 0.08)',
+              borderLeft: '3px solid #f59e0b',
+              padding: '10px 12px',
+              borderRadius: '0 4px 4px 0',
+              fontSize: '0.85rem',
+              color: 'var(--text-muted)',
+              lineHeight: '1.4'
+            }}>
+              <strong>Attending Clinician Guidance:</strong> {aggregation.uncertainty_explanation}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Assessment History Timeline */}
       {activePatientAssessments.length > 0 && (
@@ -301,6 +483,31 @@ export default function ResultsPage({
             </div>
           </div>
           <div className="llm-text">{llmSummary}</div>
+        </div>
+      )}
+
+      {/* RAG Symptom Analysis */}
+      {ragReport && (
+        <div className="rag-report-card glass-panel">
+          <div className="llm-header">
+            <span className="llm-icon">💬</span>
+            <div>
+              <h3>RAG Symptom Analysis</h3>
+              <span className="llm-sub">FAISS knowledge retrieval · Groq llama-3.3-70b-versatile</span>
+            </div>
+          </div>
+          <pre className="rag-report-text">{ragReport.report}</pre>
+          {ragReport.sources && ragReport.sources.length > 0 && (
+            <div className="rag-sources-row">
+              <span className="rag-sources-label">📚 Evidence sources:</span>
+              {ragReport.sources.map((s, i) => (
+                <span key={i} className="rag-source-chip">
+                  <span className={`rag-cat-dot rag-cat-${s.category}`} />
+                  {s.title}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

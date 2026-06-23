@@ -59,7 +59,7 @@ class SummaryAgent:
             hcai_lite dict with confidence + symptom context (no LLM).
         """
         # Step 1: Confidence analysis across all sub-agents
-        enriched_preds, confidence_summary = self._run_confidence_analysis(predictions)
+        enriched_preds, confidence_summary = self._run_confidence_analysis(predictions, patient_data)
 
         # Step 2: Symptom extraction
         symptom_context = self.symptom_agent.analyze(patient_data)
@@ -68,7 +68,12 @@ class SummaryAgent:
         final_risk = aggregation.get("final_risk", "UNKNOWN")
         overall_confidence = aggregation.get("overall_confidence", 0.5)
         overall_category = self.confidence_agent._categorize_confidence(overall_confidence)
+        
+        # Pull aggregated status and uncertainty details from confidence_summary
         overall_status = confidence_summary.get("overall_human_review_status", "ADVISORY")
+        uncertainty_high = confidence_summary.get("uncertainty_high", False)
+        uncertainty_factors = confidence_summary.get("uncertainty_factors", [])
+        uncertainty_explanation = confidence_summary.get("uncertainty_explanation", "")
 
         # Build review message for the aggregated result
         review_message = self.confidence_agent._build_review_message(
@@ -83,6 +88,9 @@ class SummaryAgent:
             "review_urgency": self.confidence_agent._determine_urgency(overall_status, final_risk),
             "review_message": review_message,
             "action_required": overall_status == "MANDATORY" or "HIGH" in final_risk.upper(),
+            "uncertainty_high": uncertainty_high,
+            "uncertainty_factors": uncertainty_factors,
+            "uncertainty_explanation": uncertainty_explanation,
             # Per-agent confidence enrichment
             "per_agent_confidence": {
                 k: {
@@ -144,6 +152,7 @@ class SummaryAgent:
             detected_symptoms=lite["detected_symptoms"],
             clinical_summary=lite["clinical_summary"],
             safety_alerts=safety_alerts,
+            uncertainty_factors=lite.get("uncertainty_factors", []),
         )
 
         # Build SHAP summary text
@@ -192,7 +201,7 @@ class SummaryAgent:
     # ------------------------------------------------------------------ #
 
     def _run_confidence_analysis(
-        self, predictions: dict[str, dict]
+        self, predictions: dict[str, dict], patient_data: dict[str, Any] = None
     ) -> tuple[dict[str, dict], dict[str, Any]]:
         """Run ConfidenceAgent on each sub-agent prediction."""
         enriched: dict[str, dict] = {}
@@ -202,7 +211,7 @@ class SummaryAgent:
             else:
                 enriched[agent_name] = pred  # pass through errors unchanged
 
-        summary = self.confidence_agent.summarize(enriched)
+        summary = self.confidence_agent.summarize(enriched, patient_data)
         return enriched, summary
 
     def _build_recommendation(

@@ -3068,3 +3068,429 @@ body {
   margin-top: 1px;
 }
 
+/* ==================== RAG SYMPTOM CHAT PANEL ==================== */
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 0 !important;
+  overflow: hidden;
+}
+
+.chat-badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, rgba(37,99,235,0.2), rgba(124,58,237,0.15));
+  border: 1px solid rgba(37,99,235,0.3);
+  color: #93c5fd;
+  padding: 2px 10px;
+  border-radius: 20px;
+  text-transform: none;
+}
+
+.chat-messages {
+  flex: 1;
+  min-height: 340px;
+  max-height: 420px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0.5rem 0 1rem;
+  scroll-behavior: smooth;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+
+.chat-bubble-wrap {
+  display: flex;
+  gap: 8px;
+}
+
+.ai-wrap {
+  justify-content: flex-start;
+}
+
+.user-wrap {
+  justify-content: flex-end;
+}
+
+.chat-bubble {
+  max-width: 88%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.ai-bubble {
+  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-bottom-left-radius: 4px;
+  color: var(--text-primary);
+}
+
+.user-bubble {
+  background: linear-gradient(135deg, rgba(124,58,237,0.25), rgba(37,99,235,0.2));
+  border: 1px solid rgba(124,58,237,0.3);
+  border-bottom-right-radius: 4px;
+  color: var(--text-primary);
+}
+
+.error-bubble {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-bottom-left-radius: 4px;
+  color: #fca5a5;
+}
+
+.chat-text {
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  word-break: break-word;
+}
+
+.chat-sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.sources-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.source-chip {
+  font-size: 0.68rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 2px 8px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Typing indicator */
+.typing-bubble {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+  min-width: 60px;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  background: #60a5fa;
+  border-radius: 50%;
+  display: inline-block;
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40%            { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Input area */
+.chat-input-area {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  padding: 0.9rem 0 0.75rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+.chat-textarea {
+  flex: 1;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-textarea:focus {
+  border-color: rgba(37, 99, 235, 0.5);
+  background: var(--input-focus-bg);
+}
+
+.chat-textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.chat-textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-send-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-notes-hint {
+  font-size: 0.78rem;
+  color: #34d399;
+  padding: 6px 0 8px;
+  opacity: 0.85;
+}
+
+/* ==================== RAG REPORT CARD (Results Page) ==================== */
+
+.rag-report-card {
+  padding: 1.5rem;
+}
+
+.rag-report-text {
+  white-space: pre-wrap;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid #7c3aed;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+[data-theme="light"] .rag-report-text {
+  background: rgba(124, 58, 237, 0.04);
+}
+
+.rag-sources-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+
+.rag-sources-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.rag-source-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.rag-cat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rag-cat-respiratory { background: #3b82f6; }
+.rag-cat-cardiac     { background: #ef4444; }
+.rag-cat-sepsis      { background: #f97316; }
+.rag-cat-general     { background: #10b981; }
+
+/* ==================== TOAST NOTIFICATION ==================== */
+.clinical-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: rgba(239, 68, 68, 0.95);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  animation: toastSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.clinical-toast.success {
+  background-color: rgba(16, 185, 129, 0.95);
+}
+
+.toast-close-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 2px 6px;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.toast-close-btn:hover {
+  opacity: 1;
+}
+
+@keyframes toastSlideUp {
+  from {
+    transform: translateY(100%) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ==================== TRIAGE WORKFLOW EXTENSIONS ==================== */
+.triage-mode-container {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.triage-mode-selector {
+  display: inline-flex;
+  align-self: flex-start;
+  background: var(--tab-nav-bg);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.triage-mode-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.triage-mode-btn:hover {
+  color: var(--text-primary);
+}
+
+.triage-mode-btn.active {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: white;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.tab-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tab-btn.disabled:hover {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.tab-tooltip {
+  font-size: 0.8rem;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.triage-mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 10px;
+}
+
+.triage-mode-badge.immediate {
+  background: rgba(37, 99, 235, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+.triage-mode-badge.enhanced {
+  background: rgba(124, 58, 237, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+[data-theme="light"] .triage-mode-badge.immediate {
+  background: rgba(37, 99, 235, 0.1);
+  color: #1d4ed8;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+[data-theme="light"] .triage-mode-badge.enhanced {
+  background: rgba(124, 58, 237, 0.1);
+  color: #6d28d9;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+

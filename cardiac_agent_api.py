@@ -27,7 +27,7 @@ class CardiacAgent:
         'lactate_missing', 'inr_missing', 'shock_index', 'pulse_pressure', 'MAP'
     ]
     
-    RISK_CLASSES = {0: 'HIGH_RISK_ESI_1', 1: 'HIGH_RISK_ESI_2', 2: 'MID_RISK_ESI_3', 3: 'LOW_RISK_ESI_4', 4: 'LOW_RISK_ESI_5'}
+    RISK_CLASSES = {0: 'HIGH_RISK', 1: 'HIGH_RISK', 2: 'MEDIUM_RISK', 3: 'LOW_RISK', 4: 'LOW_RISK'}
     
     CONFIDENCE_THRESHOLDS = {
         'HIGH': 0.85,
@@ -132,11 +132,9 @@ class CardiacAgent:
 
     def _get_clinical_action(self, risk_level: str, confidence: float) -> str:
         actions = {
-            'LOW_RISK_ESI_5': 'Cardiac risk is low. Routine observation.',
-            'LOW_RISK_ESI_4': 'Cardiac risk is low. Routine observation.',
-            'MID_RISK_ESI_3': 'Medium cardiac risk. Consider ECG and repeat troponin.',
-            'HIGH_RISK_ESI_2': 'High cardiac risk (Emergent). Immediate cardiology consult.',
-            'HIGH_RISK_ESI_1': 'Critical cardiac risk (Resuscitation). Activate code team.'
+            'LOW_RISK': 'Cardiac risk is low. Routine observation.',
+            'MEDIUM_RISK': 'Medium cardiac risk. Consider ECG and repeat troponin.',
+            'HIGH_RISK': 'High cardiac risk. Immediate cardiology consult.'
         }
         return actions.get(risk_level, 'Consult staff')
 

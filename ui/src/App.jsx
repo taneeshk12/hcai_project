@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, Component } from 'react';
 import axios from 'axios';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -10,7 +10,48 @@ import ResultsPage from './pages/ResultsPage';
 import SimulatorPage from './pages/SimulatorPage';
 import RegistryPage from './pages/RegistryPage';
 import SettingsPage from './pages/SettingsPage';
+import EvaluationPage from './pages/EvaluationPage';
 import './App.css';
+
+// ── Error Boundary: catches render crashes and shows a fallback instead of blank page ──
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, info) {
+    console.error('ResultsPage render error:', error, info);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="page-container animate-fade-in" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="glass-panel" style={{ padding: '2.5rem', maxWidth: 520, textAlign: 'center' }}>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⚠️</div>
+            <h2 style={{ color: '#ef4444', marginBottom: '0.75rem' }}>Display Error</h2>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+              The results page encountered an error while rendering. The analysis completed successfully — please go back to Intake and re-run.
+            </p>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.2)', padding: '8px 12px', borderRadius: '6px', fontFamily: 'monospace' }}>
+              {this.state.error?.message}
+            </p>
+            <button
+              className="btn primary"
+              style={{ marginTop: '1.5rem' }}
+              onClick={() => this.setState({ hasError: false, error: null })}
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const API_URL = 'http://localhost:8000';
 
@@ -59,11 +100,12 @@ const getSweepPoints = (param) => {
 };
 
 const INITIAL_PATIENT_DATA = {
-  age: 45, sex: 'M', age_group: 'adult', altered_mentation: 0, chest_pain: 0, diabetes: 0,
-  spo2: 97, respiratory_rate: 16, temperature: 36.8, heart_rate: 70,
-  systolic_bp: 120, diastolic_bp: 80, pain_score: 2,
-  wbc: 7.5, hemoglobin: 14.0, platelet_count: 250, sodium: 140, potassium: 4.0,
-  creatinine: 0.9, glucose: 100, troponin: 0.01, bnp: 50, lactate: 1.2, inr: 1.0,
+  age: '', sex: '', age_group: 'adult', altered_mentation: '', chest_pain: '', diabetes: '',
+  spo2: '', respiratory_rate: '', temperature: '', heart_rate: '',
+  systolic_bp: '', diastolic_bp: '', pain_score: '',
+  wbc: '', hemoglobin: '', platelet_count: '', sodium: '', potassium: '',
+  creatinine: '', glucose: '', troponin: '', bnp: '', lactate: '', inr: '',
+  symptoms: '',
 };
 
 function App() {
@@ -87,6 +129,7 @@ function App() {
 
   // ── Patient Data ──────────────────────────────────────────────────────────
   const [patientData, setPatientData] = useState(INITIAL_PATIENT_DATA);
+  const [triageMode, setTriageMode] = useState('IMMEDIATE');
 
   // ── Results ───────────────────────────────────────────────────────────────
   const [predictions, setPredictions] = useState(null);
@@ -98,6 +141,7 @@ function App() {
   const [feedbackStatus, setFeedbackStatus] = useState(null);
   const [overrideValue, setOverrideValue] = useState('MEDIUM');
   const [expandedAgents, setExpandedAgents] = useState({});
+  const [ragReport, setRagReport] = useState(null);
 
   // ── API & Theme ───────────────────────────────────────────────────────────
   const [apiStatus, setApiStatus] = useState(false);
@@ -111,6 +155,7 @@ function App() {
   const [sensitivityParam, setSensitivityParam] = useState('spo2');
   const [sensitivityData, setSensitivityData] = useState([]);
   const [insightsTab, setInsightsTab] = useState('subsystem');
+  const [toast, setToast] = useState(null);
 
   const reportRef = useRef(null);
 
@@ -171,16 +216,16 @@ function App() {
   useEffect(() => {
     let score = 0;
     if (mentation !== 1) {
-      if (hr > 110) score += 3; else if (hr > 90) score += 1;
-      if (sbp > 160 || sbp < 90) score += 3; else if (sbp > 140 || sbp < 100) score += 1;
-      if (spo2 < 90) score += 3; else if (spo2 < 93) score += 1;
-      if (temp > 38.5 || temp < 36.0) score += 1;
+      if (hr && hr > 110) score += 3; else if (hr && hr > 90) score += 1;
+      if (sbp && (sbp > 160 || sbp < 90)) score += 3; else if (sbp && (sbp > 140 || sbp < 100)) score += 1;
+      if (spo2 && spo2 < 90) score += 3; else if (spo2 && spo2 < 93) score += 1;
+      if (temp && (temp > 38.5 || temp < 36.0)) score += 1;
     }
     let ageGrp = 'adult';
-    if (age < 18) ageGrp = 'pediatric';
-    else if (age < 65) ageGrp = 'adult';
-    else if (age < 80) ageGrp = 'senior';
-    else ageGrp = 'elderly';
+    if (age !== '' && age < 18) ageGrp = 'pediatric';
+    else if (age !== '' && age < 65) ageGrp = 'adult';
+    else if (age !== '' && age < 80) ageGrp = 'senior';
+    else if (age !== '') ageGrp = 'elderly';
 
     if (patientData.pain_score !== score || patientData.age_group !== ageGrp) {
       setPatientData(prev => {
@@ -193,15 +238,6 @@ function App() {
     }
   }, [age, hr, sbp, spo2, temp, mentation, isWhatIfMode, debouncedPredict, patientData.pain_score, patientData.age_group]);
 
-  // ── Init ──────────────────────────────────────────────────────────────────
-  useEffect(() => {
-    checkApiHealth();
-    fetchPatients();
-    const interval = setInterval(checkApiHealth, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-
   // ── API functions ─────────────────────────────────────────────────────────
   const checkApiHealth = async () => {
     try {
@@ -210,11 +246,40 @@ function App() {
     } catch { setApiStatus(false); }
   };
 
+  const fetchPatients = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/api/patients`);
+      if (res.data.status === 'success') setPatientsList(res.data.patients);
+    } catch (err) { console.error('Registry fetch error:', err); }
+  };
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    checkApiHealth();
+    fetchPatients();
+    const interval = setInterval(checkApiHealth, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const showToast = (message, type = 'error') => {
+    setToast({ message, type });
+  };
+
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const numericValue = isNaN(value) ? value : parseFloat(value);
+    // Do not parse text fields
+    const isTextField = ['sex', 'age_group', 'symptoms', 'clinical_notes', 'patient_name'].includes(name);
+    const finalValue = isTextField ? value : (isNaN(value) || value === '' ? value : parseFloat(value));
+    
     setPatientData(prev => {
-      const updated = { ...prev, [name]: numericValue };
+      const updated = { ...prev, [name]: finalValue };
       if (isWhatIfMode) {
         debouncedPredict(updated);
         if (CLINICAL_RANGES[name]) debouncedSweep(updated, name);
@@ -224,12 +289,66 @@ function App() {
   };
 
   const handlePredict = async () => {
+    // Validate required vital signs
+    const requiredVitals = {
+      age: 'Age',
+      spo2: 'SpO₂',
+      respiratory_rate: 'Respiratory Rate',
+      temperature: 'Temperature',
+      heart_rate: 'Heart Rate',
+      systolic_bp: 'Systolic BP',
+      diastolic_bp: 'Diastolic BP'
+    };
+
+    const missingFields = [];
+    for (const [key, label] of Object.entries(requiredVitals)) {
+      const val = patientData[key];
+      if (val === undefined || val === null || val === '') {
+        missingFields.push(label);
+      }
+    }
+
+    if (missingFields.length > 0) {
+      showToast(`Missing required vitals: ${missingFields.join(', ')}`, 'error');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSelectedAssessmentId(null);
+    // Clear stale RAG report from previous run
+    setRagReport(null);
+
     try {
-      const payload = { ...patientData, patient_id: currentPatientId, patient_name: patientName.trim() || 'Anonymous' };
+      const payload = {
+        ...patientData,
+        patient_id: currentPatientId,
+        patient_name: patientName.trim() || 'Anonymous',
+        clinical_notes: patientData.symptoms || '',
+        triage_mode: triageMode
+      };
+
+      // ── Fire RAG asynchronously (don't block HCAI result) ──
+      const symptomsText = (patientData.symptoms || '').trim();
+      if (symptomsText) {
+        const infoStr =
+          `${patientData.age}-year-old ${patientData.sex === 'M' ? 'male' : 'female'}. ` +
+          `Vitals: Temp ${patientData.temperature}\u00b0C, HR ${patientData.heart_rate} bpm, ` +
+          `SpO2 ${patientData.spo2}%, BP ${patientData.systolic_bp}/${patientData.diastolic_bp}. ` +
+          `Symptoms: ${symptomsText}`;
+        // Fire and forget — updates ragReport when it resolves
+        axios.post(`${API_URL}/rag/chat`, { patient_info: infoStr })
+          .then(ragRes => {
+            if (ragRes?.data?.report) {
+              setRagReport({ report: ragRes.data.report, sources: ragRes.data.sources || [] });
+            }
+          })
+          .catch(err => console.error('RAG analysis error:', err));
+      }
+
+      // ── HCAI analyze (primary, awaited) ──
       const response = await axios.post(`${API_URL}/hcai/analyze`, payload);
+
       if (response.data.status === 'success') {
         setPredictions(response.data.predictions);
         setAggregation(response.data.aggregation);
@@ -237,7 +356,7 @@ function App() {
         setFullReport(response.data.hcai_report || null);
         setFeedbackStatus(null);
         fetchPatients();
-        // Auto-navigate to results
+        // Navigate to results immediately — RAG report will appear when ready
         setActivePage('results');
       } else {
         setError(response.data.error || 'Prediction failed');
@@ -247,13 +366,6 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const fetchPatients = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/api/patients`);
-      if (res.data.status === 'success') setPatientsList(res.data.patients);
-    } catch (err) { console.error('Registry fetch error:', err); }
   };
 
   const handleSavePatient = async () => {
@@ -276,6 +388,7 @@ function App() {
         const p = res.data.patient;
         setCurrentPatientId(p.patient_id);
         setPatientName(p.patient_name || '');
+        setTriageMode(p.triage_mode || 'IMMEDIATE');
         setPatientData({
           age: p.age, sex: p.sex, age_group: p.age_group,
           altered_mentation: p.altered_mentation, chest_pain: p.chest_pain, diabetes: p.diabetes,
@@ -317,6 +430,11 @@ function App() {
       setFullReport(rd.report || null);
       setSelectedAssessmentId(assessment.assessment_id);
       setFeedbackStatus(null);
+      if (assessment.triage_mode) {
+        setTriageMode(assessment.triage_mode);
+      } else if (rd.aggregation?.triage_mode) {
+        setTriageMode(rd.aggregation.triage_mode);
+      }
     }
   };
 
@@ -335,6 +453,7 @@ function App() {
     setPatientName('');
     setActivePatientAssessments([]);
     setPatientData(INITIAL_PATIENT_DATA);
+    setTriageMode('IMMEDIATE');
     setPredictions(null); setAggregation(null); setLlmSummary(null);
     setFullReport(null); setFeedbackStatus(null); setSelectedAssessmentId(null);
     setIsWhatIfMode(false); setBaselineData(null); setBaselinePredictions(null);
@@ -389,7 +508,22 @@ function App() {
       const canvas = await html2canvas(el, { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' });
       const pdf = new jsPDF('p', 'pt', 'a4');
       const pw = pdf.internal.pageSize.getWidth();
-      pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0, pw, (canvas.height * pw) / canvas.width);
+      const ph = pdf.internal.pageSize.getHeight();
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      const imgHeight = (canvas.height * pw) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'JPEG', 0, position, pw, imgHeight);
+      heightLeft -= ph;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, position, pw, imgHeight);
+        heightLeft -= ph;
+      }
+
       pdf.save(`${fullReport.report_id || 'triage_report'}.pdf`);
     } catch (err) { console.error('PDF error:', err); }
     finally { Object.assign(el.style, origStyles); setFeedbackStatus(null); }
@@ -400,39 +534,49 @@ function App() {
     switch (activePage) {
       case 'intake':
         return (
-          <IntakePage
-            patientData={patientData}
-            handleInputChange={handleInputChange}
-            loading={loading}
-            error={error}
-            apiStatus={apiStatus}
-            handlePredict={handlePredict}
-            loadHealthyExample={loadHealthyExample}
-            loadHighRiskExample={loadHighRiskExample}
-          />
+          <ErrorBoundary>
+            <IntakePage
+              patientData={patientData}
+              handleInputChange={handleInputChange}
+              loading={loading}
+              error={error}
+              apiStatus={apiStatus}
+              handlePredict={handlePredict}
+              loadHealthyExample={loadHealthyExample}
+              loadHighRiskExample={loadHighRiskExample}
+              setRagReport={setRagReport}
+              triageMode={triageMode}
+              setTriageMode={setTriageMode}
+            />
+          </ErrorBoundary>
         );
+
       case 'results':
         return (
-          <ResultsPage
-            predictions={predictions}
-            aggregation={aggregation}
-            llmSummary={llmSummary}
-            fullReport={fullReport}
-            patientData={patientData}
-            feedbackStatus={feedbackStatus}
-            setFeedbackStatus={setFeedbackStatus}
-            overrideValue={overrideValue}
-            setOverrideValue={setOverrideValue}
-            handleFeedback={handleFeedback}
-            downloadReport={downloadReport}
-            reportRef={reportRef}
-            expandedAgents={expandedAgents}
-            setExpandedAgents={setExpandedAgents}
-            activePatientAssessments={activePatientAssessments}
-            selectedAssessmentId={selectedAssessmentId}
-            handleLoadAssessment={handleLoadAssessment}
-          />
+          <ErrorBoundary>
+            <ResultsPage
+              predictions={predictions}
+              aggregation={aggregation}
+              llmSummary={llmSummary}
+              fullReport={fullReport}
+              ragReport={ragReport}
+              patientData={patientData}
+              feedbackStatus={feedbackStatus}
+              setFeedbackStatus={setFeedbackStatus}
+              overrideValue={overrideValue}
+              setOverrideValue={setOverrideValue}
+              handleFeedback={handleFeedback}
+              downloadReport={downloadReport}
+              reportRef={reportRef}
+              expandedAgents={expandedAgents}
+              setExpandedAgents={setExpandedAgents}
+              activePatientAssessments={activePatientAssessments}
+              selectedAssessmentId={selectedAssessmentId}
+              handleLoadAssessment={handleLoadAssessment}
+            />
+          </ErrorBoundary>
         );
+
       case 'simulator':
         return (
           <SimulatorPage
@@ -488,6 +632,12 @@ function App() {
             handleLoadAssessment={handleLoadAssessment}
           />
         );
+      case 'evaluation':
+        return (
+          <EvaluationPage
+            API_URL={API_URL}
+          />
+        );
       case 'settings':
         return <SettingsPage isLightMode={isLightMode} setIsLightMode={setIsLightMode} apiStatus={apiStatus} />;
       default:
@@ -530,8 +680,22 @@ function App() {
 
       {/* Hidden PDF template */}
       <div style={{ position: 'absolute', left: '-9999px', top: '-9999px', visibility: 'hidden', overflow: 'hidden' }}>
-        <PdfReportTemplate ref={reportRef} fullReport={fullReport} patientData={patientData} />
+        <PdfReportTemplate 
+          ref={reportRef} 
+          fullReport={fullReport} 
+          patientData={patientData} 
+          predictions={predictions}
+          ragReport={ragReport}
+        />
       </div>
+
+      {toast && (
+        <div className={`clinical-toast ${toast.type}`}>
+          <span>⚠️</span>
+          <span>{toast.message}</span>
+          <button className="toast-close-btn" onClick={() => setToast(null)}>×</button>
+        </div>
+      )}
     </div>
   );
 }

@@ -23,7 +23,9 @@ else
 fi
 
 # Run the backend in the background
-$PYTHON_BIN api_server.py > backend.log 2>&1 &
+# OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES is required on macOS to prevent
+# joblib/loky from crashing when RandomForest spawns parallel workers via fork.
+OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES $PYTHON_BIN api_server.py > backend.log 2>&1 &
 BACKEND_PID=$!
 
 # Wait briefly and check if the backend started
@@ -35,14 +37,18 @@ else
     exit 1
 fi
 
-# 2. Start React Frontend
+# 2. Start React Frontend (production build — no HMR, no blank page issues)
 echo ""
-echo "Starting React Frontend dev server..."
+echo "Starting React Frontend (production preview)..."
 cd "$SCRIPT_DIR/ui"
 
-# Run Vite dev server
-npm run dev &
+# Build fresh production bundle
+npm run build >> "$SCRIPT_DIR/frontend.log" 2>&1
+
+# Serve the production bundle (stable, no hot-reload)
+npx vite preview --port 5173 --host >> "$SCRIPT_DIR/frontend.log" 2>&1 &
 FRONTEND_PID=$!
+
 
 echo ""
 echo "=========================================================="

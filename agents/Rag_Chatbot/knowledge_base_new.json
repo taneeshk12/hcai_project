@@ -1,0 +1,3701 @@
+[
+  {
+    "id": 1,
+    "category": "triage",
+    "title": "ESI Overview and Purpose",
+    "content": "The Emergency Severity Index (ESI) is a five-level triage algorithm used in emergency departments to rapidly categorise patients by acuity and anticipated resource needs. It was developed to standardise triage decisions and improve patient flow, prioritising the sickest patients for immediate care.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 2,
+    "category": "triage",
+    "title": "ESI Level 1 — Immediate Life Threat",
+    "content": "ESI-1 is assigned to patients requiring immediate life-saving intervention, such as those in cardiac arrest, severe respiratory distress with impending failure, or profound shock. These patients bypass the waiting room entirely and are taken straight to a resuscitation bay.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 3,
+    "category": "triage",
+    "title": "ESI Level 2 — High-Risk Situation",
+    "content": "ESI-2 patients are in a high-risk situation, are confused, lethargic, or disoriented, or are in severe pain or distress. Examples include suspected stroke, chest pain with cardiac features, and active suicidal ideation with a plan.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 4,
+    "category": "triage",
+    "title": "ESI Level 3 — Stable, Multiple Resources Needed",
+    "content": "ESI-3 patients are physiologically stable but are expected to require two or more resources, such as laboratory testing and imaging, to reach a diagnosis. These patients can safely wait briefly but require a full diagnostic workup.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 5,
+    "category": "triage",
+    "title": "ESI Level 4 — One Resource Needed",
+    "content": "ESI-4 patients are stable and require exactly one resource, such as a single X-ray, simple laceration repair, or one type of laboratory test. Vital signs are typically normal and the complaint is non-urgent.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 6,
+    "category": "triage",
+    "title": "ESI Level 5 — No Resources Needed",
+    "content": "ESI-5 patients require no diagnostic or therapeutic resources beyond a history and physical examination. Typical presentations include minor cold symptoms, a simple rash, or a request for a prescription refill.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 5,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 7,
+    "category": "triage",
+    "title": "ESI Decision Point A — Need for Immediate Intervention",
+    "content": "The first decision point in the ESI algorithm asks whether the patient requires an immediate life-saving intervention right now. A yes answer assigns ESI-1 without proceeding further through the algorithm.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 8,
+    "category": "triage",
+    "title": "ESI Decision Point B — High-Risk Situation",
+    "content": "If a patient does not meet ESI-1 criteria, the triage nurse asks whether this is a high-risk situation, whether the patient is confused or in severe distress, or whether the patient should not wait. A yes answer assigns ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 9,
+    "category": "triage",
+    "title": "ESI Decision Point C — Resource Prediction",
+    "content": "For patients who do not meet ESI-1 or ESI-2 criteria, the nurse predicts how many resources the patient is likely to need. Zero resources suggests ESI-5, one resource suggests ESI-4, and two or more suggests ESI-3.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 10,
+    "category": "triage",
+    "title": "ESI Decision Point D — Vital Sign Danger Zone",
+    "content": "For patients predicted to need two or more resources, the nurse checks vital signs against age-based danger zone thresholds. Vital signs outside the danger zone may prompt up-triage from ESI-3 to ESI-2 even without classic high-risk features.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 11,
+    "category": "triage",
+    "title": "ESI Definition of a Resource",
+    "content": "In the ESI algorithm, a resource is any diagnostic test, procedure, or consultation beyond the history and physical examination that requires staff time and equipment. Counting anticipated resources is central to differentiating ESI-3, ESI-4, and ESI-5.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 12,
+    "category": "triage",
+    "title": "ESI Resources That Count — Laboratory and Imaging",
+    "content": "Resources counted in ESI resource prediction include laboratory tests, ECG, X-ray, CT, MRI, ultrasound, and angiography. Each distinct imaging or lab category typically counts as one resource toward the ESI-3 threshold of two or more.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 13,
+    "category": "triage",
+    "title": "ESI Resources That Count — IV Fluids and Medications",
+    "content": "IV, IM, or nebulised medications and IV fluids for hydration each count as a resource in ESI prediction. A patient needing IV fluids plus bloodwork would meet the two-resource threshold for ESI-3.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 14,
+    "category": "triage",
+    "title": "ESI Resources That Count — Procedures and Consultation",
+    "content": "Specialty consultation, simple procedures such as a laceration repair requiring sedation, and complex procedures such as conscious sedation are counted as resources in the ESI algorithm. Each represents staff time and resource utilisation beyond basic assessment.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 15,
+    "category": "triage",
+    "title": "ESI Resources That Do Not Count",
+    "content": "History and physical exam, point-of-care testing such as urine dip or glucose, saline or heparin lock placement, oral medications, tetanus immunisation, and prescription refills do not count as resources in the ESI algorithm. These reflect baseline care rather than additional workup.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 16,
+    "category": "triage",
+    "title": "ESI Resources That Do Not Count — Simple Care",
+    "content": "Simple wound care such as dressing changes, crutches, splints, and slings are not counted as resources in ESI prediction. A patient needing only a splint and crutches typically falls into ESI-4 or ESI-5 depending on additional needs.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 17,
+    "category": "triage",
+    "title": "ESI-1 Clinical Examples",
+    "content": "Classic ESI-1 presentations include cardiac or respiratory arrest, severe respiratory distress with agonal breathing, unresponsiveness to verbal or painful stimuli, and overdose with significant respiratory depression. All require resuscitative intervention immediately on arrival.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 18,
+    "category": "trauma",
+    "title": "ESI-1 in Major Trauma",
+    "content": "Trauma patients with unstable vital signs, severe airway compromise, or uncontrolled haemorrhage are assigned ESI-1. These patients require simultaneous airway management, haemorrhage control, and rapid transfer to a resuscitation bay or operating theatre.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 19,
+    "category": "cardiac",
+    "title": "ESI-2 Examples — Suspected STEMI",
+    "content": "A patient with chest pain, diaphoresis, and ECG changes consistent with ST-elevation myocardial infarction is assigned ESI-2 due to the high-risk situation, even if vital signs remain stable on arrival. Rapid catheterisation laboratory activation is time-critical.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 20,
+    "category": "neurological",
+    "title": "ESI-2 Examples — Suspected Stroke",
+    "content": "A patient presenting with sudden facial droop, arm weakness, and slurred speech within the thrombolysis treatment window is assigned ESI-2. Time-sensitive neurological emergencies require expedited assessment to preserve eligibility for reperfusion therapy.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 21,
+    "category": "sepsis",
+    "title": "ESI-2 Examples — Suspected Sepsis",
+    "content": "A patient with fever, tachycardia, and new confusion in the context of a suspected infection is assigned ESI-2 due to the high-risk nature of evolving sepsis. Early recognition at triage supports timely initiation of sepsis bundle care.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 22,
+    "category": "triage",
+    "title": "ESI-2 Examples — Severe Pain",
+    "content": "Patients reporting severe pain rated 7 or above out of 10, such as renal colic or sickle cell crisis, are commonly assigned ESI-2 because of the distress and clinical urgency, independent of vital sign abnormality.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 23,
+    "category": "psychiatric",
+    "title": "ESI-2 Examples — Active Suicidal Ideation",
+    "content": "A patient expressing active suicidal ideation with a specific plan and means is assigned ESI-2 due to immediate risk to safety. These patients require continuous observation and rapid psychiatric assessment.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 24,
+    "category": "triage",
+    "title": "ESI-2 Examples — Immunocompromised Fever",
+    "content": "A patient undergoing chemotherapy who presents with fever is assigned ESI-2 due to the risk of neutropenic sepsis, regardless of how well the patient appears clinically. Rapid antibiotic administration is critical in this population.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 25,
+    "category": "triage",
+    "title": "ESI Vital Sign Danger Zone — Adults",
+    "content": "For adults, ESI danger zone vital signs include heart rate above 100 bpm, respiratory rate above 20 breaths per minute, oxygen saturation below 92%, and systolic blood pressure below 90 mmHg. Any of these findings should prompt consideration of up-triage to ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 26,
+    "category": "triage",
+    "title": "ESI Vital Sign Danger Zone — Temperature",
+    "content": "Fever above 38.5°C or hypothermia below 35°C is included in the ESI danger zone thresholds. Temperature abnormalities combined with other risk factors such as immunosuppression strengthen the case for up-triage.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 27,
+    "category": "pediatric",
+    "title": "ESI Pediatric Danger Zone Vital Signs",
+    "content": "ESI uses age-adjusted vital sign tables for infants, toddlers, and children, since normal heart and respiratory rates differ substantially by age. A heart rate that is normal for an adult may represent significant tachycardia in an infant.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 28,
+    "category": "pediatric",
+    "title": "ESI — Febrile Infants Under 3 Months",
+    "content": "Infants under 3 months of age presenting with fever are automatically assigned ESI-2 due to the elevated risk of serious bacterial infection, including meningitis and bacteraemia, in this age group regardless of appearance.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 29,
+    "category": "pediatric",
+    "title": "ESI — Febrile Toddlers 3 to 36 Months",
+    "content": "Children aged 3 to 36 months with fever require careful assessment for toxic appearance, lethargy, or poor perfusion. Toxic-appearing febrile toddlers are assigned ESI-2, while well-appearing febrile toddlers may be triaged ESI-3.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 30,
+    "category": "obstetric",
+    "title": "ESI in Pregnancy — Third Trimester Bleeding",
+    "content": "Vaginal bleeding in the third trimester of pregnancy is considered a high-risk obstetric emergency and is assigned ESI-2, as it may indicate placental abruption or placenta praevia requiring urgent evaluation.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 31,
+    "category": "obstetric",
+    "title": "ESI in Pregnancy — Decreased Fetal Movement",
+    "content": "A pregnant patient reporting decreased or absent fetal movement is triaged as ESI-2 due to concern for fetal compromise, prompting urgent fetal heart rate monitoring and obstetric assessment.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 32,
+    "category": "triage",
+    "title": "ESI — Geriatric Atypical Presentations",
+    "content": "Elderly patients may present atypically with serious illness, such as silent myocardial infarction or sepsis without fever. Triage nurses are encouraged to maintain a lower threshold for up-triage in elderly patients with vague complaints.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 33,
+    "category": "triage",
+    "title": "ESI — Sickle Cell Vaso-Occlusive Crisis",
+    "content": "Patients with sickle cell disease presenting in vaso-occlusive pain crisis are typically assigned ESI-2 due to the severity of pain and risk of complications such as acute chest syndrome. Rapid analgesia administration is a quality priority.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 34,
+    "category": "triage",
+    "title": "ESI — Dialysis Patients Presenting Unwell",
+    "content": "Dialysis-dependent patients who appear unwell, particularly with hyperkalaemia risk or missed dialysis sessions, warrant a lower threshold for ESI-2 assignment due to the potential for rapid cardiac decompensation.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 35,
+    "category": "triage",
+    "title": "ESI and Pain Scores — Not a Sole Determinant",
+    "content": "While severe pain of 7 or above may suggest ESI-2, pain score alone does not automatically determine acuity level. Clinical judgement combining the source of pain, vital signs, and overall presentation is required.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 36,
+    "category": "triage",
+    "title": "ESI — The 'Across the Room' Assessment",
+    "content": "Experienced triage nurses often form an initial gestalt impression of acuity within seconds of seeing a patient, sometimes called the 'across the room' assessment. This first impression is then validated through the structured ESI algorithm.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 37,
+    "category": "triage",
+    "title": "ESI Reliability and Validity",
+    "content": "Multiple studies have demonstrated good inter-rater reliability and predictive validity of the ESI algorithm for hospital admission, resource use, and mortality. Training and ongoing competency assessment for triage staff are essential to maintain this reliability.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 38,
+    "category": "triage",
+    "title": "ESI Implementation — Staff Training",
+    "content": "Effective ESI implementation requires structured training for triage nurses, including case-based practice and periodic competency review. Inconsistent application of the algorithm can lead to both under-triage and over-triage.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 39,
+    "category": "triage",
+    "title": "ESI Under-Triage Risk",
+    "content": "Under-triage occurs when a patient is assigned a lower acuity level than their true clinical risk warrants, potentially delaying necessary care. Vague presentations of sepsis, ectopic pregnancy, and aortic dissection are recognised under-triage risks.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 40,
+    "category": "triage",
+    "title": "ESI Over-Triage and Resource Strain",
+    "content": "Over-triage assigns a higher acuity level than clinically necessary, consuming limited monitored bed resources and potentially delaying care for genuinely high-acuity patients. Balanced triage accuracy supports efficient department flow.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 41,
+    "category": "triage",
+    "title": "ESI Level Distribution in a Typical Emergency Department",
+    "content": "In most emergency departments, ESI-3 is the most commonly assigned level, followed by ESI-2 and ESI-4, with ESI-1 and ESI-5 representing the smallest proportions of presentations. This distribution informs staffing and resource planning.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 42,
+    "category": "triage",
+    "title": "ESI Level and Hospital Admission Correlation",
+    "content": "ESI level correlates with likelihood of hospital admission: ESI-1 and ESI-2 patients are admitted at substantially higher rates than ESI-4 and ESI-5 patients, supporting the algorithm's predictive validity for resource use.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 43,
+    "category": "triage",
+    "title": "ESI and Left Without Being Seen Rates",
+    "content": "Patients triaged as lower acuity, particularly ESI-4 and ESI-5, are more likely to leave without being seen during periods of department crowding. Monitoring this metric by triage level helps identify safety and flow concerns.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 44,
+    "category": "triage",
+    "title": "ESI Is Not a Disaster Triage Tool",
+    "content": "The ESI algorithm is designed for individual patient triage in routine emergency department operations and is not intended for mass casualty or disaster triage, where tools such as START (Simple Triage and Rapid Treatment) are used instead.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 45,
+    "category": "triage",
+    "title": "ESI Re-Triage After Condition Change",
+    "content": "Patients whose clinical condition changes while waiting must be re-triaged promptly. A patient initially assigned ESI-3 who develops new chest pain or altered mental status should be reassessed and may be upgraded to ESI-2 or ESI-1.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 46,
+    "category": "triage",
+    "title": "ESI Reassessment Intervals by Level",
+    "content": "Patients assigned ESI-2 typically require reassessment every 10 to 15 minutes while waiting, ESI-3 patients every 30 minutes, and ESI-4 and ESI-5 patients at lower frequency, reflecting differing risks of deterioration.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 47,
+    "category": "triage",
+    "title": "ESI Documentation Requirements",
+    "content": "Triage documentation under the ESI framework should record the assigned level, the rationale including decision points used, vital signs, presenting complaint, and time of assessment, supporting both clinical handover and quality review.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 48,
+    "category": "triage",
+    "title": "ESI Compared with Three- and Four-Level Triage Systems",
+    "content": "The five-level ESI algorithm offers greater discrimination of acuity than older three-level (emergent, urgent, non-urgent) or four-level systems, improving prioritisation accuracy and resource planning in busy emergency departments.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 49,
+    "category": "toxicology",
+    "title": "ESI in Toxicological Presentations",
+    "content": "Patients with suspected overdose or poisoning are risk-stratified based on the substance involved, time since ingestion, and current vital signs. Significant respiratory depression or haemodynamic instability warrants ESI-1, while asymptomatic recent ingestion may be ESI-2 pending observation.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 50,
+    "category": "triage",
+    "title": "ESI in Burn Patients",
+    "content": "Burn severity, percentage of body surface area involved, and airway involvement determine ESI level in burn patients. Significant airway burns or large surface area burns with haemodynamic compromise warrant ESI-1 or ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 51,
+    "category": "triage",
+    "title": "ESI Resource Counting — Abdominal Pain Example",
+    "content": "A patient with abdominal pain who is expected to need bloodwork and a CT scan meets the two-resource threshold and is typically assigned ESI-3, provided vital signs remain within the safe range.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 52,
+    "category": "triage",
+    "title": "ESI Resource Counting — Laceration Example",
+    "content": "A patient with a simple laceration requiring only suture repair, and no imaging or labs, is typically assigned ESI-4, as a single procedural resource is anticipated.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 53,
+    "category": "triage",
+    "title": "ESI Resource Counting — Minor Complaint Example",
+    "content": "A patient requesting a medication refill or seeking advice for a minor cold with no abnormal findings is typically assigned ESI-5, since no diagnostic or therapeutic resources beyond history and examination are anticipated.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 5,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 54,
+    "category": "triage",
+    "title": "ESI and Department Disposition Planning",
+    "content": "ESI level helps emergency departments plan bed assignment and staffing in real time. ESI-1 and ESI-2 patients are directed to resuscitation or monitored bays, while ESI-4 and ESI-5 patients may be managed in fast-track or ambulatory areas.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 55,
+    "category": "triage",
+    "title": "ESI Algorithm Version History",
+    "content": "The ESI algorithm has been refined through several versions, most notably version 4, which clarified resource definitions and added detailed guidance for special populations such as paediatric and psychiatric patients to improve consistency.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 56,
+    "category": "triage",
+    "title": "ESI and Return Visits Within 72 Hours",
+    "content": "Patients returning to the emergency department within 72 hours of a prior visit for the same or a related complaint should be carefully reassessed, as this pattern can indicate missed or evolving serious pathology and may warrant up-triage.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 57,
+    "category": "triage",
+    "title": "ESI — Patients Who 'Cannot Wait Safely'",
+    "content": "A core question within ESI Decision Point B is whether the patient can safely wait to be seen. Patients who clearly cannot wait without risk of deterioration are assigned ESI-2 even without a single classic high-risk diagnosis.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 58,
+    "category": "neurological",
+    "title": "ESI and New Onset Confusion",
+    "content": "New onset confusion, lethargy, or disorientation at triage is treated as a high-risk indicator under ESI Decision Point B, as it may reflect sepsis, stroke, hypoglycaemia, or other serious underlying pathology.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 59,
+    "category": "triage",
+    "title": "ESI-1 — Intubated or Ventilated Patients",
+    "content": "Patients arriving already intubated, mechanically ventilated, or requiring bag-mask ventilation are automatically assigned ESI-1, reflecting the immediate and ongoing need for airway and ventilatory support.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 60,
+    "category": "cardiac",
+    "title": "ESI-1 — Severe Bradycardia or Tachycardia with Hypoperfusion",
+    "content": "Patients with severe bradycardia or tachycardia accompanied by signs of poor perfusion, such as altered mental status or hypotension, are assigned ESI-1 due to the immediate risk of cardiovascular collapse.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 61,
+    "category": "triage",
+    "title": "ESI Role of the Triage Nurse",
+    "content": "The triage nurse applies the ESI algorithm using a brief focused assessment, vital signs, and clinical judgement to assign an acuity level within minutes of patient arrival, without performing a full diagnostic workup at this stage.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 62,
+    "category": "triage",
+    "title": "ESI and Crowding-Related Up-Triage",
+    "content": "During periods of severe department crowding, some systems apply more conservative thresholds for up-triage to ensure at-risk patients are identified despite longer waiting times, although this is not part of the original ESI algorithm itself.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 63,
+    "category": "triage",
+    "title": "ESI — Multiple High-Risk Features Compounding Acuity",
+    "content": "When a patient presents with several concerning features simultaneously, such as abnormal vital signs plus severe pain plus a high-risk history, the cumulative concern should prompt assignment of the higher acuity level rather than averaging the individual concerns.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 64,
+    "category": "triage",
+    "title": "ESI — Gastrointestinal Bleeding Risk Stratification",
+    "content": "A patient with gastrointestinal bleeding who is haemodynamically stable with normal vital signs may be assigned ESI-3 pending workup, whereas one with tachycardia, hypotension, or large volume bleeding is assigned ESI-1 or ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 65,
+    "category": "triage",
+    "title": "ESI and Abdominal Pain in Elderly Patients",
+    "content": "Abdominal pain in elderly patients carries a higher risk of serious pathology such as mesenteric ischaemia or perforation, and triage nurses are encouraged to apply a lower threshold for up-triage in this population compared with younger adults.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 66,
+    "category": "triage",
+    "title": "ESI Algorithm Flow Summary",
+    "content": "The ESI algorithm proceeds through four sequential decision points: need for immediate life-saving intervention, high-risk situation or severe distress, predicted resource needs, and vital sign danger zone, assigning the patient to a level as soon as a criterion is met.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 67,
+    "category": "triage",
+    "title": "ESI and Anticoagulant Use in Trauma",
+    "content": "Patients on anticoagulant or antiplatelet medications presenting after even minor head trauma are considered higher risk for intracranial haemorrhage and are often up-triaged to ESI-2 to expedite imaging.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 68,
+    "category": "triage",
+    "title": "ESI and Allergic Reaction Severity",
+    "content": "A mild localised allergic reaction without airway or systemic involvement may be assigned ESI-4, whereas signs of anaphylaxis such as wheeze, stridor, or hypotension require assignment of ESI-1 or ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 69,
+    "category": "triage",
+    "title": "ESI and Anaphylaxis",
+    "content": "Anaphylaxis with airway compromise, significant bronchospasm, or haemodynamic instability is assigned ESI-1, reflecting the need for immediate intramuscular adrenaline and resuscitative care on arrival.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 70,
+    "category": "triage",
+    "title": "ESI and Headache Risk Stratification",
+    "content": "Most headaches are low acuity, but sudden-onset severe 'thunderclap' headache, headache with neurological deficit, or headache with fever and neck stiffness are red flags warranting ESI-2 assignment due to concern for subarachnoid haemorrhage or meningitis.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 71,
+    "category": "triage",
+    "title": "ESI and Simple Musculoskeletal Injuries",
+    "content": "Isolated minor musculoskeletal injuries without deformity, neurovascular compromise, or significant pain, such as a minor ankle sprain, are typically assigned ESI-4 or ESI-5 depending on whether imaging is anticipated.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 72,
+    "category": "triage",
+    "title": "ESI and Open Fracture or Neurovascular Compromise",
+    "content": "An open fracture, a fracture with absent distal pulses, or significant deformity with neurovascular compromise warrants ESI-2 due to the time-sensitive risk of limb ischaemia or infection.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 73,
+    "category": "triage",
+    "title": "ESI and Eye Emergencies",
+    "content": "Chemical eye exposure and sudden painless vision loss are treated as high-risk presentations requiring immediate irrigation or rapid ophthalmology assessment respectively, and are typically assigned ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 74,
+    "category": "triage",
+    "title": "ESI and Testicular Torsion",
+    "content": "Sudden severe testicular pain, particularly in adolescent males, is treated as a time-critical surgical emergency due to the risk of testicular loss with delayed detorsion, and is assigned ESI-2.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 75,
+    "category": "triage",
+    "title": "ESI and Dental or Minor ENT Complaints",
+    "content": "Uncomplicated dental pain or minor ENT complaints such as earache without systemic features typically require minimal resources and are assigned ESI-4 or ESI-5.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 5,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 76,
+    "category": "triage",
+    "title": "ESI and Suspected Domestic Violence or Abuse",
+    "content": "Patients presenting with injuries suggestive of abuse require careful, sensitive assessment; while the physical acuity may be low, safety concerns can warrant a higher overall priority for assessment and safeguarding referral.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 77,
+    "category": "triage",
+    "title": "ESI and the Limits of Vital Signs Alone",
+    "content": "Normal vital signs do not exclude a high-risk situation; conditions such as ectopic pregnancy or early sepsis can present with normal vital signs initially, so ESI relies on clinical gestalt in addition to numeric thresholds.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 78,
+    "category": "triage",
+    "title": "ESI Quality Improvement Use",
+    "content": "ESI level distribution and time-to-triage metrics are commonly used in emergency department quality improvement programmes to monitor patient safety, identify bottlenecks, and benchmark performance against peer institutions.",
+    "source": "Emergency Severity Index (ESI)",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 79,
+    "category": "triage",
+    "title": "NEWS2 — Overview and Purpose",
+    "content": "The National Early Warning Score 2 (NEWS2) is a standardised physiological scoring system used to detect clinical deterioration in acutely ill adult patients. It is recommended by the Royal College of Physicians and widely adopted across UK hospitals and ambulance services as a common early warning language.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 80,
+    "category": "triage",
+    "title": "NEWS2 — Six Physiological Parameters",
+    "content": "NEWS2 is calculated from six parameters: respiration rate, oxygen saturation, systolic blood pressure, pulse rate, level of consciousness, and temperature. Each parameter is scored from 0 to 3 based on deviation from a defined normal range, and the scores are summed.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 81,
+    "category": "respiratory",
+    "title": "NEWS2 — Respiration Rate Scoring",
+    "content": "A respiration rate of 12 to 20 breaths per minute scores 0. Rates of 9 to 11 score 1, rates of 21 to 24 score 2, and rates of 8 or below or 25 or above score 3, reflecting tachypnoea or bradypnoea as early markers of deterioration.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 82,
+    "category": "respiratory",
+    "title": "NEWS2 — Oxygen Saturation Scale 1",
+    "content": "Scale 1 is used for most patients without hypercapnic respiratory failure. SpO2 of 96% or above scores 0, 94 to 95% scores 1, 92 to 93% scores 2, and 91% or below scores 3.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 83,
+    "category": "respiratory",
+    "title": "NEWS2 — Oxygen Saturation Scale 2",
+    "content": "Scale 2 is used for patients with confirmed hypercapnic respiratory failure, such as severe COPD, with a target saturation range of 88 to 92%. Selecting the wrong scale can cause inappropriate over- or under-scoring of clinical risk.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 84,
+    "category": "triage",
+    "title": "NEWS2 — Systolic Blood Pressure Scoring",
+    "content": "A systolic blood pressure of 111 to 219 mmHg scores 0. Values of 101 to 110 score 1, 91 to 100 score 2, and 90 or below or 220 or above score 3, capturing both hypotension and severe hypertension as risk markers.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 85,
+    "category": "cardiac",
+    "title": "NEWS2 — Pulse Rate Scoring",
+    "content": "A pulse rate of 51 to 90 beats per minute scores 0. Rates of 41 to 50 or 91 to 110 score 1, 111 to 130 score 2, and 40 or below or 131 or above score 3, reflecting both bradycardia and tachycardia as concerning findings.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 86,
+    "category": "neurological",
+    "title": "NEWS2 — ACVPU Consciousness Scale",
+    "content": "NEWS2 assesses consciousness using ACVPU: Alert scores 0, while any new Confusion, Voice-responsive, Pain-responsive, or Unresponsive state scores 3. New confusion is a particularly important red flag suggesting sepsis or acute neurological change.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 87,
+    "category": "triage",
+    "title": "NEWS2 — Temperature Scoring",
+    "content": "A temperature of 36.1 to 38.0°C scores 0. Temperatures of 35.1 to 36.0°C or 38.1 to 39.0°C score 1, 39.1°C or above scores 2, and 35.0°C or below scores 3, since both hypothermia and high fever indicate physiological stress.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 88,
+    "category": "respiratory",
+    "title": "NEWS2 — Supplemental Oxygen Score",
+    "content": "A patient requiring any supplemental oxygen to maintain target saturation automatically receives an additional 2 points in NEWS2, regardless of the actual SpO2 reading achieved, reflecting the underlying physiological burden of needing oxygen support.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 89,
+    "category": "triage",
+    "title": "NEWS2 — Low Risk Score Band (0 to 4)",
+    "content": "A total NEWS2 score of 0 to 4, with no single parameter scoring 3, indicates low clinical risk. These patients require routine ward-based monitoring, typically every 12 hours, unless clinical concern dictates otherwise.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 5,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 90,
+    "category": "triage",
+    "title": "NEWS2 — Medium Risk Score Band (5 to 6 or Red Score)",
+    "content": "A total NEWS2 score of 5 to 6, or any single parameter scoring 3 (known as a 'red score'), indicates medium clinical risk. These patients require urgent review by a clinician competent in assessing acute illness, typically within 30 to 60 minutes.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 91,
+    "category": "triage",
+    "title": "NEWS2 — High Risk Score Band (7 or Above)",
+    "content": "A total NEWS2 score of 7 or above indicates high clinical risk and requires an emergency response within minutes, including assessment by a clinician with critical care competencies and consideration of escalation to a higher level of care.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 92,
+    "category": "triage",
+    "title": "NEWS2 — Single Red Score Significance",
+    "content": "A single parameter scoring 3 points, called a red score, triggers a medium-risk response even if the total NEWS2 score is otherwise low, because an extreme deviation in even one vital sign can indicate serious underlying illness.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 93,
+    "category": "triage",
+    "title": "NEWS2 — Monitoring Frequency by Score",
+    "content": "Monitoring frequency increases with NEWS2 score: a score of 0 allows 12-hourly observations, 1 to 4 requires 4 to 6 hourly checks, 5 to 6 requires hourly or continuous monitoring, and 7 or above requires continuous monitoring, ideally in a higher level of care setting.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 94,
+    "category": "sepsis",
+    "title": "NEWS2 and Sepsis Recognition",
+    "content": "NEWS2 is widely used alongside sepsis screening tools because a deteriorating NEWS2 score in a patient with suspected infection should prompt urgent consideration of sepsis and initiation of the sepsis care bundle.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 95,
+    "category": "respiratory",
+    "title": "NEWS2 in COPD Patients",
+    "content": "NEWS2 includes a dedicated Scale 2 for oxygen saturation in patients with confirmed hypercapnic respiratory failure, most commonly due to COPD, to avoid inappropriately high scores from a deliberately lower target saturation range of 88 to 92%.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 96,
+    "category": "triage",
+    "title": "NEWS2 Limitations in Pregnancy",
+    "content": "NEWS2 is not validated for use in pregnant patients, as normal physiological changes in pregnancy, such as increased resting heart rate, can produce misleading scores. A modified obstetric early warning score should be used instead.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 97,
+    "category": "pediatric",
+    "title": "NEWS2 Not Validated for Children",
+    "content": "NEWS2 is designed for use in adults aged 16 years and over. Paediatric early warning scores, which use age-specific vital sign ranges, should be used for children, as adult thresholds are not appropriate for younger patients.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 98,
+    "category": "triage",
+    "title": "NEWS2 Escalation Protocol Structure",
+    "content": "Most NEWS2-based escalation protocols define specific actions at each risk band, such as which staff member must review the patient, the maximum time to review, and whether outreach or critical care teams should be notified.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 99,
+    "category": "triage",
+    "title": "NEWS2 and Critical Care Outreach Teams",
+    "content": "A NEWS2 score of 7 or above, or persistent deterioration despite initial treatment, commonly triggers referral to a critical care outreach team for assessment of escalation needs, including potential transfer to a higher level of care.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 100,
+    "category": "triage",
+    "title": "NEWS2 — Trend Monitoring Over Time",
+    "content": "A rising NEWS2 score over successive observations, even if each individual score remains in the medium-risk band, is clinically significant and should prompt clinical review rather than being dismissed as stable.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 101,
+    "category": "triage",
+    "title": "NEWS2 Documentation Standards",
+    "content": "Each NEWS2 observation set should be documented with the time recorded, individual parameter scores, the aggregate score, the escalation action taken, and the name of the assessing clinician to support clinical governance and audit.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 102,
+    "category": "triage",
+    "title": "NEWS2 Communication — SBAR Handover",
+    "content": "When escalating a deteriorating patient based on NEWS2, the SBAR framework (Situation, Background, Assessment, Recommendation) is recommended to ensure structured, clear communication between nursing and medical staff.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 103,
+    "category": "triage",
+    "title": "NEWS2 Use in Ambulance and Pre-Hospital Settings",
+    "content": "NEWS2 is used by ambulance services to standardise communication of patient acuity from the pre-hospital setting to the receiving emergency department, supporting consistent handover and appropriate destination decisions.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 104,
+    "category": "triage",
+    "title": "NEWS2 Use in Primary Care Referral",
+    "content": "General practitioners and community clinicians increasingly use NEWS2 to support decisions about whether to refer an acutely unwell patient to hospital, providing a shared language of acuity between care settings.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 105,
+    "category": "triage",
+    "title": "NEWS2 Ceiling of Care Considerations",
+    "content": "In patients with an agreed ceiling of care or palliative care plan, escalation actions triggered by NEWS2 should be considered alongside the patient's wishes and treatment plan rather than applied automatically, since not all escalation is appropriate or wanted.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 106,
+    "category": "triage",
+    "title": "NEWS2 Compared with NEWS1",
+    "content": "NEWS2 improved on the original NEWS by adding the SpO2 Scale 2 for hypercapnic respiratory failure and by giving new confusion equal weight to other forms of altered consciousness, increasing sensitivity for sepsis-related deterioration.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 107,
+    "category": "triage",
+    "title": "NEWS2 Validation Evidence",
+    "content": "NEWS2 has been validated in large cohort studies as a predictor of in-hospital mortality, ICU admission, and cardiac arrest, with higher scores associated with progressively greater risk of adverse outcomes within 24 hours.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 108,
+    "category": "triage",
+    "title": "NEWS2 and Staff Training Requirements",
+    "content": "Accurate use of NEWS2 requires staff training in correct measurement technique for each vital sign, selection of the correct SpO2 scale, and consistent application of the ACVPU consciousness assessment to avoid scoring errors.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 109,
+    "category": "triage",
+    "title": "NEWS2 Chart Design and Aggregate Scoring",
+    "content": "NEWS2 observation charts use a colour-coded format, typically red, yellow, and white zones, to visually flag abnormal parameters at the bedside, making it easier for staff to recognise an evolving high score at a glance.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 110,
+    "category": "respiratory",
+    "title": "NEWS2 and Acute Respiratory Failure",
+    "content": "A markedly elevated NEWS2 score driven primarily by respiratory rate and oxygen saturation abnormalities should prompt urgent assessment for acute respiratory failure, including arterial blood gas analysis and consideration of ventilatory support.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 111,
+    "category": "cardiac",
+    "title": "NEWS2 and Cardiac Arrhythmia Detection",
+    "content": "Marked pulse rate abnormalities captured by NEWS2, particularly severe tachycardia or bradycardia, should prompt ECG assessment to identify arrhythmias that may require urgent treatment.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 112,
+    "category": "triage",
+    "title": "NEWS2 — Minimum Dataset for Scoring",
+    "content": "A complete NEWS2 score requires all six parameters to be measured; an incomplete set of observations, such as a missing respiratory rate, can falsely lower the apparent score and mask deterioration.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 113,
+    "category": "triage",
+    "title": "NEWS2 and Clinical Judgement Override",
+    "content": "Clinical judgement should always be able to override a low NEWS2 score if a clinician has specific concern about a patient, since the score is a screening tool and does not capture every relevant clinical factor.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 114,
+    "category": "triage",
+    "title": "NEWS2 Maximum Possible Score",
+    "content": "The maximum possible NEWS2 score is 20, combining the highest possible scores across all six parameters plus the supplemental oxygen score, although such an extreme combination would represent profound physiological compromise.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 115,
+    "category": "triage",
+    "title": "NEWS2 — Frequency of Recalculation After Intervention",
+    "content": "NEWS2 should be recalculated after any clinical intervention, such as fluid administration or oxygen therapy adjustment, to assess the patient's response to treatment and guide further escalation decisions.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 116,
+    "category": "triage",
+    "title": "NEWS2 Role in Deteriorating Patient Pathways",
+    "content": "NEWS2 forms the foundation of many hospital deteriorating patient pathways, triggering a structured sequence of nurse assessment, doctor review, and senior or critical care escalation as the score rises through defined thresholds.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 117,
+    "category": "triage",
+    "title": "NEWS2 Post-Operative Monitoring",
+    "content": "NEWS2 is commonly used for post-operative ward monitoring to detect early signs of complications such as haemorrhage, sepsis, or respiratory compromise before they become clinically obvious through other means.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 118,
+    "category": "triage",
+    "title": "NEWS2 and Blood Glucose Considerations",
+    "content": "Although blood glucose is not part of the core NEWS2 calculation, hypoglycaemia should always be excluded in any patient with new confusion or altered consciousness scoring on the ACVPU scale, as it is a rapidly reversible cause.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 119,
+    "category": "triage",
+    "title": "NEWS2 in Patients with Chronic Baseline Abnormalities",
+    "content": "Patients with chronic conditions such as atrial fibrillation with a persistently elevated heart rate, or chronic hypoxaemia, may have an elevated baseline NEWS2 score; clinicians should consider the patient's usual baseline when interpreting an elevated score.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 120,
+    "category": "triage",
+    "title": "NEWS2 and Time to Escalation Auditing",
+    "content": "Hospitals commonly audit the time between a high NEWS2 score being recorded and the corresponding clinical review taking place, using this metric to identify and address delays in the deteriorating patient pathway.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 121,
+    "category": "triage",
+    "title": "NEWS2 and Family or Carer Concern",
+    "content": "Some deteriorating patient protocols incorporate family or carer concern as an additional trigger for escalation alongside the numerical NEWS2 score, recognising that those close to the patient may notice subtle changes before they appear in vital signs.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 122,
+    "category": "triage",
+    "title": "NEWS2 and Electronic Early Warning Systems",
+    "content": "Many hospitals have implemented electronic systems that automatically calculate NEWS2 from entered vital signs and generate alerts to nursing and medical staff when escalation thresholds are reached, reducing calculation errors.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 123,
+    "category": "respiratory",
+    "title": "NEWS2 Scale Selection Errors",
+    "content": "A common error in NEWS2 application is failing to switch to Scale 2 for patients with confirmed hypercapnic respiratory failure, which can result in an inappropriately high score and unnecessary escalation in a clinically stable COPD patient.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 124,
+    "category": "neurological",
+    "title": "NEWS2 — Distinguishing Baseline Confusion from New Confusion",
+    "content": "NEWS2 specifically scores new confusion, not chronic baseline confusion such as established dementia. Clinicians must establish the patient's baseline mental state to correctly interpret the ACVPU component of the score.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 125,
+    "category": "triage",
+    "title": "NEWS2 Use Across Care Transitions",
+    "content": "Recording NEWS2 at points of care transition, such as transfer between wards or hospitals, helps ensure consistent recognition of deterioration risk and supports safe handover of clinical responsibility.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 126,
+    "category": "triage",
+    "title": "NEWS2 and Sepsis Six Bundle Integration",
+    "content": "Many sepsis pathways use a NEWS2 score of 5 or above in combination with suspected infection as a trigger to commence the Sepsis Six bundle, integrating early warning scoring directly with time-critical treatment protocols.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 127,
+    "category": "triage",
+    "title": "NEWS2 — Importance of Accurate Respiratory Rate Counting",
+    "content": "Respiratory rate should be counted manually over a full 60 seconds rather than estimated, as it is one of the earliest and most sensitive indicators of physiological deterioration within the NEWS2 score.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 128,
+    "category": "triage",
+    "title": "NEWS2 in End-of-Life Care Planning",
+    "content": "For patients approaching the end of life, a rising NEWS2 score may be expected as part of the natural disease trajectory, and care teams should align escalation responses with the patient's documented goals of care.",
+    "source": "NEWS2 Score Documentation",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 129,
+    "category": "sepsis",
+    "title": "Sepsis-3 Definition",
+    "content": "Sepsis is defined by the Sepsis-3 international consensus as life-threatening organ dysfunction caused by a dysregulated host response to infection. This definition replaced the older SIRS-based definition to better reflect the underlying pathophysiology and associated mortality risk.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 130,
+    "category": "sepsis",
+    "title": "Septic Shock Definition",
+    "content": "Septic shock is a subset of sepsis with profound circulatory, cellular, and metabolic abnormalities. It is identified clinically by the need for vasopressors to maintain mean arterial pressure of 65 mmHg or above, together with a serum lactate above 2 mmol/L despite adequate fluid resuscitation.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 131,
+    "category": "sepsis",
+    "title": "SOFA Score and Organ Dysfunction",
+    "content": "The Sequential Organ Failure Assessment (SOFA) score evaluates six organ systems: respiratory, cardiovascular, hepatic, coagulation, renal, and neurological. An acute increase of 2 points or more in a patient with infection defines sepsis under the Sepsis-3 criteria.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 132,
+    "category": "sepsis",
+    "title": "qSOFA Score for Bedside Screening",
+    "content": "The quick SOFA (qSOFA) score is a rapid bedside tool assigning one point each for altered mentation, respiratory rate of 22 or above, and systolic blood pressure of 100 mmHg or below. A score of 2 or more identifies patients at higher risk of poor outcome and warrants further assessment.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 133,
+    "category": "sepsis",
+    "title": "SIRS Criteria",
+    "content": "Systemic Inflammatory Response Syndrome (SIRS) criteria include temperature above 38°C or below 36°C, heart rate above 90 bpm, respiratory rate above 20 per minute, and abnormal white cell count. Two or more criteria with suspected infection raise concern for sepsis, though SIRS alone has limited specificity.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 134,
+    "category": "sepsis",
+    "title": "Serum Lactate as a Sepsis Marker",
+    "content": "Serum lactate should be measured in all patients with suspected sepsis. A lactate above 2 mmol/L indicates tissue hypoperfusion and is associated with increased mortality, even without overt hypotension, while a lactate above 4 mmol/L signals critical illness.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 135,
+    "category": "sepsis",
+    "title": "Sepsis Six Care Bundle",
+    "content": "The Sepsis Six bundle should be completed within one hour of sepsis recognition: give high-flow oxygen, take blood cultures, give intravenous antibiotics, give an intravenous fluid bolus, check lactate and haemoglobin, and monitor urine output. Timely completion is associated with reduced mortality.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 136,
+    "category": "sepsis",
+    "title": "Antibiotic Timing in Sepsis",
+    "content": "Broad-spectrum intravenous antibiotics should be given within one hour of sepsis recognition, and immediately in septic shock. Each hour of delay is associated with increased mortality, so antibiotics should not be delayed to obtain blood cultures.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 137,
+    "category": "sepsis",
+    "title": "Blood Cultures Before Antibiotics",
+    "content": "Blood cultures should ideally be drawn before antibiotic administration to maximise diagnostic yield, but the priority is timely antibiotic delivery; antibiotics must never be delayed solely to obtain cultures in suspected septic shock.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 138,
+    "category": "sepsis",
+    "title": "Fluid Resuscitation in Sepsis",
+    "content": "Current guidance recommends 30 mL/kg of intravenous crystalloid fluid within the first three hours for sepsis-induced hypoperfusion, with reassessment using dynamic measures of fluid responsiveness to avoid over-resuscitation.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 139,
+    "category": "sepsis",
+    "title": "Fluid Overload Risk in Sepsis Management",
+    "content": "Excessive fluid administration in sepsis can cause pulmonary oedema and worsen outcomes, particularly in patients with cardiac or renal impairment. Reassessment after each fluid bolus using clinical signs or dynamic measures helps avoid harm from over-resuscitation.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 140,
+    "category": "sepsis",
+    "title": "Organ Dysfunction Markers in Sepsis",
+    "content": "Signs of organ dysfunction include acute change in mental status, creatinine rise above 176 micromol/L, bilirubin above 34 micromol/L, platelet count below 100,000, INR above 1.5, and PaO2/FiO2 ratio below 300. Any of these in suspected infection should raise concern for sepsis.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 141,
+    "category": "sepsis",
+    "title": "Vasopressor Use in Septic Shock",
+    "content": "Norepinephrine is the first-line vasopressor in septic shock, targeting a mean arterial pressure of 65 mmHg or above. Vasopressin may be added as a second agent, while dopamine is generally avoided due to arrhythmia risk.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 142,
+    "category": "sepsis",
+    "title": "Source Control in Sepsis Management",
+    "content": "Identifying and controlling the source of infection, such as draining an abscess, removing an infected device, or surgically managing perforated bowel, is essential alongside antibiotics and fluids in sepsis management, as antibiotics alone may be insufficient.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 143,
+    "category": "pediatric",
+    "title": "Sepsis Recognition in Children",
+    "content": "Paediatric sepsis recognition uses age-adjusted vital sign thresholds, since normal heart and respiratory rates differ from adults. Red flag features include non-blanching rash, mottled or ashen appearance, grunting, and reduced consciousness.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 144,
+    "category": "pediatric",
+    "title": "Sepsis in Infants Under 3 Months",
+    "content": "Infants under 3 months with fever are at elevated risk of serious bacterial infection, including sepsis and meningitis, and require urgent full septic screen including blood cultures, urine, and consideration of lumbar puncture.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 145,
+    "category": "obstetric",
+    "title": "Sepsis in Pregnancy and the Postpartum Period",
+    "content": "Maternal sepsis remains a leading cause of maternal mortality. Pregnancy-adjusted vital sign thresholds should be used, as normal pregnancy physiology can mask early signs of deterioration. Early recognition and the same hour-one bundle principles apply.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 146,
+    "category": "sepsis",
+    "title": "Neutropenic Sepsis",
+    "content": "Patients undergoing chemotherapy who present with fever and neutropenia are at high risk of rapid deterioration and require immediate broad-spectrum antibiotics, typically within one hour, regardless of how well they initially appear.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 147,
+    "category": "sepsis",
+    "title": "Urinary Tract Source of Sepsis",
+    "content": "Urosepsis is a common cause of sepsis, particularly in elderly patients and those with urinary catheters or obstruction. Urinalysis, urine culture, and consideration of renal imaging for obstruction are key components of the workup.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 148,
+    "category": "respiratory",
+    "title": "Pneumonia as a Source of Sepsis",
+    "content": "Community-acquired pneumonia is a leading cause of sepsis. Chest X-ray, blood and sputum cultures, and severity scoring such as CURB-65 help guide initial management alongside the standard sepsis bundle.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 149,
+    "category": "sepsis",
+    "title": "Intra-Abdominal Source of Sepsis",
+    "content": "Intra-abdominal infections such as perforated viscus, cholangitis, or appendiceal abscess can rapidly progress to septic shock. Early surgical or interventional radiology consultation for source control is critical alongside antibiotics and fluids.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 150,
+    "category": "sepsis",
+    "title": "Necrotising Fasciitis and Skin Source Sepsis",
+    "content": "Necrotising soft tissue infection presents with disproportionate pain, rapidly spreading erythema, skin discolouration, and systemic toxicity. It is a surgical emergency requiring urgent debridement in addition to broad-spectrum antibiotics, as delay significantly increases mortality.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 151,
+    "category": "sepsis",
+    "title": "Meningococcal Sepsis",
+    "content": "Meningococcal sepsis presents with fever, a non-blanching purpuric rash, and rapid deterioration. It is a medical emergency requiring immediate antibiotic administration, even before hospital transfer in suspected cases, due to extremely rapid progression.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 152,
+    "category": "sepsis",
+    "title": "NICE High-Risk Sepsis Criteria",
+    "content": "High-risk criteria for sepsis include objective evidence of new altered mental state, respiratory rate of 25 or above, need for oxygen to maintain saturation above 92%, systolic blood pressure of 90 mmHg or below, heart rate above 130 bpm, not passed urine in 18 hours, and mottled or ashen skin.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 153,
+    "category": "sepsis",
+    "title": "NICE Moderate-to-High-Risk (Amber Flag) Sepsis Criteria",
+    "content": "Moderate-to-high-risk amber flag criteria include relatives' concern about mental status, acute deterioration of functional ability, immunosuppression, trauma or surgery within the past 8 weeks, respiratory rate of 21 to 24, and reduced urine output.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 154,
+    "category": "sepsis",
+    "title": "Sepsis Red Flag Recognition Tools",
+    "content": "Validated sepsis screening tools, including NICE criteria, the Sepsis Trust six red flags, and NEWS2 combined with suspected infection, are designed to standardise rapid recognition of sepsis at first clinical contact, before formal SOFA scoring is feasible.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 155,
+    "category": "sepsis",
+    "title": "Comparison of qSOFA, SIRS, and NEWS2 for Sepsis Screening",
+    "content": "qSOFA has higher specificity but lower sensitivity than SIRS for predicting sepsis mortality, while NEWS2 combined with suspected infection has been shown in several studies to outperform both for identifying patients at risk of deterioration.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 156,
+    "category": "sepsis",
+    "title": "The Golden Hour Concept in Sepsis",
+    "content": "The 'golden hour' in sepsis refers to the first 60 minutes after recognition, during which antibiotic administration, fluid resuscitation, and lactate measurement should be completed to maximise the chance of survival.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 157,
+    "category": "sepsis",
+    "title": "Sepsis in Elderly Patients",
+    "content": "Elderly patients with sepsis often present atypically, without fever or marked tachycardia, and may present primarily with confusion, falls, or generalised decline. A lower threshold for sepsis screening is recommended in this population.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 158,
+    "category": "sepsis",
+    "title": "Altered Mental Status as a Sepsis Indicator",
+    "content": "New confusion or reduced consciousness in a patient with suspected infection is a key red flag for sepsis and contributes to both the qSOFA score and standard sepsis screening tools, reflecting cerebral hypoperfusion or encephalopathy.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 159,
+    "category": "sepsis",
+    "title": "Causes of Elevated Lactate Other Than Sepsis",
+    "content": "Elevated lactate can also result from seizures, severe exercise, liver failure, certain medications such as metformin, and tissue ischaemia unrelated to infection. Clinical context is essential when interpreting an elevated lactate in a patient without obvious infection.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 160,
+    "category": "sepsis",
+    "title": "Repeat Lactate Measurement in Sepsis",
+    "content": "Lactate should be remeasured within 2 to 4 hours of initial resuscitation. Failure of lactate to clear, or a rising lactate despite treatment, indicates inadequate resuscitation or ongoing tissue hypoperfusion and should prompt escalation of care.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 161,
+    "category": "sepsis",
+    "title": "Central Line-Associated Bloodstream Infection",
+    "content": "Patients with central venous catheters who develop fever and clinical deterioration should be assessed for catheter-related bloodstream infection, with blood cultures drawn from both the line and a peripheral site, and consideration given to line removal.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 162,
+    "category": "sepsis",
+    "title": "Sepsis Mortality Statistics",
+    "content": "Sepsis is associated with substantial mortality, with septic shock carrying a hospital mortality exceeding 40% in many series. Early recognition and bundle compliance have been consistently associated with improved survival.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 163,
+    "category": "sepsis",
+    "title": "Procalcitonin as a Sepsis Biomarker",
+    "content": "Procalcitonin rises more specifically in bacterial infection than C-reactive protein and can help support a diagnosis of sepsis or guide antibiotic duration, although it should be interpreted alongside clinical assessment rather than in isolation.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 164,
+    "category": "sepsis",
+    "title": "C-Reactive Protein and White Cell Count in Sepsis",
+    "content": "C-reactive protein and white cell count are commonly elevated in sepsis but lack specificity, as both can be raised in non-infectious inflammatory conditions. They support but do not confirm a diagnosis of sepsis on their own.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 165,
+    "category": "sepsis",
+    "title": "ICU Admission Criteria in Sepsis",
+    "content": "Indications for intensive care admission in sepsis include need for vasopressor support, mechanical ventilation, persistent hypotension despite fluids, or multi-organ dysfunction. Early critical care involvement improves outcomes in septic shock.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 166,
+    "category": "sepsis",
+    "title": "Disseminated Intravascular Coagulation in Sepsis",
+    "content": "Severe sepsis can trigger disseminated intravascular coagulation, characterised by simultaneous bleeding and clotting due to consumption of clotting factors. Laboratory findings include low platelets, prolonged INR, low fibrinogen, and elevated D-dimer.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 167,
+    "category": "sepsis",
+    "title": "Acute Respiratory Distress Syndrome as a Sepsis Complication",
+    "content": "Sepsis is a common precipitant of acute respiratory distress syndrome (ARDS), characterised by bilateral infiltrates and severe hypoxaemia not explained by cardiac failure. Lung-protective ventilation strategies are used in mechanically ventilated patients with ARDS.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 168,
+    "category": "sepsis",
+    "title": "Imaging for Source Identification in Sepsis",
+    "content": "CT imaging is frequently used to identify the source of infection in sepsis when the clinical source is unclear, particularly for suspected intra-abdominal or retroperitoneal infections requiring source control.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 169,
+    "category": "sepsis",
+    "title": "Antibiotic Selection in Sepsis",
+    "content": "Empirical antibiotic choice in sepsis should be broad-spectrum, guided by suspected source, local resistance patterns, and patient allergy history, with de-escalation to narrower-spectrum agents once culture results and sensitivities are available.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 170,
+    "category": "sepsis",
+    "title": "Antibiotic De-Escalation in Sepsis",
+    "content": "Once culture and sensitivity results are available, antibiotic therapy should be de-escalated to the narrowest effective agent to reduce the risk of antimicrobial resistance and adverse effects, typically reviewed at 48 to 72 hours.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 171,
+    "category": "sepsis",
+    "title": "Sepsis in Nursing Home and Care Home Residents",
+    "content": "Care home residents are at higher risk of sepsis due to comorbidity, indwelling devices, and reduced physiological reserve. Atypical presentation, such as falls or reduced oral intake without fever, is common and should prompt sepsis screening.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 172,
+    "category": "sepsis",
+    "title": "Post-Sepsis Syndrome",
+    "content": "Survivors of severe sepsis or septic shock may experience post-sepsis syndrome, including physical weakness, cognitive impairment, and psychological symptoms such as anxiety or post-traumatic stress, persisting for months after recovery from the acute illness.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 173,
+    "category": "sepsis",
+    "title": "Sepsis Bundle Compliance Auditing",
+    "content": "Hospitals routinely audit compliance with sepsis bundle elements, including time to antibiotics, time to lactate measurement, and time to fluid bolus, using these metrics to drive quality improvement initiatives and reduce preventable mortality.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 174,
+    "category": "sepsis",
+    "title": "Defining 'Time Zero' in Sepsis Recognition",
+    "content": "'Time zero' refers to the moment sepsis is first recognised or suspected, either by triage screening or clinical assessment, and serves as the reference point against which all bundle element timings are measured.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 175,
+    "category": "sepsis",
+    "title": "Assessing for 'Suspicion of Infection'",
+    "content": "A structured suspicion-of-infection assessment, considering recent symptoms, examination findings, and risk factors, is a prerequisite step before applying qSOFA or SOFA criteria, since these scores are only valid in the context of confirmed or suspected infection.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 176,
+    "category": "sepsis",
+    "title": "Sepsis Following Burn Injury",
+    "content": "Burn patients are at elevated risk of sepsis due to loss of the skin barrier and immune dysregulation. Signs of sepsis in burns can be masked by the hypermetabolic response to injury, requiring careful interpretation of vital signs and laboratory trends.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 177,
+    "category": "sepsis",
+    "title": "Post-Surgical Sepsis",
+    "content": "Sepsis following surgery may indicate an anastomotic leak, surgical site infection, or other complication. New fever, tachycardia, or rising lactate in the post-operative period should prompt urgent reassessment and consideration of imaging.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 178,
+    "category": "sepsis",
+    "title": "Sepsis-3 Criticism and Limitations",
+    "content": "The Sepsis-3 definition has been criticised for reduced sensitivity in early disease compared with SIRS, as qSOFA may not flag deterioration until organ dysfunction is already established. Many systems therefore use multiple screening tools in parallel.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 179,
+    "category": "sepsis",
+    "title": "Sepsis Awareness and Public Education",
+    "content": "Public awareness campaigns for sepsis emphasise recognising symptoms such as slurred speech, extreme shivering, passing no urine, severe breathlessness, and feeling like one might die, encouraging early presentation to emergency care.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 180,
+    "category": "sepsis",
+    "title": "Sepsis and Hypoglycaemia",
+    "content": "Hypoglycaemia can occur in severe sepsis, particularly in young children and patients with liver dysfunction, and should be checked and corrected promptly as part of the initial assessment, since it can independently cause altered mental status.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 181,
+    "category": "sepsis",
+    "title": "Reassessment After the Initial Sepsis Bundle",
+    "content": "Following completion of the initial hour-one bundle, patients with sepsis require ongoing reassessment of vital signs, urine output, and laboratory trends to determine whether escalation of care, such as ICU referral, is required.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 182,
+    "category": "sepsis",
+    "title": "Sepsis in Patients with Liver Disease",
+    "content": "Patients with cirrhosis are at increased risk of sepsis, including spontaneous bacterial peritonitis, and may have a blunted febrile response, making vigilance and a low threshold for screening particularly important in this population.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 183,
+    "category": "sepsis",
+    "title": "Sepsis in Diabetic Patients",
+    "content": "Diabetic patients are at higher risk of certain infections, including diabetic foot infections and urinary sepsis, and may have impaired immune response, increasing the risk of rapid progression to severe sepsis if not promptly treated.",
+    "source": "Sepsis Screening Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 184,
+    "category": "cardiac",
+    "title": "Chest Pain — Initial Assessment",
+    "content": "All patients presenting with chest pain should have a 12-lead ECG performed and interpreted within 10 minutes of arrival. Initial assessment should focus on identifying time-critical diagnoses such as STEMI, aortic dissection, and pulmonary embolism.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 185,
+    "category": "cardiac",
+    "title": "STEMI ECG Criteria",
+    "content": "ST-elevation myocardial infarction is diagnosed by new ST elevation at the J point in two contiguous leads, with specific millimetre thresholds varying by lead location and patient sex. New left bundle branch block with a compatible clinical picture is treated as a STEMI equivalent.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 186,
+    "category": "cardiac",
+    "title": "Door-to-Balloon Time",
+    "content": "For STEMI patients undergoing primary percutaneous coronary intervention, the target door-to-balloon time is 90 minutes from arrival to first device deployment, reflecting the time-critical nature of myocardial reperfusion.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 187,
+    "category": "cardiac",
+    "title": "Fibrinolysis When PCI Is Not Available",
+    "content": "When timely primary PCI cannot be achieved within guideline-recommended timeframes, fibrinolytic therapy should be considered for eligible STEMI patients, followed by transfer to a PCI-capable centre for rescue or routine angiography.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 188,
+    "category": "cardiac",
+    "title": "NSTEMI and Unstable Angina",
+    "content": "Non-ST-elevation myocardial infarction is diagnosed by elevated cardiac troponin with a clinical presentation consistent with acute coronary syndrome but without ST elevation, while unstable angina presents similarly but with normal troponin. Risk stratification guides timing of invasive management.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 189,
+    "category": "cardiac",
+    "title": "High-Sensitivity Troponin Testing",
+    "content": "High-sensitivity troponin assays allow earlier rule-out of myocardial infarction using 0-hour and 1-hour or 0-hour and 3-hour sampling protocols, reducing the time needed to safely discharge low-risk chest pain patients compared with older assays.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 190,
+    "category": "cardiac",
+    "title": "HEART Score for Chest Pain Risk Stratification",
+    "content": "The HEART score evaluates History, ECG, Age, Risk factors, and Troponin to stratify patients with chest pain into low, moderate, and high risk categories for major adverse cardiac events, supporting safe early discharge of low-risk patients.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 191,
+    "category": "cardiac",
+    "title": "TIMI Risk Score",
+    "content": "The TIMI risk score for unstable angina and NSTEMI incorporates age, risk factors, prior coronary disease, aspirin use, severe angina, ST changes, and troponin to estimate 14-day risk of death, myocardial infarction, or urgent revascularisation.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 192,
+    "category": "cardiac",
+    "title": "GRACE Risk Score",
+    "content": "The GRACE score estimates in-hospital and 6-month mortality risk in acute coronary syndrome using variables including age, heart rate, blood pressure, creatinine, cardiac arrest at presentation, ST changes, elevated cardiac markers, and Killip class.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 193,
+    "category": "cardiac",
+    "title": "Aspirin in Suspected Acute Coronary Syndrome",
+    "content": "A loading dose of aspirin, typically 300 mg chewed or dispersed, should be given as soon as possible to all patients with suspected acute coronary syndrome unless contraindicated, as it reduces mortality through antiplatelet effect.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 194,
+    "category": "cardiac",
+    "title": "Dual Antiplatelet Therapy in ACS",
+    "content": "In addition to aspirin, a second antiplatelet agent such as ticagrelor, prasugrel, or clopidogrel is typically given in acute coronary syndrome, with the specific agent and timing influenced by planned management strategy and bleeding risk.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 195,
+    "category": "cardiac",
+    "title": "Anticoagulation in Acute Coronary Syndrome",
+    "content": "Parenteral anticoagulation, such as unfractionated heparin or low molecular weight heparin, is used alongside antiplatelet therapy in acute coronary syndrome to reduce thrombus propagation, with the choice of agent influenced by planned revascularisation strategy.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 196,
+    "category": "cardiac",
+    "title": "Oxygen Therapy in Acute Coronary Syndrome",
+    "content": "Routine supplemental oxygen is not recommended in ACS patients with SpO2 of 94% or above, as hyperoxia may worsen myocardial injury. Oxygen should be titrated to a target saturation rather than given indiscriminately.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 197,
+    "category": "cardiac",
+    "title": "Nitrates in Chest Pain Management",
+    "content": "Sublingual or intravenous nitrates can relieve ischaemic chest pain by reducing preload and coronary vasospasm, but are contraindicated in suspected right ventricular infarction, severe hypotension, and recent use of phosphodiesterase inhibitors.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 198,
+    "category": "cardiac",
+    "title": "Morphine Use in Acute Coronary Syndrome",
+    "content": "Morphine may be used for analgesia in ACS but has been associated with delayed absorption of oral antiplatelet agents and should be used cautiously, reserved for patients with ongoing significant pain despite nitrates.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 199,
+    "category": "cardiac",
+    "title": "Right-Sided ECG Leads for Inferior MI",
+    "content": "In patients with inferior ST-elevation myocardial infarction, right-sided ECG leads should be obtained to assess for right ventricular involvement, which has important implications for management, including avoidance of nitrates and preload-reducing agents.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 200,
+    "category": "cardiac",
+    "title": "Posterior Myocardial Infarction",
+    "content": "Posterior myocardial infarction can be missed on a standard 12-lead ECG, presenting with ST depression in anterior leads. Posterior leads (V7 to V9) should be considered when posterior MI is suspected clinically, as it represents a STEMI equivalent.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 201,
+    "category": "cardiac",
+    "title": "Wellens Syndrome",
+    "content": "Wellens syndrome describes a specific T-wave pattern in the precordial leads indicating critical proximal left anterior descending artery stenosis. Patients may be pain-free at the time of ECG but are at high risk of impending anterior MI.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 202,
+    "category": "cardiac",
+    "title": "De Winter ECG Pattern",
+    "content": "The de Winter pattern is an ECG variant indicating acute occlusion of the left anterior descending artery, characterised by upsloping ST depression and tall symmetric T waves in precordial leads, and should be treated as a STEMI equivalent requiring urgent reperfusion.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 203,
+    "category": "cardiac",
+    "title": "Aortic Dissection — Clinical Recognition",
+    "content": "Aortic dissection classically presents with sudden severe tearing chest or back pain, a pulse deficit between limbs, and a blood pressure differential between arms. CT angiography is the investigation of choice when dissection is suspected.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 204,
+    "category": "cardiac",
+    "title": "Aortic Dissection — Imaging Findings",
+    "content": "A widened mediastinum on chest X-ray can suggest aortic dissection but has limited sensitivity; CT angiography or transoesophageal echocardiography is required to confirm the diagnosis and define the extent of dissection.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 205,
+    "category": "cardiac",
+    "title": "Aortic Dissection Classification and Management",
+    "content": "Type A dissections, involving the ascending aorta, require emergency surgical repair, while uncomplicated Type B dissections, confined to the descending aorta, are often managed medically with blood pressure and heart rate control.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 206,
+    "category": "respiratory",
+    "title": "Pulmonary Embolism as a Chest Pain Differential",
+    "content": "Pulmonary embolism should be considered in patients with chest pain, particularly pleuritic pain, accompanied by breathlessness, tachycardia, or risk factors such as recent immobility, surgery, or malignancy. The Wells score helps guide further investigation.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 207,
+    "category": "respiratory",
+    "title": "Wells Score and PERC Rule for Pulmonary Embolism",
+    "content": "The Wells score stratifies pre-test probability of pulmonary embolism, while the PERC rule helps identify very low-risk patients in whom further testing for PE may be safely avoided without measuring a D-dimer.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 208,
+    "category": "respiratory",
+    "title": "D-Dimer and CT Pulmonary Angiography",
+    "content": "In patients with low to moderate pre-test probability of pulmonary embolism, a negative D-dimer can safely exclude the diagnosis. Patients with high pre-test probability or a positive D-dimer require CT pulmonary angiography for definitive diagnosis.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 209,
+    "category": "cardiac",
+    "title": "Pericarditis — Recognition",
+    "content": "Acute pericarditis presents with sharp chest pain that worsens lying flat and improves sitting forward, often with a pericardial friction rub on auscultation. ECG typically shows widespread saddle-shaped ST elevation and PR depression.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 210,
+    "category": "cardiac",
+    "title": "Myocarditis as a Chest Pain Differential",
+    "content": "Myocarditis can present with chest pain, breathlessness, and arrhythmia, often following a viral illness. Troponin may be elevated and echocardiography may show reduced ventricular function, distinguishing it from typical ischaemic chest pain.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 211,
+    "category": "triage",
+    "title": "Oesophageal Rupture (Boerhaave Syndrome)",
+    "content": "Oesophageal rupture classically follows forceful vomiting and presents with severe chest pain, subcutaneous emphysema, and signs of mediastinitis. It is a surgical emergency with high mortality if diagnosis or treatment is delayed.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 212,
+    "category": "respiratory",
+    "title": "Pneumothorax as a Chest Pain Differential",
+    "content": "Spontaneous pneumothorax presents with sudden onset pleuritic chest pain and breathlessness, often in tall thin young patients or those with underlying lung disease. Tension pneumothorax requires immediate needle decompression rather than imaging confirmation.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 213,
+    "category": "cardiac",
+    "title": "Musculoskeletal Chest Pain",
+    "content": "Musculoskeletal chest pain is typically reproducible on palpation, related to movement or specific positions, and not associated with exertion or systemic symptoms. It is a diagnosis of exclusion after time-critical causes have been considered.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 214,
+    "category": "cardiac",
+    "title": "Gastro-Oesophageal Reflux as a Chest Pain Mimic",
+    "content": "Gastro-oesophageal reflux disease can cause burning retrosternal chest pain that may mimic cardiac ischaemia. A trial of antacid therapy and careful exclusion of cardiac causes is required before attributing chest pain to reflux.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 215,
+    "category": "cardiac",
+    "title": "Cocaine-Induced Chest Pain",
+    "content": "Cocaine use can cause coronary vasospasm and myocardial infarction even in young patients without traditional risk factors. Beta-blockers are generally avoided due to risk of unopposed alpha-adrenergic vasoconstriction; benzodiazepines and nitrates are preferred.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 216,
+    "category": "cardiac",
+    "title": "Atypical Chest Pain Presentation in Women",
+    "content": "Women with acute coronary syndrome more frequently present with atypical symptoms such as fatigue, nausea, or back pain rather than classic crushing chest pain, which can contribute to delayed recognition and treatment.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 217,
+    "category": "cardiac",
+    "title": "Silent Myocardial Ischaemia in Diabetic Patients",
+    "content": "Patients with diabetes may experience silent or atypical myocardial ischaemia due to autonomic neuropathy, presenting with breathlessness, fatigue, or vague malaise rather than classic chest pain. A high index of suspicion is required.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 218,
+    "category": "cardiac",
+    "title": "Chest Pain in Elderly Patients",
+    "content": "Elderly patients with acute coronary syndrome may present with breathlessness, confusion, or syncope rather than classic chest pain. Atypical presentation should not lower clinical suspicion, given the higher baseline cardiovascular risk in this group.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 219,
+    "category": "cardiac",
+    "title": "Serial Troponin Sampling",
+    "content": "Serial troponin measurements, typically at presentation and again at 1 to 3 hours depending on the assay, are used to detect the characteristic rise and fall pattern of myocardial infarction and to distinguish it from chronically elevated troponin.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 220,
+    "category": "cardiac",
+    "title": "Chest Pain Observation Unit Pathways",
+    "content": "Low to intermediate risk chest pain patients may be managed in a dedicated observation or chest pain unit pathway involving serial troponin testing, ECG monitoring, and risk stratification, allowing safe discharge without prolonged inpatient admission.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 221,
+    "category": "cardiac",
+    "title": "Cardiovascular Risk Factor Assessment in Chest Pain",
+    "content": "Assessment of cardiovascular risk factors, including smoking, hypertension, diabetes, hyperlipidaemia, family history of premature coronary disease, and prior cardiac events, informs both immediate risk stratification and discharge planning for chest pain patients.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 222,
+    "category": "cardiac",
+    "title": "Discharge Criteria After Chest Pain Workup",
+    "content": "Patients may be considered for discharge after chest pain workup if serial troponins are negative, ECG shows no dynamic ischaemic change, risk scores indicate low risk, and symptoms have resolved, with clear safety-netting advice provided.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 223,
+    "category": "cardiac",
+    "title": "Outpatient Functional Testing After Chest Pain Discharge",
+    "content": "Patients discharged after a low-risk chest pain workup may be referred for outpatient functional testing, such as exercise stress testing or CT coronary angiography, to further evaluate for underlying coronary artery disease.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 224,
+    "category": "cardiac",
+    "title": "CT Coronary Angiography in Chest Pain Assessment",
+    "content": "CT coronary angiography provides high sensitivity for excluding significant coronary artery disease in patients with low to intermediate risk chest pain and stable presentation, supporting more rapid and confident discharge decisions.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 225,
+    "category": "cardiac",
+    "title": "Killip Classification in Acute Coronary Syndrome",
+    "content": "The Killip classification stratifies patients with acute myocardial infarction by clinical signs of heart failure, ranging from Class I with no signs of failure to Class IV with cardiogenic shock, and predicts in-hospital mortality.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 226,
+    "category": "cardiac",
+    "title": "Cardiogenic Shock Following Myocardial Infarction",
+    "content": "Cardiogenic shock following myocardial infarction presents with hypotension, poor peripheral perfusion, and pulmonary oedema due to severe left ventricular dysfunction. It carries high mortality and may require mechanical circulatory support alongside revascularisation.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 227,
+    "category": "cardiac",
+    "title": "Recreational Drug and Stimulant History in Chest Pain",
+    "content": "A history of recreational stimulant use, including cocaine and amphetamines, should be specifically sought in younger patients presenting with chest pain, as these substances can precipitate myocardial infarction independent of traditional atherosclerotic risk factors.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 228,
+    "category": "cardiac",
+    "title": "Chest Pain with Syncope",
+    "content": "Chest pain accompanied by syncope is a high-risk combination suggesting possible significant arrhythmia, aortic stenosis, pulmonary embolism, or aortic dissection, and warrants urgent and thorough evaluation rather than reassurance.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 229,
+    "category": "cardiac",
+    "title": "New Onset Arrhythmia with Chest Pain",
+    "content": "New onset atrial fibrillation or other significant arrhythmia accompanying chest pain may indicate underlying ischaemia or structural heart disease, and requires ECG monitoring, electrolyte assessment, and consideration of cardiology involvement.",
+    "source": "Chest Pain Emergency Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 230,
+    "category": "respiratory",
+    "title": "Acute Respiratory Distress — Initial Assessment",
+    "content": "Patients with acute respiratory distress require immediate assessment of airway patency, breathing effort, and oxygenation. A respiratory rate above 25 per minute with SpO2 below 92% indicates severe distress requiring urgent intervention.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 231,
+    "category": "respiratory",
+    "title": "Oxygen Therapy Targets",
+    "content": "For most acutely unwell patients, oxygen should be titrated to maintain SpO2 between 94 and 98%. For patients with COPD or known hypercapnic respiratory failure, the target range is 88 to 92% to avoid suppressing hypoxic respiratory drive.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 232,
+    "category": "respiratory",
+    "title": "Acute Severe Asthma — Recognition",
+    "content": "Acute severe asthma is characterised by peak expiratory flow of 33 to 50% of best or predicted, respiratory rate above 25, heart rate above 110 bpm, and inability to complete sentences in one breath, requiring immediate bronchodilator therapy.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 233,
+    "category": "respiratory",
+    "title": "Life-Threatening Asthma Features",
+    "content": "Life-threatening asthma features include peak flow below 33% of best or predicted, a silent chest, cyanosis, poor respiratory effort, exhaustion, confusion, and SpO2 below 92%, indicating need for immediate aggressive treatment and likely intensive care involvement.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 234,
+    "category": "respiratory",
+    "title": "Silent Chest as an Ominous Sign",
+    "content": "A silent chest on auscultation in a patient with acute asthma does not indicate improvement but rather such severe airflow obstruction that air movement is insufficient to generate audible wheeze, representing a pre-arrest state requiring immediate escalation.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 235,
+    "category": "respiratory",
+    "title": "Near-Fatal Asthma and Status Asthmaticus",
+    "content": "Near-fatal asthma is defined by a raised PaCO2 or the need for mechanical ventilation, while status asthmaticus refers to a severe asthma attack that fails to respond to standard bronchodilator therapy. Both require intensive care management.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 236,
+    "category": "respiratory",
+    "title": "COPD Exacerbation Management",
+    "content": "Acute exacerbation of COPD is managed with controlled oxygen targeting SpO2 88 to 92%, inhaled short-acting bronchodilators, systemic corticosteroids, and antibiotics if bacterial infection is suspected. Non-invasive ventilation is indicated for persistent hypercapnic respiratory failure.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 237,
+    "category": "respiratory",
+    "title": "Non-Invasive Ventilation Indications",
+    "content": "NIV using CPAP or BiPAP is indicated in acute cardiogenic pulmonary oedema and hypercapnic respiratory failure in COPD with pH 7.25 to 7.35. Contraindications include reduced consciousness, vomiting, facial injury, and inability to protect the airway.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 238,
+    "category": "respiratory",
+    "title": "CPAP Versus BiPAP",
+    "content": "CPAP delivers a continuous level of positive airway pressure throughout the respiratory cycle and is most useful for hypoxaemic conditions such as pulmonary oedema, while BiPAP provides different pressures for inspiration and expiration and is preferred for hypercapnic respiratory failure.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 239,
+    "category": "respiratory",
+    "title": "Tension Pneumothorax — Emergency Recognition",
+    "content": "Tension pneumothorax presents with severe respiratory distress, tracheal deviation away from the affected side, absent breath sounds, hypotension, and raised jugular venous pressure. Immediate needle decompression is life-saving and must not wait for imaging.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 240,
+    "category": "respiratory",
+    "title": "Simple Pneumothorax Management",
+    "content": "A small primary spontaneous pneumothorax without significant breathlessness may be managed conservatively with observation, while larger pneumothoraces or those causing significant symptoms typically require needle aspiration or chest drain insertion.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 241,
+    "category": "respiratory",
+    "title": "Acute Cardiogenic Pulmonary Oedema Management",
+    "content": "Acute pulmonary oedema is treated with the patient sitting upright, high-flow oxygen, CPAP where available, intravenous diuretics, and nitrates if systolic blood pressure remains adequate, with underlying causes such as ACS or arrhythmia identified and treated.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 242,
+    "category": "respiratory",
+    "title": "High-Flow Nasal Oxygen",
+    "content": "High-flow nasal oxygen delivers heated humidified oxygen at flows up to 60 L/min with high FiO2, reducing work of breathing and providing mild positive pressure, and may reduce intubation rates in selected patients with hypoxaemic respiratory failure.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 243,
+    "category": "respiratory",
+    "title": "Anaphylaxis with Respiratory Compromise",
+    "content": "Anaphylaxis causing bronchospasm or airway oedema is life-threatening. Immediate intramuscular adrenaline is first-line treatment, with inhaled bronchodilators, antihistamines, and corticosteroids as adjuncts, and observation for at least 6 to 12 hours due to biphasic reaction risk.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 244,
+    "category": "respiratory",
+    "title": "Type 1 Versus Type 2 Respiratory Failure",
+    "content": "Type 1 respiratory failure is hypoxaemia with normal or low carbon dioxide, caused by ventilation-perfusion mismatch such as pneumonia or pulmonary embolism. Type 2 involves hypoxaemia with hypercapnia, resulting from alveolar hypoventilation as seen in COPD or neuromuscular disease.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 245,
+    "category": "respiratory",
+    "title": "Pneumonia Severity Assessment — CURB-65",
+    "content": "The CURB-65 score assesses pneumonia severity using Confusion, Urea above 7 mmol/L, Respiratory rate of 30 or above, Blood pressure below 90/60 mmHg, and age 65 or above, guiding decisions about hospital admission and treatment intensity.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 246,
+    "category": "pediatric",
+    "title": "Upper Airway Obstruction — Croup",
+    "content": "Croup presents with a barking cough, inspiratory stridor, and hoarse voice in young children, usually due to viral laryngotracheobronchitis. Mild cases respond to oral dexamethasone, while severe cases with significant stridor at rest require nebulised adrenaline.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 247,
+    "category": "pediatric",
+    "title": "Epiglottitis — Recognition and Management",
+    "content": "Acute epiglottitis presents with high fever, drooling, stridor, and a preference to sit upright in the 'tripod' position. It is a life-threatening airway emergency requiring immediate senior anaesthetic and ENT involvement, and the throat should not be examined directly due to risk of complete obstruction.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 248,
+    "category": "pediatric",
+    "title": "Bronchiolitis in Infants",
+    "content": "Bronchiolitis presents with coryzal symptoms progressing to cough, wheeze, and respiratory distress in infants under 12 months, most commonly caused by respiratory syncytial virus. Management is largely supportive, with oxygen and feeding support for more severely affected infants.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 249,
+    "category": "pediatric",
+    "title": "Foreign Body Airway Obstruction in Children",
+    "content": "Sudden onset coughing, choking, or stridor in a previously well child should raise suspicion for foreign body aspiration. Complete airway obstruction with inability to cough or speak requires immediate back blows and abdominal or chest thrusts depending on age.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 250,
+    "category": "respiratory",
+    "title": "Choking Management in Adults",
+    "content": "For conscious adults with severe choking and ineffective cough, five back blows followed by five abdominal thrusts are recommended, repeated until the obstruction clears or the patient becomes unconscious, at which point CPR should be commenced.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 251,
+    "category": "respiratory",
+    "title": "Stridor as a Sign of Upper Airway Obstruction",
+    "content": "Stridor, a high-pitched inspiratory sound, indicates significant upper airway narrowing and should prompt urgent assessment for causes such as foreign body, anaphylaxis, epiglottitis, or airway burns, with early anaesthetic involvement for definitive airway management.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 252,
+    "category": "respiratory",
+    "title": "ARDS — Berlin Definition",
+    "content": "Acute respiratory distress syndrome is defined by acute onset within one week, bilateral opacities on chest imaging not fully explained by cardiac failure, and hypoxaemia categorised as mild, moderate, or severe based on the PaO2/FiO2 ratio.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 253,
+    "category": "respiratory",
+    "title": "Lung-Protective Ventilation in ARDS",
+    "content": "Mechanically ventilated patients with ARDS benefit from lung-protective ventilation strategies using low tidal volumes of approximately 6 mL/kg of predicted body weight to reduce ventilator-induced lung injury.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 254,
+    "category": "respiratory",
+    "title": "Prone Positioning in Severe ARDS",
+    "content": "Prone positioning improves oxygenation and has been shown to reduce mortality in patients with severe ARDS and a PaO2/FiO2 ratio below 150, by improving ventilation-perfusion matching in the dependent lung regions.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 255,
+    "category": "respiratory",
+    "title": "Smoke Inhalation Injury",
+    "content": "Smoke inhalation can cause thermal airway injury, carbon monoxide poisoning, and cyanide toxicity. Signs such as facial burns, soot in the airway, or singed nasal hair should prompt early consideration of airway protection before swelling progresses.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 256,
+    "category": "respiratory",
+    "title": "Carbon Monoxide Poisoning and Pulse Oximetry",
+    "content": "Standard pulse oximetry cannot distinguish carboxyhaemoglobin from oxyhaemoglobin and may show a falsely normal or near-normal reading in carbon monoxide poisoning. Co-oximetry or blood gas carboxyhaemoglobin measurement is required for accurate assessment.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 257,
+    "category": "respiratory",
+    "title": "Near-Drowning and Respiratory Compromise",
+    "content": "Near-drowning can cause significant pulmonary injury and hypoxaemia even in patients who appear initially well, and observation for a period of hours is recommended to monitor for delayed respiratory deterioration.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 258,
+    "category": "respiratory",
+    "title": "Flail Chest and Chest Wall Injury",
+    "content": "Flail chest occurs when multiple adjacent ribs are fractured in two or more places, causing paradoxical chest wall movement and significantly impaired ventilation. Management focuses on analgesia, oxygenation, and consideration of ventilatory support for severe cases.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 259,
+    "category": "respiratory",
+    "title": "Haemothorax",
+    "content": "Haemothorax presents with respiratory distress and signs of hypovolaemia following chest trauma, with reduced breath sounds and dullness to percussion on the affected side. Chest drain insertion is required, with surgical exploration considered for large or ongoing blood loss.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 260,
+    "category": "respiratory",
+    "title": "Diaphragmatic Rupture",
+    "content": "Diaphragmatic rupture following blunt or penetrating trauma can cause abdominal contents to herniate into the thoracic cavity, presenting with respiratory distress and bowel sounds audible in the chest. CT imaging or surgical exploration confirms the diagnosis.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 261,
+    "category": "respiratory",
+    "title": "Obesity Hypoventilation Syndrome",
+    "content": "Obesity hypoventilation syndrome causes chronic hypercapnic respiratory failure due to reduced chest wall compliance and impaired respiratory drive in severely obese patients, and may require long-term non-invasive ventilatory support.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 262,
+    "category": "neurological",
+    "title": "Neuromuscular Respiratory Failure",
+    "content": "Conditions such as Guillain-Barré syndrome and myasthenic crisis can cause progressive respiratory muscle weakness leading to respiratory failure. Serial measurement of vital capacity and negative inspiratory force helps anticipate the need for ventilatory support before overt hypoxaemia develops.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 263,
+    "category": "respiratory",
+    "title": "Pleural Effusion and Breathlessness",
+    "content": "Large pleural effusions can cause significant breathlessness through lung compression. Diagnostic and therapeutic thoracentesis can rapidly relieve symptoms, with the underlying cause, such as malignancy, infection, or heart failure, guiding further management.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 264,
+    "category": "respiratory",
+    "title": "Acute Exacerbation of Pulmonary Fibrosis",
+    "content": "Acute exacerbation of idiopathic pulmonary fibrosis presents with rapidly worsening breathlessness and new diffuse opacities on imaging in a patient with known fibrotic lung disease, and carries a high mortality rate despite supportive treatment.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 265,
+    "category": "respiratory",
+    "title": "Accessory Muscle Use as a Sign of Respiratory Distress",
+    "content": "Use of accessory muscles, including the sternocleidomastoid and intercostal muscles, indicates increased work of breathing and should prompt escalation of respiratory support and closer monitoring.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 266,
+    "category": "respiratory",
+    "title": "Tripod Positioning",
+    "content": "Patients in significant respiratory distress often adopt a tripod position, leaning forward with hands on the knees, to optimise accessory muscle use and maximise chest expansion. This posture should be recognised as a sign of significant distress.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 267,
+    "category": "respiratory",
+    "title": "Paradoxical Breathing Pattern",
+    "content": "A paradoxical breathing pattern, where the abdomen moves inward during inspiration rather than outward, suggests diaphragmatic fatigue or paralysis and is an ominous sign of impending respiratory failure requiring urgent ventilatory support.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 268,
+    "category": "respiratory",
+    "title": "Cyanosis as a Clinical Sign",
+    "content": "Central cyanosis, visible in the lips and tongue, typically indicates significant hypoxaemia, often with oxygen saturation below 85%, and represents a late and unreliable sign that should not be relied upon to exclude earlier hypoxaemia.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 269,
+    "category": "respiratory",
+    "title": "Arterial Blood Gas Interpretation Basics",
+    "content": "Arterial blood gas analysis assesses pH, PaO2, PaCO2, and bicarbonate to characterise the type and severity of respiratory failure and to identify accompanying metabolic disturbance, guiding decisions about oxygen and ventilatory support.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 270,
+    "category": "respiratory",
+    "title": "Capnography Monitoring",
+    "content": "End-tidal carbon dioxide monitoring via capnography provides continuous, real-time assessment of ventilation and is particularly valuable during procedural sedation, airway management, and transport of critically unwell respiratory patients.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 271,
+    "category": "respiratory",
+    "title": "Bag-Valve-Mask Ventilation Technique",
+    "content": "Effective bag-valve-mask ventilation requires a good mask seal, an open airway often achieved with a head tilt-chin lift or jaw thrust, and delivery of breaths at an appropriate rate and volume to avoid gastric insufflation and barotrauma.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 272,
+    "category": "respiratory",
+    "title": "Indications for Endotracheal Intubation",
+    "content": "Indications for intubation include inability to protect the airway, refractory hypoxaemia or hypercapnia despite non-invasive measures, exhaustion from increased work of breathing, and a decreasing level of consciousness threatening airway patency.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 273,
+    "category": "respiratory",
+    "title": "Rapid Sequence Induction Considerations",
+    "content": "Rapid sequence induction for emergency intubation involves pre-oxygenation, simultaneous administration of an induction agent and a rapid-onset paralytic, and application of cricoid pressure in some protocols to minimise aspiration risk during airway control.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 274,
+    "category": "respiratory",
+    "title": "Oxygen Delivery Devices — Nasal Cannula to Non-Rebreathe Mask",
+    "content": "Oxygen delivery devices range from low-flow nasal cannula providing modest FiO2 increases, through simple face masks and Venturi masks for controlled concentrations, to non-rebreathe masks capable of delivering close to 100% oxygen for the most hypoxaemic patients.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 275,
+    "category": "respiratory",
+    "title": "Venturi Masks for Controlled Oxygen Delivery",
+    "content": "Venturi masks deliver a fixed, predictable concentration of oxygen regardless of the patient's respiratory pattern, making them particularly useful for patients with COPD who require precise oxygen titration to avoid hypercapnia.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 276,
+    "category": "respiratory",
+    "title": "Weaning Oxygen Therapy",
+    "content": "Once a patient's respiratory condition improves, oxygen therapy should be weaned in a stepwise fashion with monitoring of saturation, to the lowest concentration that maintains target SpO2, avoiding both hypoxaemia and unnecessary hyperoxia.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 277,
+    "category": "respiratory",
+    "title": "Discharge Criteria After Asthma Exacerbation",
+    "content": "Patients may be considered for discharge after an asthma exacerbation once peak flow has returned to at least 70% of best or predicted, symptoms have substantially improved, and they have been stable on their usual or stepped-down inhaler regimen for several hours.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 278,
+    "category": "respiratory",
+    "title": "Discharge Criteria After COPD Exacerbation",
+    "content": "Discharge after a COPD exacerbation requires clinical stability on usual home oxygen requirements, ability to manage activities of daily living, and a clear follow-up and self-management plan, including inhaler technique review.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 279,
+    "category": "respiratory",
+    "title": "Smoking Cessation Counselling in Respiratory Disease",
+    "content": "Brief smoking cessation advice should be offered to all patients presenting with respiratory illness who smoke, as cessation is the single most effective intervention to slow progression of COPD and reduce future exacerbations.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 5,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 280,
+    "category": "respiratory",
+    "title": "Vaccination for COPD Exacerbation Prevention",
+    "content": "Annual influenza vaccination and pneumococcal vaccination are recommended for patients with COPD to reduce the frequency and severity of future exacerbations triggered by respiratory infection.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 5,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 281,
+    "category": "respiratory",
+    "title": "Pulmonary Rehabilitation Referral",
+    "content": "Patients recovering from a COPD exacerbation should be referred for pulmonary rehabilitation, a structured exercise and education programme shown to improve breathlessness, exercise capacity, and quality of life.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 5,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 282,
+    "category": "respiratory",
+    "title": "Work of Breathing Assessment in Children",
+    "content": "Assessment of work of breathing in children includes observing for nasal flaring, grunting, recession (intercostal or subcostal), and head bobbing in infants, which are sensitive indicators of significant respiratory distress.",
+    "source": "Respiratory Distress Guidelines",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 283,
+    "category": "neurological",
+    "title": "FAST Assessment for Stroke",
+    "content": "The FAST acronym is the primary public-facing tool for stroke recognition: Face drooping, Arm weakness, Speech difficulty, Time to call emergency services. Any sudden onset neurological deficit should be treated as a stroke until proven otherwise.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 284,
+    "category": "neurological",
+    "title": "BE-FAST Assessment",
+    "content": "BE-FAST expands FAST with Balance disturbance and Eyes (sudden visual changes) to improve sensitivity for posterior circulation strokes, which classic FAST often misses, given that vertigo and visual symptoms are not captured by the original tool.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 285,
+    "category": "neurological",
+    "title": "ROSIER Scale for Stroke Recognition",
+    "content": "The ROSIER scale helps differentiate stroke from stroke mimics in the emergency department, awarding points for asymmetric facial, arm, or leg weakness, and speech disturbance, while subtracting points for seizure activity or loss of consciousness. A score above 0 suggests stroke.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 286,
+    "category": "neurological",
+    "title": "NIHSS — Stroke Severity Assessment",
+    "content": "The National Institutes of Health Stroke Scale quantifies stroke severity across 11 items including consciousness, gaze, visual fields, facial palsy, motor function, ataxia, sensory loss, language, and neglect, with scores from 0 to 42. A score of 6 or above generally indicates moderate-to-severe stroke.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 287,
+    "category": "neurological",
+    "title": "Thrombolysis Eligibility in Ischaemic Stroke",
+    "content": "IV alteplase is indicated for ischaemic stroke with disabling neurological deficit treatable within 4.5 hours of known symptom onset. Absolute contraindications include haemorrhagic stroke, recent major surgery, active bleeding, and uncontrolled hypertension above 185/110 mmHg.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 288,
+    "category": "neurological",
+    "title": "Mechanical Thrombectomy Criteria",
+    "content": "Mechanical thrombectomy is indicated for large vessel occlusion ischaemic stroke treatable within 6 hours of onset, extending up to 24 hours in selected patients using perfusion imaging. Functional independence before stroke and absence of large established infarct core are key selection criteria.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 289,
+    "category": "neurological",
+    "title": "Blood Pressure Management Before Thrombolysis",
+    "content": "Blood pressure must be brought below 185/110 mmHg before alteplase administration in eligible ischaemic stroke patients, as uncontrolled hypertension increases the risk of haemorrhagic transformation after thrombolysis.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 290,
+    "category": "neurological",
+    "title": "Blood Pressure Management Without Thrombolysis",
+    "content": "For ischaemic stroke patients not receiving thrombolysis, blood pressure should only be actively lowered if above 220/120 mmHg or in the presence of a hypertensive emergency, since aggressive reduction can worsen penumbral ischaemia and outcomes.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 291,
+    "category": "neurological",
+    "title": "Haemorrhagic Stroke — Recognition and Management",
+    "content": "Intracerebral haemorrhage presents with sudden headache, focal deficit, reduced consciousness, and vomiting. CT head differentiates it from ischaemic stroke. Thrombolytics and anticoagulants are absolutely contraindicated once haemorrhage is confirmed.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 292,
+    "category": "neurological",
+    "title": "Blood Pressure Targets in Intracerebral Haemorrhage",
+    "content": "For intracerebral haemorrhage with presenting systolic blood pressure of 150 to 220 mmHg, lowering to below 140 mmHg within one hour is recommended, balancing the goals of limiting haematoma expansion against the risk of cerebral hypoperfusion.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 293,
+    "category": "neurological",
+    "title": "Anticoagulant Reversal in Haemorrhagic Stroke",
+    "content": "Patients on warfarin presenting with intracerebral haemorrhage require urgent reversal with prothrombin complex concentrate and vitamin K, while specific reversal agents exist for direct oral anticoagulants. Rapid reversal limits haematoma expansion and improves outcomes.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 294,
+    "category": "neurological",
+    "title": "TIA — Urgent Assessment and ABCD2 Score",
+    "content": "Transient ischaemic attack carries a significant risk of early stroke, approximately 10% within 48 hours. The ABCD2 score estimates short-term stroke risk based on Age, Blood pressure, Clinical features, Duration, and Diabetes, with high scores warranting urgent specialist review.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 295,
+    "category": "neurological",
+    "title": "TIA with Atrial Fibrillation",
+    "content": "Patients with TIA found to have atrial fibrillation should be assessed by a stroke specialist within 24 hours regardless of ABCD2 score, given the elevated stroke risk associated with cardioembolic sources.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 296,
+    "category": "neurological",
+    "title": "Stroke Mimics",
+    "content": "Stroke mimics account for up to 30% of stroke presentations and include hypoglycaemia, Todd's paresis after seizure, complex migraine, hypertensive encephalopathy, and functional neurological disorder. Blood glucose must be checked in all suspected stroke patients before imaging.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 297,
+    "category": "neurological",
+    "title": "Hypoglycaemia as a Stroke Mimic",
+    "content": "Hypoglycaemia can cause focal neurological deficits indistinguishable from stroke, including hemiparesis and speech disturbance. Correcting hypoglycaemia immediately may rapidly resolve symptoms and avoid unnecessary thrombolysis.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 298,
+    "category": "neurological",
+    "title": "Posterior Circulation Stroke",
+    "content": "Posterior circulation strokes account for approximately 20% of all strokes and are frequently missed because FAST criteria have poor sensitivity for these presentations. Key symptoms include sudden vertigo, diplopia, dysarthria, dysphagia, ataxia, and bilateral limb weakness.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 299,
+    "category": "neurological",
+    "title": "Cerebellar Stroke Recognition",
+    "content": "Cerebellar stroke presents with sudden ataxia, vertigo, vomiting, and headache, and can be life-threatening due to risk of brainstem compression or hydrocephalus from cerebellar swelling, sometimes requiring urgent neurosurgical decompression.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 300,
+    "category": "neurological",
+    "title": "Last Known Well Time",
+    "content": "The 'last known well' time, defined as the last time the patient was witnessed to be at their neurological baseline, is used as the reference point for determining eligibility for thrombolysis and thrombectomy when exact onset time is uncertain.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 301,
+    "category": "neurological",
+    "title": "Wake-Up Stroke and Unknown Onset Stroke",
+    "content": "For strokes discovered upon waking with unknown true onset time, advanced imaging such as MRI diffusion-weighted and FLAIR sequence mismatch can identify patients likely to be within a treatable time window for thrombolysis.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 302,
+    "category": "neurological",
+    "title": "CT Versus MRI in Hyperacute Stroke",
+    "content": "Non-contrast CT head is the first-line imaging modality in hyperacute stroke due to speed and wide availability, primarily to exclude haemorrhage, while MRI offers greater sensitivity for early ischaemic change and posterior circulation strokes when time and availability allow.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 303,
+    "category": "neurological",
+    "title": "ASPECTS Score for Early Ischaemic Change",
+    "content": "The Alberta Stroke Program Early CT Score (ASPECTS) quantifies early ischaemic change on non-contrast CT across ten brain regions, with lower scores indicating more extensive infarction and influencing eligibility for thrombectomy.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 304,
+    "category": "neurological",
+    "title": "Clinical Prediction Scores for Large Vessel Occlusion",
+    "content": "Pre-hospital scales such as the Cincinnati Prehospital Stroke Severity Scale and the Rapid Arterial Occlusion Evaluation scale help paramedics predict large vessel occlusion, supporting decisions to bypass to a comprehensive stroke centre capable of thrombectomy.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 305,
+    "category": "neurological",
+    "title": "Cervical Artery Dissection",
+    "content": "Carotid or vertebral artery dissection can cause stroke, particularly in younger patients, and may present with neck pain, headache, Horner's syndrome, or pulsatile tinnitus preceding focal neurological deficit.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 306,
+    "category": "neurological",
+    "title": "Cerebral Venous Sinus Thrombosis",
+    "content": "Cerebral venous sinus thrombosis presents with headache, seizures, and focal deficits, often in the context of risk factors such as pregnancy, oral contraceptive use, or hypercoagulable states. CT or MR venography is required for diagnosis, as standard arterial imaging may appear normal.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 307,
+    "category": "neurological",
+    "title": "Subarachnoid Haemorrhage — Clinical Presentation",
+    "content": "Subarachnoid haemorrhage classically presents with sudden severe 'thunderclap' headache, often described as the worst headache of the patient's life, sometimes accompanied by neck stiffness, photophobia, or reduced consciousness.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 308,
+    "category": "neurological",
+    "title": "Subarachnoid Haemorrhage — Investigation",
+    "content": "Non-contrast CT head performed within 6 hours of headache onset has very high sensitivity for subarachnoid haemorrhage. Lumbar puncture for xanthochromia should be considered if CT is negative but clinical suspicion remains high beyond this window.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 309,
+    "category": "neurological",
+    "title": "Hunt-Hess Grading for Subarachnoid Haemorrhage",
+    "content": "The Hunt-Hess scale grades the clinical severity of subarachnoid haemorrhage from grade 1, representing minimal symptoms, to grade 5, representing deep coma, guiding prognosis and management decisions including timing of intervention.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 310,
+    "category": "neurological",
+    "title": "Stroke Unit Care",
+    "content": "Admission to a dedicated stroke unit, providing coordinated multidisciplinary care, has been shown to reduce mortality and disability after stroke compared with care on a general medical ward, independent of thrombolysis or thrombectomy use.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 311,
+    "category": "neurological",
+    "title": "Door-to-Needle Time Targets",
+    "content": "Stroke centres aim for a door-to-needle time of 60 minutes or less from arrival to thrombolysis administration, with leading centres achieving times under 30 minutes through streamlined hyperacute stroke pathways.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 312,
+    "category": "neurological",
+    "title": "Code Stroke Activation Criteria",
+    "content": "A 'code stroke' or hyperacute stroke alert is activated for patients presenting with sudden focal neurological deficit within the treatment window, mobilising rapid CT imaging, stroke team assessment, and preparation for thrombolysis or thrombectomy.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 313,
+    "category": "neurological",
+    "title": "Telestroke Services",
+    "content": "Telestroke networks allow remote stroke specialists to assess patients via video link and guide thrombolysis decisions in hospitals without on-site stroke expertise, extending access to time-critical treatment in rural or under-resourced areas.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 314,
+    "category": "neurological",
+    "title": "Post-Thrombolysis Monitoring",
+    "content": "After thrombolysis administration, patients require frequent neurological observation and blood pressure monitoring, typically every 15 minutes for the first 2 hours, to detect early signs of haemorrhagic transformation or other complications.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 315,
+    "category": "neurological",
+    "title": "Haemorrhagic Transformation After Thrombolysis",
+    "content": "Sudden neurological deterioration, new headache, or rising blood pressure after thrombolysis should raise immediate suspicion for haemorrhagic transformation, requiring urgent repeat CT imaging and discontinuation of any further thrombolytic infusion.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 316,
+    "category": "neurological",
+    "title": "Malignant MCA Syndrome and Decompressive Craniectomy",
+    "content": "Malignant middle cerebral artery syndrome involves massive infarction causing life-threatening cerebral oedema and raised intracranial pressure. Decompressive craniectomy can be life-saving in selected younger patients when performed within a defined early time window.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 317,
+    "category": "neurological",
+    "title": "Locked-In Syndrome",
+    "content": "Locked-in syndrome results from a brainstem stroke causing quadriplegia and inability to speak while consciousness and cognition remain intact, typically with preserved vertical eye movement and blinking as the only means of communication.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 318,
+    "category": "neurological",
+    "title": "Seizures at Stroke Onset",
+    "content": "Seizures occurring at the onset of a focal neurological deficit can complicate stroke diagnosis, as post-ictal (Todd's) paresis can mimic stroke, while seizures can also be the presenting feature of an acute stroke itself, particularly haemorrhagic stroke.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 319,
+    "category": "neurological",
+    "title": "Swallow Assessment After Stroke",
+    "content": "All stroke patients should undergo a formal swallow screen before oral intake, as dysphagia is common after stroke and significantly increases the risk of aspiration pneumonia if unrecognised.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 320,
+    "category": "neurological",
+    "title": "Aspiration Pneumonia Prevention After Stroke",
+    "content": "Nil-by-mouth status and speech and language therapy assessment for patients failing initial swallow screening reduce the risk of aspiration pneumonia, a leading cause of post-stroke morbidity and mortality.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 321,
+    "category": "neurological",
+    "title": "Venous Thromboembolism Prophylaxis After Stroke",
+    "content": "Mechanical prophylaxis such as intermittent pneumatic compression is recommended for immobile stroke patients to reduce venous thromboembolism risk, with pharmacological prophylaxis used cautiously given bleeding risk, particularly after haemorrhagic stroke.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 322,
+    "category": "neurological",
+    "title": "Secondary Stroke Prevention — Antiplatelet and Statin Therapy",
+    "content": "Following ischaemic stroke or TIA, antiplatelet therapy and high-intensity statin treatment are initiated for secondary prevention, reducing the risk of recurrent stroke and other cardiovascular events.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 323,
+    "category": "neurological",
+    "title": "Anticoagulation for Cardioembolic Stroke",
+    "content": "Patients with ischaemic stroke caused by atrial fibrillation are typically transitioned from antiplatelet to anticoagulant therapy for secondary prevention, with timing influenced by infarct size and haemorrhagic transformation risk.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 324,
+    "category": "neurological",
+    "title": "Carotid Endarterectomy Indications",
+    "content": "Carotid endarterectomy is indicated for symptomatic carotid stenosis of 50% or greater, ideally performed within two weeks of the qualifying event, as the benefit of surgery diminishes with delay after the index stroke or TIA.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 325,
+    "category": "neurological",
+    "title": "Stroke Rehabilitation",
+    "content": "Early, intensive, multidisciplinary rehabilitation involving physiotherapy, occupational therapy, and speech and language therapy improves functional recovery after stroke and should begin as soon as the patient is medically stable.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 326,
+    "category": "obstetric",
+    "title": "Stroke in Pregnancy",
+    "content": "Pregnancy and the postpartum period carry an increased risk of both ischaemic and haemorrhagic stroke, related to hypercoagulability and conditions such as pre-eclampsia. Imaging and treatment decisions require careful balancing of maternal and fetal considerations.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 327,
+    "category": "pediatric",
+    "title": "Stroke in Children",
+    "content": "Paediatric stroke is rare but often under-recognised due to non-specific presentation and lower index of clinical suspicion. Underlying causes differ from adults and include congenital heart disease, sickle cell disease, and arteriopathies.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 328,
+    "category": "neurological",
+    "title": "Stroke Risk Factors",
+    "content": "Major modifiable risk factors for stroke include hypertension, atrial fibrillation, diabetes, smoking, hyperlipidaemia, and carotid artery disease. Identification and management of these factors are central to both primary and secondary prevention.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 329,
+    "category": "neurological",
+    "title": "Patent Foramen Ovale and Cryptogenic Stroke",
+    "content": "In younger patients with stroke of undetermined cause, patent foramen ovale should be considered as a potential source of paradoxical embolism, particularly when no other risk factors are identified.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 330,
+    "category": "neurological",
+    "title": "Stroke Code Imaging Pathway",
+    "content": "A streamlined hyperacute stroke imaging pathway typically bypasses the standard emergency department queue, transferring the patient directly to CT on arrival to minimise delay to thrombolysis or thrombectomy decision-making.",
+    "source": "Stroke Recognition Criteria",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 331,
+    "category": "triage",
+    "title": "ED Triage — Primary Survey",
+    "content": "All patients arriving in the emergency department must undergo triage assessment within 15 minutes of arrival, immediately for those who appear critically ill. The primary survey follows an ABCDE approach: Airway, Breathing, Circulation, Disability, and Exposure.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 332,
+    "category": "triage",
+    "title": "Manchester Triage System",
+    "content": "The Manchester Triage System is a standardised five-level triage tool assigning patients to Immediate (red, 0 minutes), Very Urgent (orange, 10 minutes), Urgent (yellow, 60 minutes), Standard (green, 120 minutes), or Non-Urgent (blue, 240 minutes) based on presenting complaint and discriminators.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 333,
+    "category": "triage",
+    "title": "Canadian Triage and Acuity Scale (CTAS)",
+    "content": "CTAS is a five-level triage scale used widely in Canada, assigning resuscitation, emergent, urgent, less urgent, and non-urgent categories with corresponding maximum wait times of 0, 15, 30, 60, and 120 minutes respectively.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 334,
+    "category": "triage",
+    "title": "Australasian Triage Scale (ATS)",
+    "content": "The Australasian Triage Scale assigns five categories with target times to medical assessment ranging from immediate for category 1 to 120 minutes for category 5, and is widely used across Australia and New Zealand to benchmark emergency department performance.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 335,
+    "category": "triage",
+    "title": "Comparing Five-Level Triage Systems",
+    "content": "ESI, CTAS, ATS, and the Manchester Triage System all use five acuity levels but differ in their underlying logic: ESI emphasises resource prediction, while CTAS, ATS, and MTS rely more heavily on presenting complaint discriminators and target time-to-treatment.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 336,
+    "category": "triage",
+    "title": "Triage Documentation Standards",
+    "content": "Triage documentation must include time of arrival, time of triage assessment, triage category assigned, presenting complaint, vital signs, and any immediate interventions initiated, supporting clinical safety, medicolegal accountability, and audit.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 337,
+    "category": "triage",
+    "title": "Undifferentiated Presentations at Triage",
+    "content": "Patients presenting with vague complaints such as 'feeling unwell' require careful triage assessment, as these presentations may conceal serious pathology including sepsis, acute coronary syndrome, or pulmonary embolism.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 338,
+    "category": "pain",
+    "title": "Pain Assessment at Triage",
+    "content": "Pain should be assessed using a validated tool such as the Numerical Rating Scale or Visual Analogue Scale, with reassessment after analgesia is given. Severe pain of 7 or above warrants prompt analgesia and may influence triage category.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 339,
+    "category": "pain",
+    "title": "Nurse-Initiated Analgesia Protocols",
+    "content": "Many emergency departments empower triage nurses to initiate analgesia, such as paracetamol or weak opioids, under standing protocols before physician review, reducing time to pain relief for patients with significant pain at triage.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 340,
+    "category": "pediatric",
+    "title": "Paediatric Triage Adjustments",
+    "content": "Children require age-specific vital sign reference ranges and behavioural assessment at triage. The Paediatric Assessment Triangle evaluates appearance, work of breathing, and circulation to the skin as a rapid global assessment.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 341,
+    "category": "pediatric",
+    "title": "Paediatric Red Flag Features at Triage",
+    "content": "Infants with fever and a bulging fontanelle, non-blanching rash, or inconsolable crying require immediate escalation at triage, as these findings raise concern for serious bacterial infection or meningitis.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 342,
+    "category": "pediatric",
+    "title": "Broselow Tape for Paediatric Weight Estimation",
+    "content": "The Broselow tape estimates a child's weight based on length, allowing rapid calculation of appropriate drug doses and equipment sizes in emergencies when an accurate weight is not immediately available.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 343,
+    "category": "triage",
+    "title": "Infection Control at Triage",
+    "content": "Triage nurses must identify patients with potential infectious disease at first contact. Patients with fever and rash, respiratory symptoms, or diarrhoea and vomiting should be assessed for isolation need and provided with masks where appropriate.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 344,
+    "category": "triage",
+    "title": "Isolation Precautions for Specific Infectious Diseases",
+    "content": "Patients with suspected airborne infections such as tuberculosis or measles require negative pressure isolation where available, while those with suspected norovirus or other contact-spread infections require standard contact precautions.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 345,
+    "category": "triage",
+    "title": "Escalation Pathways from Triage",
+    "content": "Clear escalation pathways must exist from triage to appropriate care areas. ESI-1 patients go directly to the resuscitation room, while activation of major trauma, stroke, STEMI, or sepsis pathways can often be initiated directly by the triage nurse.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 346,
+    "category": "triage",
+    "title": "Waiting Room Safety Monitoring",
+    "content": "Patients in the waiting room must be monitored regularly for deterioration. Repeat vital sign checks, nurse walk-throughs, and a clear process for patients or families to alert staff are essential safety measures.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 347,
+    "category": "psychiatric",
+    "title": "Mental Health Presentations at Triage",
+    "content": "Patients presenting with mental health crises must be triaged with the same urgency as medical emergencies. Active suicidal ideation with a plan or intent, severe agitation, or psychosis with risk to self or others requires immediate assessment.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 348,
+    "category": "psychiatric",
+    "title": "Psychiatric Emergency Environment at Triage",
+    "content": "A safe, low-stimulus environment should be provided for patients presenting with acute mental health crises, with security or psychiatric liaison staff available as needed to support both patient and staff safety.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 349,
+    "category": "triage",
+    "title": "Alcohol Withdrawal Assessment at Triage",
+    "content": "Patients at risk of alcohol withdrawal should be screened using a validated tool such as the CIWA-Ar scale, as severe withdrawal can progress rapidly to seizures or delirium tremens, requiring close monitoring and timely treatment.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 350,
+    "category": "triage",
+    "title": "Intoxicated Patients at Triage",
+    "content": "Intoxicated patients require careful assessment to distinguish simple intoxication from co-existing trauma, hypoglycaemia, or other medical emergencies, as altered behaviour may otherwise be wrongly attributed solely to alcohol or drug use.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 351,
+    "category": "triage",
+    "title": "Trauma Triage and Major Trauma Activation",
+    "content": "Major trauma activation criteria typically include specific physiological parameters, anatomical injury patterns, and mechanism of injury factors, prompting immediate assembly of a trauma team and direct transfer to a resuscitation bay.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 352,
+    "category": "triage",
+    "title": "Mass Casualty Triage — START Method",
+    "content": "Simple Triage and Rapid Treatment (START) is used in mass casualty incidents to rapidly sort patients into immediate, delayed, minor, or deceased categories based on ability to walk, breathing, circulation, and mental status, prioritising the greatest number of survivable casualties.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 353,
+    "category": "pediatric",
+    "title": "JumpSTART Paediatric Mass Casualty Triage",
+    "content": "JumpSTART is a paediatric adaptation of the START mass casualty triage method, accounting for differing normal vital sign ranges and rescue breathing considerations specific to children in disaster settings.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 354,
+    "category": "triage",
+    "title": "Telephone Triage",
+    "content": "Telephone triage services use structured algorithms to assess symptoms remotely and direct callers to emergency care, urgent care, primary care, or self-care, aiming to ensure patients reach the appropriate level of care without unnecessary emergency department attendance.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 355,
+    "category": "triage",
+    "title": "Fast-Track and Minor Injuries Units",
+    "content": "Fast-track or minor injuries units allow low-acuity patients, typically ESI-4 and ESI-5, to be streamed away from the main emergency department for rapid assessment and treatment, improving overall department flow.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 356,
+    "category": "triage",
+    "title": "Ambulance Pre-Notification",
+    "content": "Pre-hospital crews transporting time-critical patients, such as suspected stroke or STEMI, provide advance notification to the receiving emergency department, allowing the appropriate team and resources to be mobilised before patient arrival.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 357,
+    "category": "triage",
+    "title": "Emergency Department Overcrowding and Access Block",
+    "content": "Access block, where admitted patients remain in the emergency department due to lack of inpatient beds, is a major driver of overcrowding and has been associated with worse patient outcomes, including increased mortality for high-acuity patients.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 358,
+    "category": "triage",
+    "title": "Boarding of Admitted Patients",
+    "content": "Boarding refers to admitted patients remaining in the emergency department awaiting an inpatient bed. Prolonged boarding times are associated with increased risk of adverse events and should be monitored as a key department performance metric.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 359,
+    "category": "triage",
+    "title": "Left Without Being Seen Rates",
+    "content": "Patients triaged as lower acuity are more likely to leave without being seen during periods of crowding. Monitoring this metric by triage category helps emergency departments identify safety risks and target service improvements.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 360,
+    "category": "triage",
+    "title": "Repeat Attenders and Frequent Flyers",
+    "content": "Patients who attend the emergency department frequently for the same or related complaints may benefit from individualised care plans developed with input from primary care and relevant specialists to address underlying needs more effectively.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 361,
+    "category": "triage",
+    "title": "Safeguarding Concerns at Triage",
+    "content": "Triage staff should be alert to safeguarding concerns in children, older adults, and vulnerable patients, including signs of neglect or abuse, and should know the local pathway for escalation to safeguarding leads.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 362,
+    "category": "triage",
+    "title": "Domestic Violence Screening",
+    "content": "Routine, sensitive enquiry about domestic violence should be considered when injury patterns or presentation raise concern, with privacy ensured during the conversation and a clear pathway for referral to support services when disclosed.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 363,
+    "category": "triage",
+    "title": "Sexual Assault Presentations",
+    "content": "Patients presenting after sexual assault require sensitive triage, prompt access to a private area, and early involvement of specialist forensic and psychological support services, alongside consideration of evidence preservation needs.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 364,
+    "category": "triage",
+    "title": "Forensic Evidence Preservation",
+    "content": "In presentations involving potential criminal proceedings, such as assault or sexual violence, care should be taken to preserve forensic evidence where possible without delaying necessary urgent medical treatment.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 365,
+    "category": "triage",
+    "title": "Elderly Frailty Screening",
+    "content": "Frailty screening tools such as the Clinical Frailty Scale can be applied at triage to identify older patients at higher risk of poor outcomes, supporting earlier comprehensive geriatric assessment and tailored disposition planning.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 366,
+    "category": "neurological",
+    "title": "Delirium Screening at Triage",
+    "content": "Tools such as the 4AT can be used to rapidly screen for delirium in older patients at triage, as delirium is common, frequently under-recognised, and may indicate an underlying acute illness such as infection.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 367,
+    "category": "triage",
+    "title": "Interpreter Use at Triage",
+    "content": "Professional interpreter services, rather than family members, should be used whenever a language barrier could compromise accurate triage assessment, to ensure patient safety and avoid miscommunication of critical symptoms.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 368,
+    "category": "triage",
+    "title": "Cultural Competence in Triage Assessment",
+    "content": "Triage staff should be aware that expression of pain and symptoms can vary across cultural backgrounds, and should avoid making assumptions about severity based solely on outward presentation or demeanour.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 369,
+    "category": "triage",
+    "title": "Patient Identification at Triage",
+    "content": "Accurate patient identification using at least two identifiers, such as name and date of birth, should be confirmed at triage and reflected on identification wristbands to prevent errors throughout the episode of care.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 370,
+    "category": "triage",
+    "title": "Allergy Documentation at Triage",
+    "content": "Allergy status, including specific reactions experienced, should be documented and clearly flagged at triage to prevent inadvertent administration of an allergenic medication during subsequent care.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 371,
+    "category": "triage",
+    "title": "Medication Reconciliation at Triage",
+    "content": "Obtaining an accurate current medication list at triage, including over-the-counter and herbal remedies, supports safe prescribing and helps identify medication-related causes of the presenting complaint.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 372,
+    "category": "triage",
+    "title": "Vital Sign Equipment Calibration",
+    "content": "Regular calibration and maintenance of triage equipment, including blood pressure monitors, thermometers, and pulse oximeters, is essential to ensure accurate vital sign measurement and reliable triage decision-making.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 373,
+    "category": "triage",
+    "title": "Hand Hygiene and PPE at Triage",
+    "content": "Hand hygiene before and after each patient contact, along with appropriate use of personal protective equipment based on suspected transmission risk, is a fundamental infection control measure beginning at the point of triage.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 374,
+    "category": "triage",
+    "title": "Triage in Pandemic Surge Conditions",
+    "content": "During pandemic surge, additional screening questions for infectious symptoms and travel or exposure history are often incorporated into triage, alongside separated pathways for patients with suspected transmissible respiratory illness.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 375,
+    "category": "triage",
+    "title": "CBRN Decontamination Triage",
+    "content": "Patients exposed to chemical, biological, radiological, or nuclear hazards require decontamination before entering the main emergency department, with triage occurring in a designated decontamination area to prevent secondary contamination of staff and facilities.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 376,
+    "category": "triage",
+    "title": "Triage Time-to-Assessment Targets",
+    "content": "Most triage systems set a target time from arrival to initial triage assessment, commonly within 10 to 15 minutes, with immediate assessment for patients who appear critically unwell on arrival.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 377,
+    "category": "triage",
+    "title": "Colour-Coded Triage Systems",
+    "content": "Many triage systems use colour coding, such as red for immediate, orange for very urgent, yellow for urgent, and green for standard, to provide a rapid visual cue of patient acuity for all staff in the department.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 378,
+    "category": "triage",
+    "title": "Bed Management and Flow Coordination",
+    "content": "A dedicated flow coordinator or bed manager role helps match incoming patient acuity with available department resources in real time, supporting timely movement of patients from triage to an appropriate care area.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 379,
+    "category": "triage",
+    "title": "Early Senior Assessment Models",
+    "content": "Some emergency departments implement early senior clinician assessment at or near triage, sometimes called 'front-of-house' or 'rapid assessment' models, to expedite initial diagnostic decision-making for selected patients.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 380,
+    "category": "triage",
+    "title": "See-and-Treat Models",
+    "content": "See-and-treat models allow suitable low-acuity patients to be assessed and managed in a single encounter at or near triage, reducing overall length of stay for minor injuries and illnesses.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 381,
+    "category": "triage",
+    "title": "Triage Nurse Competency Standards",
+    "content": "Triage nurses are typically required to complete structured competency-based training and ongoing assessment, reflecting the complexity and patient safety implications of accurate acuity assignment.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 382,
+    "category": "triage",
+    "title": "Triage Accuracy Auditing",
+    "content": "Regular audit of triage accuracy, comparing assigned acuity level against actual resource use and outcomes, helps identify patterns of under-triage or over-triage and informs targeted staff training.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 383,
+    "category": "triage",
+    "title": "Walk-In Versus Ambulance Arrival Prioritisation",
+    "content": "Triage acuity should be determined by clinical presentation rather than mode of arrival; a walk-in patient may be higher acuity than an ambulance arrival, and triage processes must avoid assumptions based on arrival method alone.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 384,
+    "category": "triage",
+    "title": "Point-of-Care Glucose Testing at Triage",
+    "content": "Point-of-care blood glucose testing is recommended at triage for any patient with altered mental status, as hypoglycaemia is rapidly reversible and can mimic numerous serious neurological and psychiatric conditions.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 385,
+    "category": "triage",
+    "title": "Urine Dipstick Testing at Triage",
+    "content": "Urine dipstick testing is a non-invasive point-of-care test commonly initiated at triage for patients with abdominal pain, urinary symptoms, or suspected pregnancy complications, supporting earlier diagnostic clarification.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 386,
+    "category": "obstetric",
+    "title": "Pregnancy Testing at Triage",
+    "content": "A urine or serum pregnancy test should be obtained at triage for any woman of childbearing age presenting with abdominal pain or vaginal bleeding, as pregnancy status significantly changes the differential diagnosis and management priorities.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 387,
+    "category": "cardiac",
+    "title": "ECG Acquisition Protocol for Chest Pain at Triage",
+    "content": "Many triage protocols mandate that a 12-lead ECG be obtained within 10 minutes for any patient reporting chest pain, irrespective of formal triage category, to ensure time-critical cardiac diagnoses are not delayed.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 388,
+    "category": "triage",
+    "title": "Splinting and Immobilisation Protocols at Triage",
+    "content": "Triage nurses commonly apply splints or immobilisation devices to suspected fractures before formal physician assessment, reducing pain and preventing further injury while the patient awaits definitive evaluation.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 389,
+    "category": "triage",
+    "title": "Wound Care Protocols at Triage",
+    "content": "Standing protocols often allow triage nurses to clean and dress simple wounds, apply pressure dressings for bleeding, and assess tetanus immunisation status, supporting earlier initial wound management.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 390,
+    "category": "triage",
+    "title": "Triage Refusal of Care and Capacity Assessment",
+    "content": "When a patient declines recommended assessment or treatment, triage staff should consider the patient's capacity to make that decision and document the discussion, while ensuring the patient understands the risks of declining care.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 391,
+    "category": "triage",
+    "title": "Triage Communication Skills",
+    "content": "Effective triage communication includes clear explanation of expected waiting times, what to do if symptoms worsen, and reassurance, which has been shown to improve patient satisfaction and reduce anxiety during the waiting period.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 392,
+    "category": "triage",
+    "title": "Major Trauma Network Referral Criteria",
+    "content": "Patients meeting defined anatomical, physiological, or mechanism-based criteria for major trauma should be referred or transferred to a designated major trauma centre according to regional trauma network protocols, even if this requires bypassing a closer facility.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 393,
+    "category": "triage",
+    "title": "Inter-Facility Transfer Protocols",
+    "content": "Patients requiring transfer to another facility for specialist care should be accompanied by appropriately trained staff and equipment matched to their clinical acuity, with clear handover documentation provided to the receiving team.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 394,
+    "category": "triage",
+    "title": "Ambulance Diversion Protocols",
+    "content": "During periods of severe overcrowding, some regions implement ambulance diversion protocols redirecting incoming ambulances to alternative facilities, although these measures are used cautiously due to potential impact on patient outcomes.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 395,
+    "category": "triage",
+    "title": "Surge Triage Staffing",
+    "content": "During periods of high patient volume, deploying a second triage nurse or a triage support team helps maintain timely initial assessment and prevents delays in identifying high-acuity patients among a larger queue.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 396,
+    "category": "triage",
+    "title": "Rapid Assessment and Treatment Zones",
+    "content": "Some departments use a dedicated rapid assessment and treatment zone immediately adjacent to triage, allowing brief initial interventions such as analgesia or fluids to begin before the patient is formally allocated to a treatment bay.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 397,
+    "category": "triage",
+    "title": "Triage in Rural and Remote Settings",
+    "content": "Triage protocols in rural and remote facilities must account for limited on-site resources and longer transfer times to definitive care, often incorporating lower thresholds for early transfer arrangement for higher-acuity patients.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 398,
+    "category": "triage",
+    "title": "Telehealth-Supported Triage",
+    "content": "Telehealth links to remote specialists or senior clinicians can support triage decision-making in smaller facilities, particularly for time-critical presentations such as stroke or trauma where local expertise may be limited.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 399,
+    "category": "triage",
+    "title": "Public Health Campaigns Supporting Appropriate ED Use",
+    "content": "Public health campaigns encouraging patients to 'choose well' between emergency, urgent, and primary care services aim to reduce inappropriate low-acuity emergency department attendance and support more efficient health system use.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 5,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 400,
+    "category": "triage",
+    "title": "Patient Experience and Communication at Triage",
+    "content": "Patient experience surveys consistently identify communication about waiting times and the reason for triage category as key drivers of satisfaction, independent of the actual clinical outcome of the visit.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 4,
+    "risk_level": "low_risk"
+  },
+  {
+    "id": 401,
+    "category": "triage",
+    "title": "Triage Reassessment for Patients Awaiting a Bed",
+    "content": "Patients who have been triaged but remain in a waiting area or corridor due to bed unavailability should be periodically reassessed, since prolonged waiting itself is a risk factor for unrecognised deterioration.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 402,
+    "category": "triage",
+    "title": "Triage Category and Legal or Forensic Documentation",
+    "content": "Accurate, contemporaneous triage documentation can be critical evidence in subsequent legal or coronial proceedings, reinforcing the importance of objective, timely, and complete record-keeping at the point of first contact.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 403,
+    "category": "triage",
+    "title": "Triage of Patients with Disabilities",
+    "content": "Patients with sensory, cognitive, or physical disabilities may require adapted communication approaches at triage, and staff should ask the patient or their support person about preferred communication methods rather than assuming limitations.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 404,
+    "category": "triage",
+    "title": "Triage of Unaccompanied Minors",
+    "content": "Unaccompanied minors presenting to the emergency department require specific safeguarding consideration, including attempts to contact a parent or guardian and assessment of the circumstances leading to the unaccompanied presentation.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 405,
+    "category": "triage",
+    "title": "Triage for Suspected Non-Accidental Injury in Children",
+    "content": "Injury patterns inconsistent with the reported mechanism, delayed presentation, or multiple injuries of different ages should raise suspicion for non-accidental injury in children, triggering a structured safeguarding pathway.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 406,
+    "category": "triage",
+    "title": "Triage Risk Communication to Waiting Patients",
+    "content": "Providing waiting patients with clear safety-netting advice, such as specific symptoms that should prompt immediately alerting staff, helps mitigate risk during periods when patients must wait beyond their target triage time.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 407,
+    "category": "triage",
+    "title": "Triage and Initial Sepsis Screening Integration",
+    "content": "Many emergency departments embed a sepsis screening question set directly within the triage process, ensuring that any patient with possible infection and reduced physiological reserve is flagged for rapid escalation regardless of overall triage category.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 408,
+    "category": "triage",
+    "title": "Triage and Initial Stroke Screening Integration",
+    "content": "Embedding a brief stroke screening tool such as FAST within the triage assessment for any patient with neurological symptoms helps ensure rapid activation of the hyperacute stroke pathway without waiting for full physician assessment.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 1,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 409,
+    "category": "triage",
+    "title": "Triage Quality Indicators",
+    "content": "Common triage quality indicators include time to triage, time to pain assessment, accuracy of triage category against final disposition, and rate of unplanned re-attendance, used together to monitor and improve triage performance.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  },
+  {
+    "id": 410,
+    "category": "triage",
+    "title": "Triage in Single-Provider or Low-Resource Settings",
+    "content": "In settings with a single available clinician, triage protocols should clearly define which presentations justify interrupting ongoing care of another patient, balancing fairness with the need to respond rapidly to genuine emergencies.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 2,
+    "risk_level": "high_risk"
+  },
+  {
+    "id": 411,
+    "category": "triage",
+    "title": "Continuous Quality Improvement of Triage Protocols",
+    "content": "Triage protocols should be periodically reviewed and updated based on audit findings, emerging evidence, and incident review, ensuring the system continues to reliably identify patients at risk of serious illness or deterioration.",
+    "source": "Emergency Department Triage Protocols",
+    "esi_level": 3,
+    "risk_level": "medium_risk"
+  }
+]

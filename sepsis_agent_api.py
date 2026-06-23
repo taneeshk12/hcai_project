@@ -15,15 +15,10 @@ class SepsisAgent:
     Sepsis agent for ED triage using XGBoost.
     """
     
-    # 29 features expected by the Sepsis model
+    # 10 features expected by the Sepsis model
     FEATURE_NAMES = [
-        'age', 'sex', 'systolic_bp', 'diastolic_bp', 'heart_rate', 
-        'respiratory_rate', 'temperature', 'spo2', 'pain_score', 
-        'wbc', 'hemoglobin', 'platelet_count', 'sodium', 'potassium', 
-        'creatinine', 'glucose', 'troponin', 'bnp', 'lactate', 'inr', 
-        'spo2_risk_score', 'rr_risk_score', 'temp_risk_score', 
-        'spo2_deviation', 'rr_deviation', 'respiratory_distress_index', 
-        'age_adjusted_resp_risk', 'hr_risk_score', 'sbp_risk_score'
+        'heart_rate', 'respiratory_rate', 'systolic_bp', 'temperature', 'spo2', 
+        'age', 'qsofa_score', 'altered_mentation', 'rr_high', 'sbp_low'
     ]
     
     RISK_CLASSES = {0: 'LOW_RISK', 1: 'MID_RISK', 2: 'HIGH_RISK'}
@@ -50,46 +45,21 @@ class SepsisAgent:
         processed = {}
         
         # Required base vitals
-        required_vitals = ['age', 'systolic_bp', 'diastolic_bp', 'heart_rate', 'respiratory_rate', 'temperature', 'spo2']
+        required_vitals = ['age', 'systolic_bp', 'heart_rate', 'respiratory_rate', 'temperature', 'spo2']
         for field in required_vitals:
-            if field not in data:
+            if field not in data or data[field] is None:
                 return False, f"Missing required vital sign: {field}", {}
             processed[field] = float(data[field])
             
-        sex = data.get('sex', 'M').upper()
-        processed['sex'] = 1 if sex == 'F' else 0
-        processed['pain_score'] = float(data.get('pain_score', 0))
+        # Calculate qSOFA indicators
+        altered_mentation = 1 if int(data.get('altered_mentation', 0)) == 1 else 0
+        rr_high = 1 if processed['respiratory_rate'] >= 22 else 0
+        sbp_low = 1 if processed['systolic_bp'] <= 100 else 0
         
-        # Labs
-        labs = ['wbc', 'hemoglobin', 'platelet_count', 'sodium', 'potassium', 'creatinine', 'glucose', 'troponin', 'bnp', 'lactate', 'inr']
-        default_labs = {
-            'wbc': 8.0, 'hemoglobin': 14.0, 'platelet_count': 250.0, 'sodium': 140.0, 'potassium': 4.0,
-            'creatinine': 1.0, 'glucose': 100.0, 'troponin': 0.01, 'bnp': 50.0, 'lactate': 1.5, 'inr': 1.0
-        }
-        
-        for lab in labs:
-            if lab in data and data[lab] is not None:
-                processed[lab] = float(data[lab])
-            else:
-                processed[lab] = default_labs[lab]
-                
-        # Calculate risk scores (simplified approximations)
-        spo2 = processed['spo2']
-        rr = processed['respiratory_rate']
-        temp = processed['temperature']
-        hr = processed['heart_rate']
-        sbp = processed['systolic_bp']
-        age = processed['age']
-        
-        processed['spo2_risk_score'] = 0.1 if spo2 >= 95 else (0.9 if spo2 < 90 else 0.5)
-        processed['rr_risk_score'] = 0.2 if 12 <= rr <= 20 else (0.8 if rr > 30 else 0.5)
-        processed['temp_risk_score'] = 0.1 if 36.5 <= temp <= 37.5 else (0.7 if temp > 39 or temp < 36.5 else 0.4)
-        processed['spo2_deviation'] = 95 - spo2 if spo2 < 95 else 0
-        processed['rr_deviation'] = rr - 20 if rr > 20 else (12 - rr if rr < 12 else 0)
-        processed['respiratory_distress_index'] = (processed['spo2_risk_score'] + processed['rr_risk_score'] + processed['temp_risk_score']) / 3
-        processed['age_adjusted_resp_risk'] = processed['respiratory_distress_index'] * (1 + (age - 40) / 100) if age > 40 else processed['respiratory_distress_index']
-        processed['hr_risk_score'] = 0.1 if 60 <= hr <= 100 else 0.8
-        processed['sbp_risk_score'] = 0.1 if 90 <= sbp <= 140 else 0.8
+        processed['altered_mentation'] = altered_mentation
+        processed['rr_high'] = rr_high
+        processed['sbp_low'] = sbp_low
+        processed['qsofa_score'] = altered_mentation + rr_high + sbp_low
         
         return True, "", processed
 

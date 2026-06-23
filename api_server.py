@@ -24,10 +24,25 @@ import uuid
 try:
     from agents.summary_agent import SummaryAgent
     from reports.report_generator import ReportGenerator
+    from agents.safety_agent import SafetyVerificationAgent
+    from agents.trust_agent import TrustScoreAgent
+    from dashboard.safety_dashboard import SafetyDashboardProvider
     _HCAI_AVAILABLE = True
 except ImportError as _e:
     _HCAI_AVAILABLE = False
     _HCAI_IMPORT_ERROR = str(_e)
+
+# RAG Symptom Chatbot — deferred import to avoid macOS fork crash
+# SentenceTransformer loads joblib workers; importing it at module level
+# crashes the server on macOS when other joblib models (RandomForest) are
+# already loaded. We import lazily on the first /rag/chat request instead.
+import sys as _sys
+_rag_rag_dir = os.path.join(os.path.dirname(__file__), 'agents', 'rag_chatbot', 'rag')
+if _rag_rag_dir not in _sys.path:
+    _sys.path.insert(0, _rag_rag_dir)
+_rag_retrieve = None
+_rag_generate = None
+_RAG_AVAILABLE = None   # None = not yet checked; True/False after first attempt
 
 app = Flask(__name__)
 CORS(app)  # Enable React frontend to call this API
@@ -85,16 +100,102 @@ except Exception as e:
 # ── HCAI agents (lazy-initialised, safe if agents/ not yet present) ──
 _summary_agent = None
 _report_generator = None
+_safety_agent = None
+_trust_agent = None
 
 if _HCAI_AVAILABLE:
     try:
         _summary_agent = SummaryAgent()
         _report_generator = ReportGenerator()
-        logger.info("✓ HCAI SummaryAgent + ReportGenerator loaded successfully")
+        _safety_agent = SafetyVerificationAgent()
+        _trust_agent = TrustScoreAgent()
+        logger.info("✓ HCAI SummaryAgent + ReportGenerator + Safety/Trust Agents loaded successfully")
     except Exception as e:
         logger.error(f"Failed to load HCAI agents: {e}")
 else:
     logger.warning(f"HCAI agents not available: {_HCAI_IMPORT_ERROR if '_HCAI_IMPORT_ERROR' in dir() else 'import error'}")
+
+def clean_and_impute_patient_data(data: dict) -> dict:
+    """
+    Cleans the patient data by converting empty strings or whitespace-only
+    strings to None and filtering them out from the dictionary.
+    This allows sub-agents to fall back to their internal default values
+    for missing indicators and avoids crashing from type conversion.
+    """
+    if not isinstance(data, dict):
+        return data
+    cleaned = {}
+    for k, v in data.items():
+        if v is not None and v != "" and not (isinstance(v, str) and v.strip() == ""):
+            cleaned[k] = v
+    return cleaned
+
+def log_to_safety_audit(patient_id, prediction, confidence, trust_score, safety_status, human_review_required, triage_mode='IMMEDIATE'):
+    """
+    Log case details to safety_audit_log.csv for audit trail tracking.
+    Conforms to FEATURE 8 requirements.
+    """
+    try:
+        os.makedirs('data', exist_ok=True)
+        file_path = 'data/safety_audit_log.csv'
+        file_exists = os.path.isfile(file_path)
+        
+        # Check if migration to include triage_mode is needed
+        if file_exists:
+            needs_migration = False
+            try:
+                with open(file_path, 'r', newline='') as f:
+                    first_line = f.readline()
+                    if 'triage_mode' not in first_line:
+                        needs_migration = True
+            except Exception:
+                pass
+            
+            if needs_migration:
+                logger.info("Migrating safety_audit_log.csv to include triage_mode column...")
+                rows = []
+                try:
+                    with open(file_path, 'r', newline='') as f:
+                        reader = csv.DictReader(f)
+                        for r in reader:
+                            pid = r.get('patient_id', '')
+                            if 'HIST' in pid:
+                                try:
+                                    idx = int(pid.replace('PT-HIST', ''))
+                                    hist_mode = 'ENHANCED' if idx % 4 == 0 else 'IMMEDIATE'
+                                except Exception:
+                                    hist_mode = 'IMMEDIATE'
+                            else:
+                                hist_mode = 'IMMEDIATE'
+                            r['triage_mode'] = hist_mode
+                            rows.append(r)
+                    
+                    with open(file_path, 'w', newline='') as f:
+                        fieldnames = ['patient_id', 'prediction', 'confidence', 'trust_score', 'safety_status', 'human_review_required', 'triage_mode', 'timestamp']
+                        writer = csv.DictWriter(f, fieldnames=fieldnames)
+                        writer.writeheader()
+                        writer.writerows(rows)
+                except Exception as mig_err:
+                    logger.error(f"Failed to migrate CSV audit log: {mig_err}")
+        
+        with open(file_path, 'a', newline='') as f:
+            fieldnames = ['patient_id', 'prediction', 'confidence', 'trust_score', 'safety_status', 'human_review_required', 'triage_mode', 'timestamp']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            if not file_exists:
+                writer.writeheader()
+                
+            writer.writerow({
+                'patient_id': patient_id or 'ANONYMOUS',
+                'prediction': prediction,
+                'confidence': confidence,
+                'trust_score': trust_score,
+                'safety_status': safety_status,
+                'human_review_required': str(human_review_required),
+                'triage_mode': triage_mode,
+                'timestamp': datetime.now().isoformat()
+            })
+    except Exception as e:
+        logger.error(f"Failed to log to safety audit: {e}")
 
 # ==================== RESPIRATORY ENDPOINTS ====================
 
@@ -449,6 +550,19 @@ class RuleBasedSafetyLayer:
         if rr > 30 or rr < 8:
             alerts.append(f"CRITICAL Respiratory Rate: {rr}")
             is_critical = True
+
+        # New: Body Temperature Check
+        temp = float(data.get('temperature', 37.0))
+        if temp > 39.5 or temp < 35.0:
+            alerts.append(f"CRITICAL Temperature: {temp}°C")
+            is_critical = True
+
+        # New: Shock Index Check
+        if sbp > 0:
+            shock_index = hr / sbp
+            if shock_index > 1.3:
+                alerts.append(f"CRITICAL Shock Index: {shock_index:.2f} (HR {hr} / SBP {sbp})")
+                is_critical = True
             
         return {
             'is_critical': is_critical,
@@ -457,18 +571,35 @@ class RuleBasedSafetyLayer:
 
 class OutputAggregator:
     @staticmethod
-    def aggregate(predictions: dict, safety_rules: dict) -> dict:
+    def aggregate(predictions: dict, safety_rules: dict, patient_data: dict = None, triage_mode: str = None) -> dict:
         risk_scores = {'LOW': 0, 'MEDIUM': 1, 'HIGH': 2}
         reverse_scores = {0: 'LOW', 1: 'MEDIUM', 2: 'HIGH'}
         
-        max_risk_score = 0
-        confidences = []
+        # Determine triage mode if not explicitly passed
+        if not triage_mode:
+            if patient_data and 'triage_mode' in patient_data:
+                triage_mode = patient_data.get('triage_mode')
+            else:
+                # Default to IMMEDIATE if labs are missing
+                critical_labs = ['troponin', 'lactate', 'bnp', 'wbc', 'creatinine']
+                missing_labs = []
+                if patient_data:
+                    for lab in critical_labs:
+                        val = patient_data.get(lab)
+                        if val is None or val == "" or str(val).strip() == "":
+                            missing_labs.append(lab)
+                triage_mode = 'IMMEDIATE' if len(missing_labs) > 0 else 'ENHANCED'
+
+        if isinstance(triage_mode, str):
+            triage_mode = triage_mode.upper()
+        if triage_mode not in ['IMMEDIATE', 'ENHANCED']:
+            triage_mode = 'IMMEDIATE'
         
-        # 1. Rule-based layer overrides
-        if safety_rules.get('is_critical'):
-            max_risk_score = 2
-            
-        # 2. Check each agent
+        # 1. Check each agent to find pure ML models' highest prediction
+        pure_model_score = 0
+        confidences = []
+        parsed_risks = []
+        
         for agent_name, result in predictions.items():
             if result.get('status') == 'success':
                 risk = result.get('risk_level', 'LOW')
@@ -477,16 +608,46 @@ class OutputAggregator:
                 else: r = 'LOW'
                 
                 score = risk_scores.get(r, 0)
-                if score > max_risk_score:
-                    max_risk_score = score
+                parsed_risks.append(score)
+                if score > pure_model_score:
+                    pure_model_score = score
                     
                 confidences.append(result.get('confidence', 0.5))
                 
+        pure_model_risk = reverse_scores[pure_model_score]
+        
+        # 2. Apply Rule-based safety overrides for final risk
+        max_risk_score = pure_model_score
+        if safety_rules.get('is_critical'):
+            max_risk_score = 2
+            
         final_risk = reverse_scores[max_risk_score]
         avg_confidence = sum(confidences) / len(confidences) if confidences else 0.5
         
-        uncertainty_high = avg_confidence < 0.70
+        # ── Multi-Dimensional Uncertainty Detection ──
+        # Factor A: Low Confidence
+        low_confidence = avg_confidence < 0.70
         
+        # Factor B: Sub-Agent Disagreement (Conflict)
+        dissonance_conflict = False
+        if len(parsed_risks) >= 2:
+            if max(parsed_risks) - min(parsed_risks) >= 2:
+                dissonance_conflict = True
+                
+        # Factor C: Data Completeness (Missing Labs)
+        critical_labs = ['troponin', 'lactate', 'bnp', 'wbc', 'creatinine']
+        missing_labs = []
+        if patient_data:
+            for lab in critical_labs:
+                val = patient_data.get(lab)
+                if val is None or val == "" or str(val).strip() == "":
+                    missing_labs.append(lab)
+        missing_count = len(missing_labs)
+        missing_labs_conflict = missing_count >= 3
+        
+        uncertainty_high = low_confidence or dissonance_conflict or missing_labs_conflict
+        
+        # Build explanation
         explanation = "Patient is stable across all systems."
         if final_risk == 'HIGH':
             explanation = "Critical risk identified! "
@@ -497,14 +658,114 @@ class OutputAggregator:
             explanation = "Elevated risk detected. Please review agent sub-reports and monitor."
             
         if uncertainty_high:
-            explanation += " (Note: AI confidence is low. Please review SHAP feature impacts carefully)."
+            explanation += " (Note: AI prediction uncertainty is elevated. Review SHAP feature drivers and raw telemetry carefully)."
+            
+        # Build structured uncertainty factors
+        uncertainty_factors = []
+        if low_confidence:
+            uncertainty_factors.append(
+                f"Low Model Confidence: Average AI confidence is low ({avg_confidence*100:.1f}%), "
+                f"falling below the 70% threshold."
+            )
+        if dissonance_conflict:
+            conflict_details = []
+            for agent, p in predictions.items():
+                if p.get("status") == "success":
+                    r = p.get("risk_level", "LOW").replace("_RISK", "").replace("_ESI", "").title()
+                    conflict_details.append(f"{agent.capitalize()} Agent ({r})")
+            uncertainty_factors.append(
+                f"Sub-agent Conflict: Severe prediction mismatch between: {', '.join(conflict_details)}."
+            )
+        if missing_labs_conflict:
+            missing_labs_formatted = [l.upper() for l in missing_labs]
+            uncertainty_factors.append(
+                f"Data Completeness: {missing_count} critical labs ({', '.join(missing_labs_formatted)}) "
+                f"are missing and default-imputed."
+            )
+            
+        uncertainty_explanation = ""
+        if uncertainty_high:
+            explanations = []
+            if low_confidence:
+                explanations.append("Statistical confidence is below safety thresholds.")
+            if dissonance_conflict:
+                explanations.append("Diagnostic sub-agents reported conflicting risk levels.")
+            if missing_labs_conflict:
+                explanations.append("Important laboratory markers are missing and defaulted.")
+            explanations.append("Mandatory review of raw vitals and patient presentation is required.")
+            uncertainty_explanation = " ".join(explanations)
+        else:
+            uncertainty_explanation = "AI predictions are highly consistent across sub-agents with complete data."
+            
+        # Compute sub-agent consensus agreement score
+        agreement_score = 100
+        if parsed_risks:
+            from collections import Counter
+            counts = Counter(parsed_risks)
+            most_common_count = counts.most_common(1)[0][1]
+            total_active_agents = len(parsed_risks)
+            
+            if total_active_agents > 0:
+                agreement_ratio = most_common_count / total_active_agents
+                if agreement_ratio == 1.0:
+                    agreement_score = 100
+                elif agreement_ratio >= 0.75:
+                    agreement_score = 75
+                elif agreement_ratio >= 0.50:
+                    agreement_score = 50
+                else:
+                    agreement_score = 25
+
+        # Call Safety Agent
+        safety_status = "AGREEMENT"
+        safety_score = 100
+        if _safety_agent:
+            pred_risk_label = f"{pure_model_risk}_RISK"
+            safety_res = _safety_agent.verify(pred_risk_label, patient_data or {}, safety_rules)
+            safety_status = safety_res.get("safety_status", "AGREEMENT")
+            safety_score = safety_res.get("safety_score", 100)
+            
+        # Call Trust Agent
+        trust_score = 50
+        trust_category = "MODERATE TRUST"
+        if _trust_agent:
+            trust_res = _trust_agent.calculate_trust(avg_confidence, safety_score, agreement_score)
+            trust_score = trust_res.get("trust_score", 50)
+            trust_category = trust_res.get("trust_category", "MODERATE TRUST")
+            
+        # Human Review Flagging
+        review_reasons = []
+        if avg_confidence < 0.70:
+            review_reasons.append("Low Confidence")
+        if safety_status == "CONTRADICTION":
+            review_reasons.append("Safety Rule Contradiction")
+            
+        if review_reasons:
+            human_review_required = True
+            human_review_reason = " & ".join(review_reasons)
+        else:
+            human_review_required = False
+            human_review_reason = "None"
             
         return {
             'final_risk': final_risk,
             'overall_confidence': round(avg_confidence, 4),
             'uncertainty_high': uncertainty_high,
+            'dissonance_conflict': dissonance_conflict,
+            'missing_labs_conflict': missing_labs_conflict,
+            'missing_labs': missing_labs,
+            'uncertainty_factors': uncertainty_factors,
+            'uncertainty_explanation': uncertainty_explanation,
             'explanation': explanation,
-            'safety_alerts': safety_rules.get('alerts', [])
+            'safety_alerts': safety_rules.get('alerts', []),
+            'safety_status': safety_status,
+            'safety_score': safety_score,
+            'agreement_score': agreement_score,
+            'trust_score': trust_score,
+            'trust_category': trust_category,
+            'human_review_required': human_review_required,
+            'human_review_reason': human_review_reason,
+            'triage_mode': triage_mode
         }
 
 # ==================== UNIFIED ENDPOINT ====================
@@ -518,6 +779,7 @@ def unified_predict():
     """
     try:
         patient_data = request.get_json()
+        cleaned_patient_data = clean_and_impute_patient_data(patient_data)
 
         results = {
             'timestamp': datetime.now().isoformat(),
@@ -526,33 +788,47 @@ def unified_predict():
         }
 
         if respiratory_agent:
-            resp_res = respiratory_agent.predict(patient_data)
+            resp_res = respiratory_agent.predict(cleaned_patient_data)
             results['predictions']['respiratory'] = json.loads(json.dumps(resp_res, cls=NumpyEncoder))
 
         if general_agent:
-            gen_res = general_agent.predict(patient_data)
+            gen_res = general_agent.predict(cleaned_patient_data)
             results['predictions']['general'] = json.loads(json.dumps(gen_res, cls=NumpyEncoder))
 
         if cardiac_agent:
-            card_res = cardiac_agent.predict(patient_data)
+            card_res = cardiac_agent.predict(cleaned_patient_data)
             results['predictions']['cardiac'] = json.loads(json.dumps(card_res, cls=NumpyEncoder))
 
         if sepsis_agent:
-            sep_res = sepsis_agent.predict(patient_data)
+            sep_res = sepsis_agent.predict(cleaned_patient_data)
             results['predictions']['sepsis'] = json.loads(json.dumps(sep_res, cls=NumpyEncoder))
 
-        # Step 1: Rule-Based Safety Layer (unchanged)
-        safety_rules = RuleBasedSafetyLayer.check_vitals(patient_data)
+        # Step 1: Rule-Based Safety Layer
+        safety_rules = RuleBasedSafetyLayer.check_vitals(cleaned_patient_data)
 
-        # Step 2: Output Aggregation (unchanged)
-        aggregation = OutputAggregator.aggregate(results['predictions'], safety_rules)
+        # Get triage mode from patient_data
+        triage_mode = patient_data.get('triage_mode')
+
+        # Step 2: Output Aggregation (pass the *raw* user input to preserve missingness flags)
+        aggregation = OutputAggregator.aggregate(results['predictions'], safety_rules, patient_data, triage_mode)
         results['aggregation'] = aggregation
+
+        # Log to safety audit log
+        log_to_safety_audit(
+            patient_id=patient_data.get('patient_id', 'ANONYMOUS'),
+            prediction=aggregation.get('final_risk', 'LOW') + '_RISK',
+            confidence=aggregation.get('overall_confidence', 0.5),
+            trust_score=aggregation.get('trust_score', 50),
+            safety_status=aggregation.get('safety_status', 'AGREEMENT'),
+            human_review_required=aggregation.get('human_review_required', False),
+            triage_mode=aggregation.get('triage_mode', 'IMMEDIATE')
+        )
 
         # Step 3: HCAI Lite enrichment (confidence + symptom context, no LLM)
         if _summary_agent:
             try:
                 hcai_lite = _summary_agent.build_lite(
-                    patient_data,
+                    cleaned_patient_data,
                     results['predictions'],
                     aggregation,
                 )
@@ -582,24 +858,26 @@ def unified_batch_predict():
         
         results = []
         for patient_data in patients:
+            cleaned_patient_data = clean_and_impute_patient_data(patient_data)
             res = {
                 'predictions': {}
             }
             if respiratory_agent:
-                resp_res = respiratory_agent.predict(patient_data)
+                resp_res = respiratory_agent.predict(cleaned_patient_data)
                 res['predictions']['respiratory'] = json.loads(json.dumps(resp_res, cls=NumpyEncoder))
             if general_agent:
-                gen_res = general_agent.predict(patient_data)
+                gen_res = general_agent.predict(cleaned_patient_data)
                 res['predictions']['general'] = json.loads(json.dumps(gen_res, cls=NumpyEncoder))
             if cardiac_agent:
-                card_res = cardiac_agent.predict(patient_data)
+                card_res = cardiac_agent.predict(cleaned_patient_data)
                 res['predictions']['cardiac'] = json.loads(json.dumps(card_res, cls=NumpyEncoder))
             if sepsis_agent:
-                sep_res = sepsis_agent.predict(patient_data)
+                sep_res = sepsis_agent.predict(cleaned_patient_data)
                 res['predictions']['sepsis'] = json.loads(json.dumps(sep_res, cls=NumpyEncoder))
                 
-            safety_rules = RuleBasedSafetyLayer.check_vitals(patient_data)
-            aggregation = OutputAggregator.aggregate(res['predictions'], safety_rules)
+            safety_rules = RuleBasedSafetyLayer.check_vitals(cleaned_patient_data)
+            triage_mode = patient_data.get('triage_mode')
+            aggregation = OutputAggregator.aggregate(res['predictions'], safety_rules, patient_data, triage_mode)
             res['aggregation'] = aggregation
             results.append(res)
             
@@ -635,36 +913,51 @@ def hcai_analyze():
         save_report = body.pop('save_report', True) if body else True
         patient_data = body
 
+        # Clean patient data
+        cleaned_patient_data = clean_and_impute_patient_data(patient_data)
+
         # ── Step 1: Run all 4 model predictions ──────────────────────────
         predictions: dict = {}
 
         if respiratory_agent:
-            r = respiratory_agent.predict(patient_data)
+            r = respiratory_agent.predict(cleaned_patient_data)
             predictions['respiratory'] = json.loads(json.dumps(r, cls=NumpyEncoder))
 
         if general_agent:
-            r = general_agent.predict(patient_data)
+            r = general_agent.predict(cleaned_patient_data)
             predictions['general'] = json.loads(json.dumps(r, cls=NumpyEncoder))
 
         if cardiac_agent:
-            r = cardiac_agent.predict(patient_data)
+            r = cardiac_agent.predict(cleaned_patient_data)
             predictions['cardiac'] = json.loads(json.dumps(r, cls=NumpyEncoder))
 
         if sepsis_agent:
-            r = sepsis_agent.predict(patient_data)
+            r = sepsis_agent.predict(cleaned_patient_data)
             predictions['sepsis'] = json.loads(json.dumps(r, cls=NumpyEncoder))
 
         # ── Step 2: Safety layer + aggregation ───────────────────────────
-        safety_rules = RuleBasedSafetyLayer.check_vitals(patient_data)
-        aggregation = OutputAggregator.aggregate(predictions, safety_rules)
+        safety_rules = RuleBasedSafetyLayer.check_vitals(cleaned_patient_data)
+        triage_mode = patient_data.get('triage_mode')
+        aggregation = OutputAggregator.aggregate(predictions, safety_rules, patient_data, triage_mode)
+
+        # Log to safety audit log
+        log_to_safety_audit(
+            patient_id=patient_id,
+            prediction=aggregation.get('final_risk', 'LOW') + '_RISK',
+            confidence=aggregation.get('overall_confidence', 0.5),
+            trust_score=aggregation.get('trust_score', 50),
+            safety_status=aggregation.get('safety_status', 'AGREEMENT'),
+            human_review_required=aggregation.get('human_review_required', False),
+            triage_mode=aggregation.get('triage_mode', 'IMMEDIATE')
+        )
 
         # ── Step 3: Full HCAI pipeline (includes LLM) ────────────────────
-        hcai_full = _summary_agent.build_full(patient_data, predictions, aggregation)
+        hcai_full = _summary_agent.build_full(cleaned_patient_data, predictions, aggregation)
         hcai_full = json.loads(json.dumps(hcai_full, cls=NumpyEncoder))
 
         # ── Step 4: Generate structured report ───────────────────────────
         report = _report_generator.generate(
-            patient_data=patient_data,
+            patient_data=cleaned_patient_data,
             hcai_full_context=hcai_full,
             aggregation=aggregation,
             patient_id=patient_id,
@@ -677,7 +970,7 @@ def hcai_analyze():
 
         # Auto-log to SQLite database
         try:
-            save_assessment_to_db(patient_id, patient_name, patient_data, predictions, aggregation, report)
+            save_assessment_to_db(patient_id, patient_name, cleaned_patient_data, predictions, aggregation, report)
         except Exception as db_err:
             logger.error(f"Failed to auto-log assessment: {db_err}")
 
@@ -729,6 +1022,60 @@ def hcai_report_detail(report_id: str):
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
+# ==================== RAG SYMPTOM CHATBOT ENDPOINT ====================
+
+@app.route('/rag/chat', methods=['POST'])
+def rag_chat():
+    """
+    RAG Symptom Chatbot - lazy-loads FAISS/SentenceTransformer on first call.
+    Avoids macOS joblib/loky fork crash when sentence-transformers is imported
+    at module level alongside the RandomForest respiratory model.
+    """
+    global _RAG_AVAILABLE, _rag_retrieve, _rag_generate
+
+    if _RAG_AVAILABLE is None:
+        try:
+            from retrieval import retrieve_context as _rc
+            from llm_agent import generate_report as _gr
+            _rag_retrieve = _rc
+            _rag_generate = _gr
+            _RAG_AVAILABLE = True
+            logger.info('RAG Chatbot loaded (FAISS + Groq llama-3.3-70b)')
+        except Exception as _rag_err:
+            _RAG_AVAILABLE = False
+            logger.warning(f'RAG chatbot failed to load: {_rag_err}')
+
+    if not _RAG_AVAILABLE:
+        return jsonify({
+            'error': 'RAG chatbot unavailable. Install faiss-cpu and sentence-transformers.'
+        }), 503
+
+    try:
+        data = request.get_json()
+        patient_info = (data or {}).get('patient_info', '').strip()
+        if not patient_info:
+            return jsonify({'error': 'patient_info is required'}), 400
+
+        context_docs = _rag_retrieve(patient_info, top_k=5)
+        context_str = '\n\n'.join(
+            f"[{d['source']}] {d['title']}: {d['content']}"
+            for d in context_docs
+        )
+        report = _rag_generate(patient_info, context_str)
+        logger.info(f'RAG chat processed: {patient_info[:80]}')
+
+        return jsonify({
+            'report': report,
+            'sources': [
+                {'title': d['title'], 'source': d['source'], 'category': d['category']}
+                for d in context_docs
+            ],
+        }), 200
+
+    except Exception as e:
+        logger.error(f'RAG chat error: {e}')
+        return jsonify({'error': str(e)}), 500
+
 # ==================== FEEDBACK / HITL ENDPOINT ====================
 
 @app.route('/feedback', methods=['POST'])
@@ -761,6 +1108,18 @@ def feedback():
         logger.error(f"Feedback logging error: {e}")
         return jsonify({'error': str(e)}), 400
 
+@app.route('/api/evaluation/metrics', methods=['GET'])
+def get_evaluation_metrics():
+    """
+    Exposes classification and safety verification metrics for reporting.
+    Conforms to FEATURE 5 requirements.
+    """
+    try:
+        metrics = SafetyDashboardProvider.get_dashboard_metrics()
+        return jsonify(metrics), 200
+    except Exception as e:
+        logger.error(f"Error fetching safety dashboard metrics: {e}")
+        return jsonify({'error': str(e)}), 500
 
 # ==================== PATIENT REGISTRY DB SETUP & ENDPOINTS ====================
 
@@ -805,6 +1164,7 @@ def init_db():
             bnp REAL,
             lactate REAL,
             inr REAL,
+            triage_mode TEXT,
             created_at TEXT,
             updated_at TEXT
         )
@@ -819,9 +1179,21 @@ def init_db():
             confidence_pct TEXT,
             llm_summary TEXT,
             report_data TEXT NOT NULL,
+            triage_mode TEXT,
             FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE
         )
     ''')
+    
+    try:
+        cursor.execute("ALTER TABLE patients ADD COLUMN triage_mode TEXT;")
+    except sqlite3.OperationalError:
+        pass
+        
+    try:
+        cursor.execute("ALTER TABLE assessments ADD COLUMN triage_mode TEXT;")
+    except sqlite3.OperationalError:
+        pass
+
     conn.commit()
     conn.close()
     logger.info("SQLite registry database initialized successfully.")
@@ -846,6 +1218,8 @@ def save_assessment_to_db(patient_id, patient_name, patient_data, predictions, a
     else:
         age_group = 'elderly'
         
+    triage_mode = aggregation.get('triage_mode', 'IMMEDIATE')
+        
     if exists:
         cursor.execute('''
             UPDATE patients SET
@@ -854,7 +1228,7 @@ def save_assessment_to_db(patient_id, patient_name, patient_data, predictions, a
                 heart_rate = ?, systolic_bp = ?, diastolic_bp = ?, pain_score = ?,
                 wbc = ?, hemoglobin = ?, platelet_count = ?, sodium = ?, potassium = ?,
                 creatinine = ?, glucose = ?, troponin = ?, bnp = ?, lactate = ?, inr = ?,
-                updated_at = ?
+                triage_mode = ?, updated_at = ?
             WHERE patient_id = ?
         ''', (
             patient_name, age, patient_data.get('sex', 'M'), age_group,
@@ -865,7 +1239,7 @@ def save_assessment_to_db(patient_id, patient_name, patient_data, predictions, a
             float(patient_data.get('sodium', 140)), float(patient_data.get('potassium', 4.0)), float(patient_data.get('creatinine', 0.9)),
             float(patient_data.get('glucose', 100)), float(patient_data.get('troponin', 0.01)), float(patient_data.get('bnp', 50)),
             float(patient_data.get('lactate', 1.2)), float(patient_data.get('inr', 1.0)),
-            now, patient_id
+            triage_mode, now, patient_id
         ))
     else:
         cursor.execute('''
@@ -875,14 +1249,14 @@ def save_assessment_to_db(patient_id, patient_name, patient_data, predictions, a
                 heart_rate, systolic_bp, diastolic_bp, pain_score,
                 wbc, hemoglobin, platelet_count, sodium, potassium,
                 creatinine, glucose, troponin, bnp, lactate, inr,
-                created_at, updated_at
+                triage_mode, created_at, updated_at
             ) VALUES (
                 ?, ?, ?, ?, ?, ?,
                 ?, ?, ?, ?, ?,
                 ?, ?, ?, ?,
                 ?, ?, ?, ?, ?,
                 ?, ?, ?, ?, ?, ?,
-                ?, ?
+                ?, ?, ?
             )
         ''', (
             patient_id, patient_name, age, patient_data.get('sex', 'M'), age_group,
@@ -893,13 +1267,13 @@ def save_assessment_to_db(patient_id, patient_name, patient_data, predictions, a
             float(patient_data.get('sodium', 140)), float(patient_data.get('potassium', 4.0)), float(patient_data.get('creatinine', 0.9)),
             float(patient_data.get('glucose', 100)), float(patient_data.get('troponin', 0.01)), float(patient_data.get('bnp', 50)),
             float(patient_data.get('lactate', 1.2)), float(patient_data.get('inr', 1.0)),
-            now, now
+            triage_mode, now, now
         ))
         
     cursor.execute('''
         INSERT OR REPLACE INTO assessments (
-            assessment_id, patient_id, timestamp, risk_prediction, confidence_pct, llm_summary, report_data
-        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            assessment_id, patient_id, timestamp, risk_prediction, confidence_pct, llm_summary, report_data, triage_mode
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ''', (
         report.get('report_id'),
         patient_id,
@@ -911,7 +1285,8 @@ def save_assessment_to_db(patient_id, patient_name, patient_data, predictions, a
             'predictions': predictions,
             'aggregation': aggregation,
             'report': report
-        })
+        }),
+        triage_mode
     ))
     
     conn.commit()
@@ -956,7 +1331,7 @@ def get_patient(patient_id):
         patient = dict(patient_row)
         
         cursor.execute('''
-            SELECT assessment_id, timestamp, risk_prediction, confidence_pct, llm_summary, report_data
+            SELECT assessment_id, timestamp, risk_prediction, confidence_pct, llm_summary, report_data, triage_mode
             FROM assessments 
             WHERE patient_id = ? 
             ORDER BY timestamp DESC
@@ -1008,6 +1383,8 @@ def save_patient():
         else:
             age_group = 'elderly'
             
+        triage_mode = data.get('triage_mode', 'IMMEDIATE')
+
         if exists:
             cursor.execute('''
                 UPDATE patients SET
@@ -1016,7 +1393,7 @@ def save_patient():
                     heart_rate = ?, systolic_bp = ?, diastolic_bp = ?, pain_score = ?,
                     wbc = ?, hemoglobin = ?, platelet_count = ?, sodium = ?, potassium = ?,
                     creatinine = ?, glucose = ?, troponin = ?, bnp = ?, lactate = ?, inr = ?,
-                    updated_at = ?
+                    triage_mode = ?, updated_at = ?
                 WHERE patient_id = ?
             ''', (
                 patient_name, age, data.get('sex', 'M'), age_group,
@@ -1027,7 +1404,7 @@ def save_patient():
                 float(data.get('sodium', 140)), float(data.get('potassium', 4.0)), float(data.get('creatinine', 0.9)),
                 float(data.get('glucose', 100)), float(data.get('troponin', 0.01)), float(data.get('bnp', 50)),
                 float(data.get('lactate', 1.2)), float(data.get('inr', 1.0)),
-                now, patient_id
+                triage_mode, now, patient_id
             ))
         else:
             cursor.execute('''
@@ -1037,14 +1414,14 @@ def save_patient():
                     heart_rate, systolic_bp, diastolic_bp, pain_score,
                     wbc, hemoglobin, platelet_count, sodium, potassium,
                     creatinine, glucose, troponin, bnp, lactate, inr,
-                    created_at, updated_at
+                    triage_mode, created_at, updated_at
                 ) VALUES (
                     ?, ?, ?, ?, ?, ?,
                     ?, ?, ?, ?, ?,
                     ?, ?, ?, ?,
                     ?, ?, ?, ?, ?,
                     ?, ?, ?, ?, ?, ?,
-                    ?, ?
+                    ?, ?, ?
                 )
             ''', (
                 patient_id, patient_name, age, data.get('sex', 'M'), age_group,
@@ -1055,7 +1432,7 @@ def save_patient():
                 float(data.get('sodium', 140)), float(data.get('potassium', 4.0)), float(data.get('creatinine', 0.9)),
                 float(data.get('glucose', 100)), float(data.get('troponin', 0.01)), float(data.get('bnp', 50)),
                 float(data.get('lactate', 1.2)), float(data.get('inr', 1.0)),
-                now, now
+                triage_mode, now, now
             ))
             
         conn.commit()
@@ -1118,9 +1495,13 @@ if __name__ == '__main__':
     print("\n✅ HEALTH CHECK:")
     print("  GET  http://localhost:8000/health")
 
+    print("\n💬 RAG SYMPTOM CHATBOT:")
+    print("  POST http://localhost:8000/rag/chat            ← free-text symptom input")
+
     print("\n" + "="*70)
     print(f"  HCAI Pipeline: {'✓ Active' if _summary_agent else '✗ Not loaded'}")
     print(f"  Groq LLM:      {'✓ Active' if _summary_agent and _summary_agent.llm_agent._client else '⚠ Fallback (rule-based)'}")
+    print(f"  RAG Chatbot:   {'✓ Active (FAISS + Groq)' if _RAG_AVAILABLE else '✗ Not loaded (check faiss/sentence-transformers)'}")
     print("="*70)
     print("  Starting server on http://localhost:8000 ...")
     print("="*70 + "\n")
